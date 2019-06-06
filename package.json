@@ -21,9 +21,8 @@
     "@ember/optional-features": "^0.7.0",
     "babel-eslint": "^10.0.1",
     "broccoli-asset-rev": "^3.0.0",
-    "ember-ajax": "^5.0.0",
     "ember-cable": "^0.8.0",
-    "ember-cli": "~3.10.0",
+    "ember-cli": "~3.10.1",
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-babel": "^7.7.3",
     "ember-cli-dependency-checker": "^3.1.0",
@@ -54,17 +53,17 @@
     "ember-portal": "^0.2.0",
     "ember-qunit": "^4.4.1",
     "ember-resolver": "^5.0.1",
-    "ember-source": "~3.10.0",
+    "ember-source": "~3.10.1",
     "ember-truth-helpers": "^2.0.0",
     "emberx-select": "^4.0.0-beta.2",
     "eslint-plugin-ember": "^6.2.0",
     "eslint-plugin-ember-suave": "^1.0.0",
-    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-node": "^9.0.1",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.8.4",
     "sass": "^1.19.0"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": "8.* || >= 10.*"
   }
 }
