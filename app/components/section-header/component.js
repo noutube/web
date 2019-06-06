@@ -4,6 +4,6 @@ import { classNames, tagName } from '@ember-decorators/component';
 
 export default
 @classNames('section')
-@tagName('p')
+@tagName('div')
 class SectionHeaderComponent extends Component {
 }
