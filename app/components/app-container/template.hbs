@@ -6,6 +6,12 @@
   </AppDialog>
 {{/if}}
 
+{{#if session.popupOpen}}
+  <AppDialog @title="Signing In">
+    <p>Please don't close this tab while signing in.</p>
+  </AppDialog>
+{{/if}}
+
 {{outlet}}
 
 <AppFooter />

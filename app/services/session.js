@@ -14,6 +14,8 @@ export default class SessionService extends Service {
   me = null;
   down = false;
   #popup = null;
+  #popupInterval = null;
+  popupOpen = false;
 
   init() {
     window.addEventListener('message', this.authMessage);
@@ -49,6 +51,8 @@ export default class SessionService extends Service {
   signIn() {
     this.closePopup();
     this.#popup = window.open(`${config.backendOrigin}/auth`);
+    this.#popupInterval = setInterval(this.pollPopup, 1000);
+    set(this, 'popupOpen', true);
   }
 
   @action
@@ -114,10 +118,20 @@ export default class SessionService extends Service {
     }
   }
 
+  @action
+  pollPopup() {
+    if (this.#popup && this.#popup.closed) {
+      this.closePopup();
+    }
+  }
+
   closePopup() {
     if (this.#popup) {
       this.#popup.close();
       this.#popup = null;
+      clearInterval(this.#popupInterval);
+      this.#popupInterval = null;
+      set(this, 'popupOpen', false);
     }
   }
 }
