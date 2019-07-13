@@ -56,12 +56,14 @@ export default class FeedRoute extends Route {
         }
         route.#reconnecting = false;
       },
+
       disconnected() {
         if (!route.#reconnecting) {
           console.debug('[feed] disconnected');
           route.#reconnecting = true;
         }
       },
+
       received(data) {
         console.debug('[feed] message', data);
         switch (data.action) {

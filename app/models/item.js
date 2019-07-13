@@ -1,5 +1,4 @@
-import { get, set } from '@ember/object';
-import { computed } from '@ember/object';
+import { computed, get, set } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 import DS from 'ember-data';

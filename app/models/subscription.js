@@ -1,5 +1,4 @@
-import { get } from '@ember/object';
-import { computed } from '@ember/object';
+import { computed, get } from '@ember/object';
 import { alias, filterBy, map } from '@ember/object/computed';
 
 import DS from 'ember-data';

@@ -22,7 +22,10 @@ module.exports = {
     'indent': ['error', 2, { SwitchCase: 1 }],
     'camelcase': 'off', // we need camelcase for API interaction
     'no-console': 'off', // see https://github.com/emberjs/rfcs/pull/176#issuecomment-272566327
-    'keyword-spacing': ['error', { 'overrides': { 'catch': { 'after': true } } }]
+    'keyword-spacing': ['error', { overrides: { catch: { after: true } } }],
+    'lines-between-class-members': 'off',
+    'padding-line-between-statements': 'off',
+    'import/no-relative-parent-imports': 'off'
   },
   overrides: [
     // node files

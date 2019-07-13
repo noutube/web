@@ -7,10 +7,8 @@ import { attribute, className } from '@ember-decorators/component';
 export default class SwipeableComponent extends Component {
   // configurable properties
   swipeLimit = 50;
-  swipeLeft() {
-  }
-  swipeRight() {
-  }
+  swipeLeft() {}
+  swipeRight() {}
 
   // use to position element
   @computed('offsetX', 'directionX')
