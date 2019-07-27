@@ -116,10 +116,12 @@ $themes: (
   @each $name, $theme in $themes {
     #{selector-self($self, '.theme--#{$name}')} {
       @each $property, $key in $properties {
+        $value: map-get($theme, nth($key, 1));
         @if length($key) == 2 {
-          #{$property}: call(get-function(nth($key, 2)), map-get($theme, nth($key, 1)));
+          $function: nth($key, 2);
+          #{$property}: call($function, $value);
         } @else {
-          #{$property}: map-get($theme, $key);
+          #{$property}: $value;
         }
       }
     }
@@ -128,10 +130,6 @@ $themes: (
 
 @function selector-self($self, $selector) {
   @return if($self, '&#{$selector}', '#{$selector} &');
-}
-
-@function half-alpha($value) {
-  @return transparentize($value, .5);
 }
 
 // override defaults
@@ -221,16 +219,11 @@ svg {
   }
 }
 
-.subscription {
-  position: relative;
-  touch-action: manipulation;
-
-  > div:nth-of-type(1) {
-    display: flex;
-    align-items: center;
-    @include theme((background: bg-hi));
-    padding: 8px;
-  }
+.subscription-detail {
+  display: flex;
+  align-items: center;
+  @include theme((background: bg-hi));
+  padding: 8px;
 
   img {
     margin-right: 8px;
@@ -240,18 +233,13 @@ svg {
 }
 
 .item {
-  position: relative;
-  touch-action: manipulation;
+  margin: 8px 0;
+}
 
-  > div {
-    margin: 8px 0;
-    padding: 0 16px;
-
-    &:nth-of-type(1) {
-      display: flex;
-      align-items: center;
-    }
-  }
+.item-detail {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
 
   img {
     margin-right: 8px;
@@ -260,21 +248,57 @@ svg {
   }
 }
 
-// expand hitbox while swiping so cancel can be detected
-.swiping::after {
-  display: block;
+.swipeable {
+  position: relative;
+  overflow: hidden;
+  touch-action: manipulation;
+
+  // expand hitbox while swiping so cancel can be detected
+  &.swiping::after {
+    display: block;
+    position: absolute;
+    top: 0;
+    transform: scale(1, 2);
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    content: ' ';
+  }
+}
+
+.swipeable-left,
+.swipeable-right {
+  display: flex;
   position: absolute;
-  top: 0;
-  transform: scale(1, 2);
-  z-index: 100;
-  width: 100%;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
   height: 100%;
-  content: ' ';
+  @include theme((color: link));
+}
+
+.swipeable-right {
+  @function fade-background($value) {
+    @return radial-gradient(farthest-side at center left, transparentize($value, .5), transparentize($value, 1));
+  }
+  @include theme((background: link get-function('fade-background')));
+  left: -50px;
+}
+
+.swipeable-left {
+  @function fade-background($value) {
+    @return radial-gradient(farthest-side at center right, transparentize($value, .5), transparentize($value, 1));
+  }
+  @include theme((background: link get-function('fade-background')));
+  right: -50px;
 }
 
 .ember-modal-overlay {
   &.translucent {
-    @include theme((background: bg half-alpha));
+    @function half-alpha($value) {
+      @return transparentize($value, .5);
+    }
+    @include theme((background: bg get-function('half-alpha')));
   }
 }
 

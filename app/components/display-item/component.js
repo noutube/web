@@ -1,14 +1,13 @@
+import Component from '@ember/component';
 import { action, computed, get } from '@ember/object';
 
 import { classNames } from '@ember-decorators/component';
 
 import { storageFor } from 'ember-local-storage';
 
-import SwipeableComponent from 'nou2ube/components/swipeable/component';
-
 export default
 @classNames('item')
-class DisplayItemComponent extends SwipeableComponent {
+class DisplayItemComponent extends Component {
   @storageFor('settings') settings;
 
   item = null;
@@ -35,16 +34,5 @@ class DisplayItemComponent extends SwipeableComponent {
   @action
   toggleEmbed() {
     this.toggleProperty('embed');
-  }
-
-  swipeLeft() {
-    this.markWatched();
-  }
-  swipeRight() {
-    if (this.item.state === 'state_new') {
-      this.markLater();
-    } else {
-      this.markWatched();
-    }
   }
 }
