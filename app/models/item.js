@@ -1,8 +1,7 @@
 import { computed, get, set } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
-import DS from 'ember-data';
-const { Model, belongsTo, attr } = DS;
+import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class ItemModel extends Model {
   @attr('string') state;

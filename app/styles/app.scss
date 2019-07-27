@@ -148,7 +148,9 @@ p {
 }
 
 a {
+  cursor: pointer;
   text-decoration: none;
+  touch-action: manipulation;
   @include theme((color: link));
 
   .title & {
@@ -221,6 +223,7 @@ svg {
 
 .subscription {
   position: relative;
+  touch-action: manipulation;
 
   > div:nth-of-type(1) {
     display: flex;
@@ -238,6 +241,7 @@ svg {
 
 .item {
   position: relative;
+  touch-action: manipulation;
 
   > div {
     margin: 8px 0;

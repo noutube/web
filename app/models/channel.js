@@ -1,5 +1,4 @@
-import DS from 'ember-data';
-const { Model, hasMany, attr } = DS;
+import Model, { attr, hasMany } from '@ember-data/model';
 
 export default class ChannelModel extends Model {
   @attr('string') apiId;

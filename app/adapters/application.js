@@ -1,8 +1,7 @@
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
-import DS from 'ember-data';
-const { JSONAPIAdapter } = DS;
+import JSONAPIAdapter from '@ember-data/adapter/json-api';
 
 import config from 'nou2ube/config/environment';
 

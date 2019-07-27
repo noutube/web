@@ -19,6 +19,8 @@ export default class SessionService extends Service {
 
   init() {
     window.addEventListener('message', this.authMessage);
+
+    super.init(...arguments);
   }
 
   async restore() {

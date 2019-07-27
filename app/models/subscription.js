@@ -1,8 +1,7 @@
 import { computed, get } from '@ember/object';
 import { alias, filterBy, map } from '@ember/object/computed';
 
-import DS from 'ember-data';
-const { Model, belongsTo, hasMany } = DS;
+import Model, { belongsTo, hasMany } from '@ember-data/model';
 
 export default class SubscriptionModel extends Model {
   @belongsTo('channel') channel;

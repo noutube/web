@@ -1,5 +1,4 @@
-import DS from 'ember-data';
-const { Model, belongsTo, hasMany, attr } = DS;
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class VideoModel extends Model {
   @attr('string') apiId;

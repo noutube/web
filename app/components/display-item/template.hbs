@@ -1,5 +1,5 @@
 <div>
-  <a role="button" {{action this.toggleEmbed}}><img src={{this.item.video.thumbnail}} alt={{this.item.video.title}}></a>
+  <a role="button" {{on "click" this.toggleEmbed}}><img src={{this.item.video.thumbnail}} alt={{this.item.video.title}}></a>
   <div>
     <p class="title"><a rel="external noopener" target="_blank" href="https://www.youtube.com/watch?v={{this.item.video.apiId}}">{{this.item.video.title}}</a></p>
     <p>
@@ -10,9 +10,9 @@
       {{/unless}}
     </p>
     {{#if this.item.new}}
-      <p><a role="button" {{action this.markLater}}>Watch Later</a> &middot; <a role="button" {{action this.markWatched}}>Ignore</a></p>
+      <p><a role="button" {{on "click" this.markLater}}>Watch Later</a> &middot; <a role="button" {{on "click" this.markWatched}}>Ignore</a></p>
     {{else}}
-      <p><a role="button" {{action this.markWatched}}>Watched</a></p>
+      <p><a role="button" {{on "click" this.markWatched}}>Watched</a></p>
     {{/if}}
   </div>
 </div>

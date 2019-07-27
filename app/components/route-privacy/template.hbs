@@ -7,12 +7,12 @@
   <p>Read-only access to your YouTube data is maintained only in order to keep your subscriptions in sync.</p>
   <p>Otherwise, the only data stored about you is which videos are currently in your feed.</p>
   {{#if this.session.me}}
-    <p>To have your account and all related data deleted, <a role="button" {{action this.toggleDestroyMe}}>click here</a>.</p>
+    <p>To have your account and all related data deleted, <a role="button" {{on "click" this.toggleDestroyMe}}>click here</a>.</p>
   {{/if}}
 </div>
 
 {{#if this.showDestroyMe}}
-  <AppDialog @title="Delete Account" @close={{action this.toggleDestroyMe}} @accept={{action this.session.destroyMe}}>
+  <AppDialog @title="Delete Account" @close={{this.toggleDestroyMe}} @accept={{this.session.destroyMe}}>
     <p>Are you sure?</p>
   </AppDialog>
 {{/if}}
