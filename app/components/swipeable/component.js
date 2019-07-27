@@ -2,11 +2,15 @@ import Component from '@ember/component';
 import { computed, set } from '@ember/object';
 import { htmlSafe } from '@ember/template';
 
-import { attribute, className } from '@ember-decorators/component';
+import { className, classNames } from '@ember-decorators/component';
 
-export default class SwipeableComponent extends Component {
+export default
+@classNames('swipeable')
+class SwipeableComponent extends Component {
   // configurable properties
   swipeLimit = 50;
+  iconLeft = ''
+  iconRight = ''
   swipeLeft() {}
   swipeRight() {}
 
@@ -20,10 +24,9 @@ export default class SwipeableComponent extends Component {
   get swipeClass() {
     return this.isSwiping ? 'swiping' : '';
   }
-  @attribute
   @computed('swipePosition')
   get style() {
-    return htmlSafe(`left: ${this.swipePosition}px;`);
+    return htmlSafe(`transform: translateX(${this.swipePosition}px);`);
   }
 
   // internals

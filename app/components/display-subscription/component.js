@@ -1,3 +1,4 @@
+import Component from '@ember/component';
 import { action, computed, get } from '@ember/object';
 import { sort } from '@ember/object/computed';
 
@@ -5,15 +6,18 @@ import { classNames } from '@ember-decorators/component';
 
 import { storageFor } from 'ember-local-storage';
 
-import SwipeableComponent from 'nou2ube/components/swipeable/component';
-
 export default
 @classNames('subscription')
-class DisplaySubscriptionComponent extends SwipeableComponent {
+class DisplaySubscriptionComponent extends Component {
   @storageFor('settings') settings;
 
   subscription = null;
   state = null;
+
+  @computed('state')
+  get new() {
+    return this.state === 'new';
+  }
 
   // can't filterBy a bound key, do it manually
   @computed('subscription.items.@each.{new,later}', 'state')
@@ -34,16 +38,5 @@ class DisplaySubscriptionComponent extends SwipeableComponent {
   @action
   ignoreAll() {
     this.items.invoke('markDeleted');
-  }
-
-  swipeLeft() {
-    this.ignoreAll();
-  }
-  swipeRight() {
-    if (this.state === 'new') {
-      this.markAllLater();
-    } else {
-      this.ignoreAll();
-    }
   }
 }
