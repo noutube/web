@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
-import { action, computed, set } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { action, computed } from '@ember/object';
 import { filterBy } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
@@ -23,10 +24,10 @@ export default class RouteFeedComponent extends Component {
     return this.newItems.length > 0 ? `(${this.newItems.length})` : '';
   }
 
-  showSorting = false;
+  @tracked showSorting = false;
 
   @action
   toggleSorting() {
-    set(this, 'showSorting', !this.showSorting);
+    this.showSorting = !this.showSorting;
   }
 }

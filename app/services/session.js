@@ -1,4 +1,5 @@
-import { action, set } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
 
 import config from 'nou2ube/config/environment';
@@ -9,11 +10,11 @@ export default class SessionService extends Service {
   @service store;
   @service router;
 
-  me = null;
-  down = false;
+  @tracked me = null;
+  @tracked down = false;
   #popup = null;
   #popupInterval = null;
-  popupOpen = false;
+  @tracked popupOpen = false;
 
   init() {
     window.addEventListener('message', this.authMessage);
@@ -52,7 +53,7 @@ export default class SessionService extends Service {
         }
       } catch (e) {
         console.warn('[session] restore failed: down', e);
-        set(this, 'down', true);
+        this.down = true;
       }
     }
   }
@@ -62,7 +63,7 @@ export default class SessionService extends Service {
     this.closePopup();
     this.#popup = window.open(`${config.backendOrigin}/auth`);
     this.#popupInterval = setInterval(this.pollPopup, 1000);
-    set(this, 'popupOpen', true);
+    this.popupOpen = true;
   }
 
   @action
@@ -87,8 +88,7 @@ export default class SessionService extends Service {
 
   pushMe(payload) {
     this.store.pushPayload(payload);
-    let me = this.store.peekRecord('user', payload.data.id);
-    set(this, 'me', me);
+    this.me = this.store.peekRecord('user', payload.data.id);
     this.persist();
   }
 
@@ -114,7 +114,7 @@ export default class SessionService extends Service {
   clear() {
     if (this.me) {
       this.me.unloadRecord();
-      set(this, 'me', null);
+      this.me = null;
     }
     this.persist();
     this.router.transitionTo('landing');
@@ -146,7 +146,7 @@ export default class SessionService extends Service {
       this.#popup = null;
       clearInterval(this.#popupInterval);
       this.#popupInterval = null;
-      set(this, 'popupOpen', false);
+      this.popupOpen = false;
     }
   }
 }

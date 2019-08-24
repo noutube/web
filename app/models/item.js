@@ -1,4 +1,4 @@
-import { action, computed, set } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 import Model, { attr, belongsTo } from '@ember-data/model';
@@ -32,7 +32,7 @@ export default class ItemModel extends Model {
 
   @action
   markLater() {
-    set(this, 'state', 'state_later');
+    this.state = 'state_later';
     this.save().catch(() => this.rollbackAttributes());
   }
 

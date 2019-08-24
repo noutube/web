@@ -1,11 +1,12 @@
 import Component from '@glimmer/component';
-import { action, computed, set } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default class ItemComponent extends Component {
   @service settings;
 
-  embed = false;
+  @tracked embed = false;
 
   @computed('args.item.video.duration')
   get formattedDuration() {
@@ -19,6 +20,6 @@ export default class ItemComponent extends Component {
 
   @action
   toggleEmbed() {
-    set(this, 'embed', !this.embed);
+    this.embed = !this.embed;
   }
 }
