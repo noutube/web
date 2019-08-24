@@ -1,5 +1,5 @@
-import Component from '@ember/component';
-import { action } from '@ember/object';
+import Component from '@glimmer/component';
+import { action, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default class RoutePrivacyComponent extends Component {
@@ -9,7 +9,7 @@ export default class RoutePrivacyComponent extends Component {
 
   @action
   toggleDestroyMe() {
-    this.toggleProperty('showDestroyMe');
+    set(this, 'showDestroyMe', !this.showDestroyMe);
   }
 
   @action

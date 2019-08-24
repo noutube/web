@@ -1,5 +1,5 @@
-import Component from '@ember/component';
-import { action, computed } from '@ember/object';
+import Component from '@glimmer/component';
+import { action, computed, set } from '@ember/object';
 import { filterBy } from '@ember/object/computed';
 
 import { storageFor } from 'ember-local-storage';
@@ -7,16 +7,13 @@ import { storageFor } from 'ember-local-storage';
 export default class RouteFeedComponent extends Component {
   @storageFor('settings') settings;
 
-  items = null;
-  subscriptions = null;
+  @filterBy('args.subscriptions', 'hasNew') newSubscriptions;
+  @filterBy('args.subscriptions', 'hasLater') laterSubscriptions;
 
-  @filterBy('subscriptions', 'hasNew') newSubscriptions;
-  @filterBy('subscriptions', 'hasLater') laterSubscriptions;
+  @filterBy('args.items', 'new') newItems;
+  @filterBy('args.items', 'later') laterItems;
 
-  @filterBy('items', 'new') newItems;
-  @filterBy('items', 'later') laterItems;
-
-  @filterBy('items', 'isDeleted', false) allItems;
+  @filterBy('args.items', 'isDeleted', false) allItems;
   @computed('allItems')
   get anyItems() {
     return this.allItems.length > 0;
@@ -31,6 +28,6 @@ export default class RouteFeedComponent extends Component {
 
   @action
   toggleSorting() {
-    this.toggleProperty('showSorting');
+    set(this, 'showSorting', !this.showSorting);
   }
 }
