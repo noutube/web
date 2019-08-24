@@ -11,4 +11,9 @@ export default class RoutePrivacyComponent extends Component {
   toggleDestroyMe() {
     this.toggleProperty('showDestroyMe');
   }
+
+  @action
+  destroyMe() {
+    return this.session.destroyMe();
+  }
 }
