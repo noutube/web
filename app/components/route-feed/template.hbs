@@ -18,9 +18,7 @@
       <DisplaySubscription @subscription={{subscription}} @state="new" />
     {{/each}}
   {{else}}
-    {{#each this.newItems as |item|}}
-      <DisplayItem @item={{item}} />
-    {{/each}}
+    <DisplayUngrouped @items={{newItems}} />
   {{/if}}
 {{/if}}
 
@@ -31,9 +29,7 @@
       <DisplaySubscription @subscription={{subscription}} @state="later" />
     {{/each}}
   {{else}}
-    {{#each this.laterItems as |item|}}
-      <DisplayItem @item={{item}} />
-    {{/each}}
+    <DisplayUngrouped @items={{laterItems}} />
   {{/if}}
 {{/if}}
 

@@ -3,7 +3,7 @@
     <img src={{this.subscription.channel.thumbnail}} alt={{this.subscription.channel.title}}>
     <div>
       <p class="title"><a rel="external noopener" target="_blank" href="https://www.youtube.com/channel/{{this.subscription.channel.apiId}}">{{this.subscription.channel.title}}</a></p>
-      <p>{{pluralize this.items.length "video"}}, <span title={{this.totalDuration}}>{{moment-duration this.totalDuration "seconds"}}</span></p>
+      <ItemsTotals @items={{this.items}} />
       {{#if (eq this.state "new")}}
         <p><a role="button" {{on "click" this.markAllLater}}>Watch All Later</a> &middot; <a role="button" {{on "click" this.ignoreAll}}>Ignore All</a></p>
       {{else}}
@@ -11,7 +11,5 @@
       {{/if}}
     </div>
   </div>
-  {{#each this.items as |item|}}
-    <DisplayItem @item={{item}} />
-  {{/each}}
+  <DisplayItems @items={{this.items}} />
 </Swipeable>

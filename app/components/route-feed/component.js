@@ -16,11 +16,9 @@ export default class RouteFeedComponent extends Component {
   @filterBy('subscriptions', 'hasLater') laterSubscriptionsUnsorted;
   @sort('laterSubscriptionsUnsorted', 'settings.channelSort') laterSubscriptions;
 
-  @filterBy('items', 'new') newItemsUnsorted;
-  @sort('newItemsUnsorted', 'settings.videoSort') newItems;
+  @filterBy('items', 'new') newItems;
 
-  @filterBy('items', 'later') laterItemsUnsorted;
-  @sort('laterItemsUnsorted', 'settings.videoSort') laterItems;
+  @filterBy('items', 'later') laterItems;
 
   @filterBy('items', 'isDeleted', false) allItems;
   @computed('allItems')
