@@ -1,4 +1,4 @@
-import { action, computed, get, set } from '@ember/object';
+import { action, computed, set } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 import Model, { attr, belongsTo } from '@ember-data/model';
@@ -7,7 +7,7 @@ export default class ItemModel extends Model {
   @attr('string') state;
 
   @belongsTo('subscription') subscription;
-  @belongsTo('video') video;
+  @belongsTo('video', { async: false }) video;
 
   @computed('state', 'isDeleted')
   get new() {
@@ -20,12 +20,12 @@ export default class ItemModel extends Model {
   }
 
   get age() {
-    return Date.now() - get(this.video, 'publishedAt').getTime();
+    return Date.now() - this.video.publishedAt.getTime();
   }
 
   @computed('video.title')
   get sortableTitle() {
-    return get(this.video, 'title').toLowerCase();
+    return this.video.title.toLowerCase();
   }
 
   @alias('video.duration') duration;

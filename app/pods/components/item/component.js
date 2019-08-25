@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { action, computed, get, set } from '@ember/object';
+import { action, computed, set } from '@ember/object';
 
 import { storageFor } from 'ember-local-storage';
 
@@ -10,7 +10,7 @@ export default class ItemComponent extends Component {
 
   @computed('args.item.video.duration')
   get formattedDuration() {
-    let duration = get(this.args.item.video, 'duration');
+    let { duration } = this.args.item.video;
     let result = `${(`00${Math.floor(duration / 60) % 60}`).slice(-2)}:${(`00${duration % 60}`).slice(-2)}`;
     if (duration >= 60 * 60) {
       result = `${Math.floor(duration / 60 / 60)}:${result}`;

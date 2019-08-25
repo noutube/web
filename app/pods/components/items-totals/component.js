@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
-import { computed, get } from '@ember/object';
+import { map, sum } from '@ember/object/computed';
 
 export default class ItemsTotals extends Component {
-  @computed('args.items')
-  get totalDuration() {
-    return this.args.items.map((item) => get(item.video, 'duration')).reduce((acc, n) => acc + n, 0);
-  }
+  @map('args.items.@each.video', (item) => item.video) videos;
+  @map('videos.@each.duration', (video) => video.duration) durations;
+  @sum('durations') totalDuration;
 }
