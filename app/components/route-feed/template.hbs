@@ -3,6 +3,7 @@
 
 <PortalContent @for="menu-bar-extras">
   <a role="button" {{on "click" this.toggleSorting}} title="Sorting settings"><SvgIcon @name="sliders" /></a>
+  <a role="button" {{on "click" this.settings.switchSize}} title="Switch player size"><SvgIcon @name="maximize" /></a>
 </PortalContent>
 
 {{#if this.showSorting}}

@@ -19,7 +19,7 @@
   </div>
   {{#if this.embed}}
     <div class="item-embed">
-      <iframe width="640" height="360" src="https://www.youtube.com/embed/{{this.item.video.apiId}}?version=3&amp;rel=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
+      <iframe width={{this.settings.sizeWidth}} height={{this.settings.size}} src="https://www.youtube.com/embed/{{this.item.video.apiId}}?version=3&amp;rel=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
     </div>
   {{/if}}
 </Swipeable>
