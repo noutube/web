@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { action, computed } from '@ember/object';
-import { filterBy, sort } from '@ember/object/computed';
+import { filterBy } from '@ember/object/computed';
 
 import { storageFor } from 'ember-local-storage';
 
@@ -10,14 +10,10 @@ export default class RouteFeedComponent extends Component {
   items = null;
   subscriptions = null;
 
-  @filterBy('subscriptions', 'hasNew') newSubscriptionsUnsorted;
-  @sort('newSubscriptionsUnsorted', 'settings.channelSort') newSubscriptions;
-
-  @filterBy('subscriptions', 'hasLater') laterSubscriptionsUnsorted;
-  @sort('laterSubscriptionsUnsorted', 'settings.channelSort') laterSubscriptions;
+  @filterBy('subscriptions', 'hasNew') newSubscriptions;
+  @filterBy('subscriptions', 'hasLater') laterSubscriptions;
 
   @filterBy('items', 'new') newItems;
-
   @filterBy('items', 'later') laterItems;
 
   @filterBy('items', 'isDeleted', false) allItems;

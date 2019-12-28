@@ -23,12 +23,21 @@ export default class SubscriptionModel extends Model {
   get sortableTitle() {
     return get(this.channel, 'title').toLowerCase();
   }
+  @alias('sortableTitle') newSortableTitle;
+  @alias('sortableTitle') laterSortableTitle;
 
-  @map('items.@each.video', (item) => item.video) videos;
-  @computed('videos.@each.duration')
-  get totalDuration() {
-    return this.videos.map((video) => get(video, 'duration')).reduce((acc, n) => acc + n, 0);
+  @map('newItems.@each.video', (item) => item.video) newVideos;
+  @computed('newVideos.@each.duration')
+  get newTotalDuration() {
+    return this.newVideos.map((video) => get(video, 'duration')).reduce((acc, n) => acc + n, 0);
   }
 
-  @alias('items.length') itemCount;
+  @map('laterItems.@each.video', (item) => item.video) laterVideos;
+  @computed('laterVideos.@each.duration')
+  get laterTotalDuration() {
+    return this.laterVideos.map((video) => get(video, 'duration')).reduce((acc, n) => acc + n, 0);
+  }
+
+  @alias('newItems.length') newItemCount;
+  @alias('laterItems.length') laterItemCount;
 }

@@ -26,11 +26,6 @@ export default class SettingsStorage extends StorageObject {
     };
   }
 
-  @computed('channelKey', 'channelDir')
-  get channelSort() {
-    return [`${get(this, 'channelKey')}:${get(this, 'channelDir')}`];
-  }
-
   @computed('videoKey', 'videoDir')
   get videoSort() {
     return [`${get(this, 'videoKey')}:${get(this, 'videoDir')}`];
