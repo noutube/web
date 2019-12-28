@@ -11,12 +11,12 @@
 
   {{#if @accept}}
     <div class="bottom">
-      <a role="button" {{on "click" @accept}}>{{if @acceptLabel @acceptLabel "Yes"}}</a>
-      <a role="button" {{on "click" (if @cancel @cancel @close)}}>{{if @cancelLabel @cancelLabel "No"}}</a>
+      <button type="button" {{on "click" @accept}}>{{if @acceptLabel @acceptLabel "Yes"}}</button>
+      <button type="button" {{on "click" (if @cancel @cancel @close)}}>{{if @cancelLabel @cancelLabel "No"}}</button>
     </div>
   {{else if @close}}
     <div class="bottom">
-      <a role="button" {{on "click" @close}}>Close</a>
+      <button type="button" {{on "click" @close}}>Close</button>
     </div>
   {{/if}}
 </ModalDialog>

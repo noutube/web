@@ -2,8 +2,8 @@
 {{title this.titleNotification " NoUTube" replace=true}}
 
 <PortalContent @for="menu-bar-extras">
-  <a role="button" {{on "click" this.toggleSorting}} title="Sorting settings"><SvgIcon @name="sliders" /></a>
-  <a role="button" {{on "click" this.settings.switchSize}} title="Switch player size"><SvgIcon @name="maximize" /></a>
+  <button type="button" {{on "click" this.toggleSorting}} title="Sorting settings"><SvgIcon @name="sliders" /></button>
+  <button type="button" {{on "click" this.settings.switchSize}} title="Switch player size"><SvgIcon @name="maximize" /></button>
 </PortalContent>
 
 {{#if this.showSorting}}
@@ -17,7 +17,7 @@
   {{#if this.settings.channelGroup}}
     <DisplaySubscriptions @subscriptions={{this.newSubscriptions}} @state="new" />
   {{else}}
-    <DisplayUngrouped @items={{newItems}} />
+    <DisplayUngrouped @items={{this.newItems}} />
   {{/if}}
 {{/if}}
 
@@ -26,7 +26,7 @@
   {{#if this.settings.channelGroup}}
     <DisplaySubscriptions @subscriptions={{this.laterSubscriptions}} @state="later" />
   {{else}}
-    <DisplayUngrouped @items={{laterItems}} />
+    <DisplayUngrouped @items={{this.laterItems}} />
   {{/if}}
 {{/if}}
 

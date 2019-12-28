@@ -1,4 +1,4 @@
-import { get, set } from '@ember/object';
+import { action, get, set } from '@ember/object';
 import Service from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
@@ -24,6 +24,7 @@ export default class ThemeService extends Service {
     }
   }
 
+  @action
   switchTheme() {
     let currentThemeIndex = themes.indexOf(get(this, 'settings.theme'));
     let newThemeIndex = (currentThemeIndex + 1) % themes.length;

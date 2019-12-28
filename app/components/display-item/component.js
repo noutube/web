@@ -24,14 +24,6 @@ class DisplayItemComponent extends Component {
   }
 
   @action
-  markLater() {
-    this.item.markLater();
-  }
-  @action
-  markWatched() {
-    this.item.markDeleted();
-  }
-  @action
   toggleEmbed() {
     this.toggleProperty('embed');
   }

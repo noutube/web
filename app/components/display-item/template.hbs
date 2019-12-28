@@ -1,25 +1,25 @@
-<Swipeable @swipeLeft={{this.markWatched}} @swipeRight={{if this.item.new this.markLater this.markWatched}} @iconLeft="trash" @iconRight={{if this.item.new "bookmark" "trash"}}>
+<Swipeable @swipeLeft={{this.item.markDeleted}} @swipeRight={{if this.item.new this.item.markLater this.item.markDeleted}} @iconLeft="trash" @iconRight={{if this.item.new "bookmark" "trash"}}>
   <div class="item-detail">
-    <a role="button" {{on "click" this.toggleEmbed}}><img src={{this.item.video.thumbnail}} alt={{this.item.video.title}}></a>
+    <button type="button" {{on "click" this.toggleEmbed}}><img src={{this.item.video.thumbnail}} alt={{this.item.video.title}}></button>
     <div>
-      <p class="title"><a rel="external noopener" target="_blank" href="https://www.youtube.com/watch?v={{this.item.video.apiId}}">{{this.item.video.title}}</a></p>
+      <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/watch?v={{this.item.video.apiId}}">{{this.item.video.title}}</a></p>
       <p>
         <span title={{this.item.video.duration}}>{{this.formattedDuration}}</span>,
         published <span title={{moment this.item.video.publishedAt}}>{{moment-from-now this.item.video.publishedAt interval=60000}}</span>
         {{#unless this.settings.channelGroup}}
-          by <a rel="external noopener" target="_blank" href="https://www.youtube.com/channel/{{this.item.subscription.channel.apiId}}">{{this.item.subscription.channel.title}}</a>
+          by <a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{this.item.subscription.channel.apiId}}">{{this.item.subscription.channel.title}}</a>
         {{/unless}}
       </p>
       {{#if this.item.new}}
-        <p><a role="button" {{on "click" this.markLater}}>Watch Later</a> &middot; <a role="button" {{on "click" this.markWatched}}>Ignore</a></p>
+        <p><button type="button" {{on "click" this.item.markLater}}>Watch Later</button> &middot; <button type="button" {{on "click" this.item.markDeleted}}>Ignore</button></p>
       {{else}}
-        <p><a role="button" {{on "click" this.markWatched}}>Watched</a></p>
+        <p><button type="button" {{on "click" this.item.markDeleted}}>Watched</button></p>
       {{/if}}
     </div>
   </div>
   {{#if this.embed}}
     <div class="item-embed">
-      <iframe width={{this.settings.sizeWidth}} height={{this.settings.size}} src="https://www.youtube.com/embed/{{this.item.video.apiId}}?version=3&amp;rel=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
+      <iframe title="{{this.item.video.title}} - YouTube" width={{this.settings.sizeWidth}} height={{this.settings.size}} src="https://www.youtube.com/embed/{{this.item.video.apiId}}?version=3&amp;rel=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
     </div>
   {{/if}}
 </Swipeable>

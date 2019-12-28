@@ -1,8 +1,8 @@
 <PortalFor @name="menu-bar-extras" />
-<a role="button" {{on "click" this.switchTheme}} title="Switch theme"><SvgIcon @name="droplet" /></a>
+<button type="button" {{on "click" this.theme.switchTheme}} title="Switch theme"><SvgIcon @name="droplet" /></button>
 {{#if this.session.me}}
   <LinkTo @route="feed" title="Go to feed"><SvgIcon @name="inbox" /></LinkTo>
-  <a role="button" {{on "click" this.session.signOut}} title="Sign out {{this.session.me.email}}"><SvgIcon @name="log-out" /></a>
+  <button type="button" {{on "click" this.session.signOut}} title="Sign out {{this.session.me.email}}"><SvgIcon @name="log-out" /></button>
 {{else}}
-  <a role="button" {{on "click" this.session.signIn}} title="Sign in"><SvgIcon @name="log-in" /></a>
+  <button type="button" {{on "click" this.session.signIn}} title="Sign in"><SvgIcon @name="log-in" /></button>
 {{/if}}
