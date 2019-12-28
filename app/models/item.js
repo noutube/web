@@ -1,4 +1,4 @@
-import { computed, get, set } from '@ember/object';
+import { action, computed, get, set } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 import Model, { attr, belongsTo } from '@ember-data/model';
@@ -30,10 +30,13 @@ export default class ItemModel extends Model {
 
   @alias('video.duration') duration;
 
+  @action
   markLater() {
     set(this, 'state', 'state_later');
     this.save().catch(() => this.rollbackAttributes());
   }
+
+  @action
   markDeleted() {
     this.deleteRecord();
     this.save().catch(() => this.rollbackAttributes());

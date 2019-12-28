@@ -1,28 +1,15 @@
-import Component from '@ember/component';
-import { computed, set } from '@ember/object';
+import Component from '@glimmer/component';
+import { action, computed, set } from '@ember/object';
 import { htmlSafe } from '@ember/template';
 
-import { className, classNames } from '@ember-decorators/component';
-
-export default
-@classNames('swipeable')
-class SwipeableComponent extends Component {
+export default class SwipeableComponent extends Component {
   // configurable properties
   swipeLimit = 50;
-  iconLeft = ''
-  iconRight = ''
-  swipeLeft() {}
-  swipeRight() {}
 
   // use to position element
   @computed('offsetX', 'directionX')
   get swipePosition() {
     return this.offsetX * this.directionX;
-  }
-  @className
-  @computed('isSwiping')
-  get swipeClass() {
-    return this.isSwiping ? 'swiping' : '';
   }
   @computed('swipePosition')
   get style() {
@@ -42,35 +29,39 @@ class SwipeableComponent extends Component {
     return Math.sign(this.deltaX);
   }
 
+  @action
   panStart(event) {
+    event.stopPropagation();
     set(this, 'isSwiping', true);
     set(this, 'deltaX', 0);
-    return false;
   }
+  @action
   panMove(event) {
     if (this.isSwiping) {
+      event.stopPropagation();
       set(this, 'deltaX', event.gesture.deltaX);
       if (Math.abs(event.gesture.deltaY) > this.swipeLimit / 2) {
         this.panCancel(event);
       }
-      return false;
     }
   }
+  @action
   panEnd(event) {
+    event.stopPropagation();
     set(this, 'isSwiping', false);
     if (this.offsetX === this.swipeLimit) {
       if (this.directionX > 0) {
-        this.swipeRight();
+        this.args.swipeRight();
       } else {
-        this.swipeLeft();
+        this.args.swipeLeft();
       }
     }
     set(this, 'deltaX', 0);
-    return false;
   }
+  @action
   panCancel(event) {
+    event.stopPropagation();
     set(this, 'isSwiping', false);
     set(this, 'deltaX', 0);
-    return false;
   }
 }

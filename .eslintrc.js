@@ -2,7 +2,11 @@ module.exports = {
   root: true,
   parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true
+    }
   },
   plugins: [
     'ember',
@@ -17,6 +21,7 @@ module.exports = {
     browser: true
   },
   rules: {
+    'ember/no-jquery': 'error',
     'no-unused-vars': ['error', { args: 'none' }], // ignore arguments since we can't mark unused with underscores
     'semi': ['error', 'always'],
     'indent': ['error', 2, { SwitchCase: 1 }],
@@ -33,8 +38,9 @@ module.exports = {
       files: [
         '.eslintrc.js',
         '.template-lintrc.js',
-        'testem.js',
         'ember-cli-build.js',
+        'testem.js',
+        'blueprints/*/index.js',
         'config/**/*.js',
         'lib/*/index.js',
         'server/**/*.js'

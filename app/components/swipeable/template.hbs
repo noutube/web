@@ -1,9 +1,11 @@
-<div class="swipeable-child" style={{this.style}}>
-  <div class="swipeable-right">
-    <SvgIcon @name={{this.iconRight}} />
+<div class="swipeable {{if this.isSwiping "swiping"}}" {{on "panstart" this.panStart}} {{on "panmove" this.panMove}} {{on "panend" this.panEnd}} {{on "pancancel" this.panCancel}} {{! template-lint-disable no-invalid-interactive }}>
+  <div class="swipeable-child" style={{this.style}}>
+    <div class="swipeable-right">
+      <SvgIcon @name={{@iconRight}} />
+    </div>
+    <div class="swipeable-left">
+      <SvgIcon @name={{@iconLeft}} />
+    </div>
+    {{yield}}
   </div>
-  <div class="swipeable-left">
-    <SvgIcon @name={{this.iconLeft}} />
-  </div>
-  {{yield}}
 </div>

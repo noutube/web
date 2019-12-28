@@ -1,17 +1,17 @@
 <MenuBar />
 
-{{#if session.down}}
+{{#if this.session.down}}
   <AppDialog @title="NoUTube Down">
     <p>Sorry, NoUTube seems to be down, please wait a bit and try again.</p>
   </AppDialog>
 {{/if}}
 
-{{#if session.popupOpen}}
+{{#if this.session.popupOpen}}
   <AppDialog @title="Signing In">
     <p>Please don't close this tab while signing in.</p>
   </AppDialog>
 {{/if}}
 
-{{outlet}}
+{{yield}}
 
 <AppFooter />

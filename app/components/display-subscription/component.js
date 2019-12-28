@@ -1,23 +1,16 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { action, computed } from '@ember/object';
 
-import { classNames } from '@ember-decorators/component';
-
-export default
-@classNames('subscription')
-class DisplaySubscriptionComponent extends Component {
-  subscription = null;
-  state = null;
-
-  @computed('state')
+export default class DisplaySubscriptionComponent extends Component {
+  @computed('args.state')
   get new() {
-    return this.state === 'new';
+    return this.args.state === 'new';
   }
 
   // can't filterBy a bound key, do it manually
-  @computed('subscription.items.@each.{new,later}', 'state')
+  @computed('args.subscription.items.@each.{new,later}', 'args.state')
   get items() {
-    return this.subscription.items.filterBy(this.state);
+    return this.args.subscription.items.filterBy(this.args.state);
   }
 
   @action

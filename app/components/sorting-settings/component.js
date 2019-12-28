@@ -1,8 +1,6 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
 import { alias, oneWay } from '@ember/object/computed';
-
-import { classNames } from '@ember-decorators/component';
 
 import { storageFor } from 'ember-local-storage';
 
@@ -14,9 +12,7 @@ const {
   dirs
 } = config;
 
-export default
-@classNames('sorting-settings')
-class SortingSettingsComponent extends Component {
+export default class SortingSettingsComponent extends Component {
   @storageFor('settings') settings;
 
   videoKeys = videoKeys;
