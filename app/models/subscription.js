@@ -1,5 +1,5 @@
 import { computed, get } from '@ember/object';
-import { alias, filterBy, map } from '@ember/object/computed';
+import { alias, filterBy, map, sum } from '@ember/object/computed';
 
 import Model, { belongsTo, hasMany } from '@ember-data/model';
 
@@ -23,12 +23,17 @@ export default class SubscriptionModel extends Model {
   get sortableTitle() {
     return get(this.channel, 'title').toLowerCase();
   }
+  @alias('sortableTitle') newSortableTitle;
+  @alias('sortableTitle') laterSortableTitle;
 
-  @map('items.@each.video', (item) => item.video) videos;
-  @computed('videos.@each.duration')
-  get totalDuration() {
-    return this.videos.map((video) => get(video, 'duration')).reduce((acc, n) => acc + n, 0);
-  }
+  @map('newItems.@each.video', (item) => item.video) newVideos;
+  @map('newVideos.@each.duration', (video) => get(video, 'duration')) newDurations;
+  @sum('newDurations') newTotalDuration;
 
-  @alias('items.length') itemCount;
+  @map('laterItems.@each.video', (item) => item.video) laterVideos;
+  @map('laterVideos.@each.duration', (video) => get(video, 'duration')) laterDurations;
+  @sum('laterDurations') laterTotalDuration;
+
+  @alias('newItems.length') newItemCount;
+  @alias('laterItems.length') laterItemCount;
 }

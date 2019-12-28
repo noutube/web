@@ -15,9 +15,7 @@
 {{#if this.newSubscriptions}}
   <SectionHeader><SvgIcon @name="gift" /> New Videos</SectionHeader>
   {{#if this.settings.channelGroup}}
-    {{#each this.newSubscriptions as |subscription|}}
-      <DisplaySubscription @subscription={{subscription}} @state="new" />
-    {{/each}}
+    <DisplaySubscriptions @subscriptions={{this.newSubscriptions}} @state="new" />
   {{else}}
     <DisplayUngrouped @items={{newItems}} />
   {{/if}}
@@ -26,9 +24,7 @@
 {{#if this.laterSubscriptions}}
   <SectionHeader><SvgIcon @name="bookmark" /> Watch Later</SectionHeader>
   {{#if this.settings.channelGroup}}
-    {{#each this.laterSubscriptions as |subscription|}}
-      <DisplaySubscription @subscription={{subscription}} @state="later" />
-    {{/each}}
+    <DisplaySubscriptions @subscriptions={{this.laterSubscriptions}} @state="later" />
   {{else}}
     <DisplayUngrouped @items={{laterItems}} />
   {{/if}}
