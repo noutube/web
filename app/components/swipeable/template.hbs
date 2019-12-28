@@ -1,9 +1,9 @@
-<div class="swipeable {{if this.isSwiping "swiping"}}" {{on "panstart" this.panStart}} {{on "panmove" this.panMove}} {{on "panend" this.panEnd}} {{on "pancancel" this.panCancel}} {{! template-lint-disable no-invalid-interactive }}>
-  <div class="swipeable-child" style={{this.style}}>
-    <div class="swipeable-right">
+<div local-class="swipeable {{if this.isSwiping "swiping"}}" {{on "panstart" this.panStart}} {{on "panmove" this.panMove}} {{on "panend" this.panEnd}} {{on "pancancel" this.panCancel}} {{! template-lint-disable no-invalid-interactive }}>
+  <div local-class="swipeable-child" style={{this.style}}>
+    <div local-class="swipeable-right">
       <SvgIcon @name={{@iconRight}} />
     </div>
-    <div class="swipeable-left">
+    <div local-class="swipeable-left">
       <SvgIcon @name={{@iconLeft}} />
     </div>
     {{yield}}

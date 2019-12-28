@@ -1,0 +1,10 @@
+@import 'ember-modal-dialog/ember-modal-structure';
+
+.ember-modal-overlay {
+  &.translucent {
+    @function half-alpha($value) {
+      @return transparentize($value, .5);
+    }
+    @include theme((background: bg get-function('half-alpha')));
+  }
+}

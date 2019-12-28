@@ -1,0 +1,44 @@
+.swipeable {
+  position: relative;
+  overflow: hidden;
+  touch-action: manipulation;
+
+  // expand hitbox while swiping so cancel can be detected
+  &.swiping::after {
+    display: block;
+    position: absolute;
+    top: 0;
+    transform: scale(1, 2);
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    content: ' ';
+  }
+}
+
+.swipeable-left,
+.swipeable-right {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 100%;
+  @include theme((color: link));
+}
+
+.swipeable-right {
+  @function fade-background($value) {
+    @return radial-gradient(farthest-side at center left, transparentize($value, .5), transparentize($value, 1));
+  }
+  @include theme((background: link get-function('fade-background')));
+  left: -50px;
+}
+
+.swipeable-left {
+  @function fade-background($value) {
+    @return radial-gradient(farthest-side at center right, transparentize($value, .5), transparentize($value, 1));
+  }
+  @include theme((background: link get-function('fade-background')));
+  right: -50px;
+}

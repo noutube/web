@@ -1,5 +1,5 @@
-<div class="sorting-settings">
-  <div class="row">
+<div local-class="sorting-settings">
+  <div local-class="row">
     Sort videos by
     <XSelect @value={{this.videoKey}} @onChange={{this.selectVideoKey}} as |xs|>
       {{#each this.videoKeys as |videoKey|}}
@@ -13,14 +13,14 @@
     </XSelect>
   </div>
 
-  <div class="row">
+  <div local-class="row">
     <label>
       <Input @type="checkbox" @checked={{this.channelGroup}} />
       Group videos by channel
     </label>
   </div>
 
-  <div class="row">
+  <div local-class="row">
     Sort channels by
     <XSelect @value={{this.channelKey}} @onChange={{this.selectChannelKey}} @disabled={{not this.channelGroup}} as |xs|>
       {{#each this.channelKeys as |channelKey|}}

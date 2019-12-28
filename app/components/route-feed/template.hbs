@@ -13,7 +13,7 @@
 {{/if}}
 
 {{#if this.newSubscriptions}}
-  <SectionHeader><SvgIcon @name="gift" /> New Videos</SectionHeader>
+  <SectionHeader @icon="gift">New Videos</SectionHeader>
   {{#if this.settings.channelGroup}}
     <DisplaySubscriptions @subscriptions={{this.newSubscriptions}} @state="new" />
   {{else}}
@@ -22,7 +22,7 @@
 {{/if}}
 
 {{#if this.laterSubscriptions}}
-  <SectionHeader><SvgIcon @name="bookmark" /> Watch Later</SectionHeader>
+  <SectionHeader @icon="bookmark">Watch Later</SectionHeader>
   {{#if this.settings.channelGroup}}
     <DisplaySubscriptions @subscriptions={{this.laterSubscriptions}} @state="later" />
   {{else}}
@@ -31,7 +31,7 @@
 {{/if}}
 
 {{#unless this.anyItems}}
-  <SectionHeader><SvgIcon @name="slash" /> No Videos</SectionHeader>
+  <SectionHeader @icon="slash">No Videos</SectionHeader>
   <div class="message">
     <p>You've watched everything for now, check again later.</p>
   </div>

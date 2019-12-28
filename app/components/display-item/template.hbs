@@ -1,8 +1,8 @@
-<div class="item">
+<div local-class="item">
   <Swipeable @swipeLeft={{@item.markDeleted}} @swipeRight={{if @item.new @item.markLater @item.markDeleted}} @iconLeft="trash" @iconRight={{if @item.new "bookmark" "trash"}}>
-    <div class="item-detail">
-      <button type="button" {{on "click" this.toggleEmbed}}><img src={{@item.video.thumbnail}} alt={{@item.video.title}}></button>
-      <div>
+    <div local-class="bar">
+      <button local-class="embed-button" type="button" {{on "click" this.toggleEmbed}}><img src={{@item.video.thumbnail}} alt={{@item.video.title}}></button>
+      <div local-class="detail">
         <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/watch?v={{@item.video.apiId}}">{{@item.video.title}}</a></p>
         <p>
           <span title={{@item.video.duration}}>{{this.formattedDuration}}</span>,
@@ -19,7 +19,7 @@
       </div>
     </div>
     {{#if this.embed}}
-      <div class="item-embed">
+      <div local-class="embed-frame">
         <iframe title="{{@item.video.title}} - YouTube" width={{this.settings.sizeWidth}} height={{this.settings.size}} src="https://www.youtube.com/embed/{{@item.video.apiId}}?version=3&amp;rel=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
       </div>
     {{/if}}

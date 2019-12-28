@@ -1,0 +1,58 @@
+// override defaults
+
+body {
+  margin: 0;
+  padding: 0;
+  @include theme((background: bg, color: pri), true);
+  font-family: sans-serif;
+}
+
+p {
+  margin: 4px 0;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  touch-action: manipulation;
+  @include theme((color: link));
+}
+
+svg {
+  display: inline-block;
+  vertical-align: top;
+}
+
+button {
+  display: inline;
+  margin: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  font-size: 100%;
+  @include theme((color: link));
+}
+
+// our common styles
+
+.title {
+  @include theme((color: emph));
+  font-weight: bold;
+
+  > a {
+    @include theme((color: inherit));
+  }
+}
+
+.message {
+  padding: 0 8px;
+  // hack to prevent margin collapsing: https://stackoverflow.com/questions/19718634/how-to-disable-margin-collapsing
+  overflow: auto;
+  @include theme((background: bg-hi, color: emph));
+
+  > p {
+    margin: 8px 0;
+  }
+}

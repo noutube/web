@@ -1,7 +1,7 @@
 <Swipeable @swipeLeft={{this.ignoreAll}} @swipeRight={{if this.new this.markAllLater this.ignoreAll}} @iconLeft="trash" @iconRight={{if this.new "bookmark" "trash"}}>
-  <div class="subscription-detail">
+  <div local-class="bar">
     <img src={{@subscription.channel.thumbnail}} alt={{@subscription.channel.title}}>
-    <div>
+    <div local-class="detail">
       <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{@subscription.channel.apiId}}">{{@subscription.channel.title}}</a></p>
       <ItemsTotals @items={{this.items}} />
       {{#if (eq @state "new")}}
