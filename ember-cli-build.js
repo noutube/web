@@ -6,7 +6,8 @@ module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     cssModules: {
       headerModules: [
-        'nou2ube/styles/app'
+        // need theme mixin available everywhere
+        'nou2ube/styles/themes'
       ]
     },
     fingerprint: {

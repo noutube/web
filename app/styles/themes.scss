@@ -106,7 +106,7 @@ $themes: (
 
 @mixin theme($properties, $self: false) {
   @each $name, $theme in $themes {
-    #{selector-self($self, '.theme--#{$name}')} {
+    #{selector-self($self, ':global(.theme--#{$name})')} {
       @each $property, $key in $properties {
         $theme-key: nth($key, 1);
         $value: null;

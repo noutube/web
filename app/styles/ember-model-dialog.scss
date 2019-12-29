@@ -1,7 +1,7 @@
 @import 'ember-modal-dialog/ember-modal-structure';
 
-.ember-modal-overlay {
-  &.translucent {
+:global(.ember-modal-overlay) {
+  &:global(.translucent) {
     @function half-alpha($value) {
       @return transparentize($value, .5);
     }
