@@ -67,60 +67,64 @@ $gruvbox: (
 
 $themes: (
   light: (
-    bg: map-get($solarized, base3),
-    bg-hi: map-get($solarized, base2),
-    sec: map-get($solarized, base1),
-    pri: map-get($solarized, base00),
-    emph: map-get($solarized, base01),
-    link: map-get($solarized, _violet),
-    bar: map-get($solarized, _blue)
+    bg: map.get($solarized, base3),
+    bg-hi: map.get($solarized, base2),
+    sec: map.get($solarized, base1),
+    pri: map.get($solarized, base00),
+    emph: map.get($solarized, base01),
+    link: map.get($solarized, _violet),
+    bar: map.get($solarized, _blue)
   ),
   dark: (
-    bg: map-get($solarized, base03),
-    bg-hi: map-get($solarized, base02),
-    sec: map-get($solarized, base01),
-    pri: map-get($solarized, base0),
-    emph: map-get($solarized, base1),
-    link: map-get($solarized, _violet),
-    bar: map-get($solarized, _blue)
+    bg: map.get($solarized, base03),
+    bg-hi: map.get($solarized, base02),
+    sec: map.get($solarized, base01),
+    pri: map.get($solarized, base0),
+    emph: map.get($solarized, base1),
+    link: map.get($solarized, _violet),
+    bar: map.get($solarized, _blue)
   ),
   gruvbox-light: (
-    bg: map-get($gruvbox, light0),
-    bg-hi: map-get($gruvbox, light1),
-    sec: map-get($solarized, dark4),
-    pri: map-get($gruvbox, dark1),
-    emph: map-get($gruvbox, dark0),
-    link: map-get($gruvbox, neutral_yellow),
-    bar: map-get($gruvbox, neutral_red)
+    bg: map.get($gruvbox, light0),
+    bg-hi: map.get($gruvbox, light1),
+    sec: map.get($gruvbox, dark4),
+    pri: map.get($gruvbox, dark1),
+    emph: map.get($gruvbox, dark0),
+    link: map.get($gruvbox, neutral_yellow),
+    bar: map.get($gruvbox, neutral_red)
   ),
   gruvbox-dark: (
-    bg: map-get($gruvbox, dark0),
-    bg-hi: map-get($gruvbox, dark1),
-    sec: map-get($solarized, light4),
-    pri: map-get($gruvbox, light1),
-    emph: map-get($gruvbox, light0),
-    link: map-get($gruvbox, neutral_yellow),
-    bar: map-get($gruvbox, neutral_red)
+    bg: map.get($gruvbox, dark0),
+    bg-hi: map.get($gruvbox, dark1),
+    sec: map.get($gruvbox, light4),
+    pri: map.get($gruvbox, light1),
+    emph: map.get($gruvbox, light0),
+    link: map.get($gruvbox, neutral_yellow),
+    bar: map.get($gruvbox, neutral_red)
   )
 );
 
 @mixin theme($properties, $self: false) {
   @each $name, $theme in $themes {
     #{selector-self($self, ':global(.theme--#{$name})')} {
-      @each $property, $key in $properties {
-        $theme-key: nth($key, 1);
-        $value: null;
-        @if map-has-key($theme, $theme-key) {
-          $value: map-get($theme, $theme-key);
-        } @else {
-          $value: $theme-key;
+      @each $property, $args in $properties {
+        $key: list.nth($args, 1);
+        // default to first argument
+        $value: $key;
+        // look up value from theme if defined
+        @if map.has-key($theme, $key) {
+          $value: map.get($theme, $key);
         }
-        @if length($key) == 2 {
-          $function: nth($key, 2);
-          #{$property}: call($function, $value);
-        } @else {
-          #{$property}: $value;
+        // process with function if passed
+        @if list.length($args) == 2 {
+          $function: list.nth($args, 2);
+          $value: meta.call($function, $value);
         }
+        // fail if not valid
+        @if $value == null {
+          @error 'could not resolve #{$args} in #{$name} to a value for #{$property}';
+        }
+        #{$property}: $value;
       }
     }
   }

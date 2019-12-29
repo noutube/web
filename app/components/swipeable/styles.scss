@@ -29,16 +29,16 @@
 
 .swipeable-right {
   @function fade-background($value) {
-    @return radial-gradient(farthest-side at center left, transparentize($value, .5), transparentize($value, 1));
+    @return radial-gradient(farthest-side at center left, color.scale($value, $alpha: -50%), color.scale($value, $alpha: -100%));
   }
-  @include theme((background: link get-function('fade-background')));
+  @include theme((background: link meta.get-function('fade-background')));
   left: -50px;
 }
 
 .swipeable-left {
   @function fade-background($value) {
-    @return radial-gradient(farthest-side at center right, transparentize($value, .5), transparentize($value, 1));
+    @return radial-gradient(farthest-side at center right, color.scale($value, $alpha: -50%), color.scale($value, $alpha: -100%));
   }
-  @include theme((background: link get-function('fade-background')));
+  @include theme((background: link meta.get-function('fade-background')));
   right: -50px;
 }

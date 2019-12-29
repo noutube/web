@@ -6,6 +6,8 @@ module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     cssModules: {
       headerModules: [
+        // @use needs to be the first thing in the concatenated file
+        'nou2ube/styles/use',
         // need theme mixin available everywhere
         'nou2ube/styles/themes'
       ]
