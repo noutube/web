@@ -3,7 +3,7 @@ import { action, computed, get, set } from '@ember/object';
 
 import { storageFor } from 'ember-local-storage';
 
-export default class DisplayItemComponent extends Component {
+export default class ItemComponent extends Component {
   @storageFor('settings') settings;
 
   embed = false;

@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { action, computed } from '@ember/object';
 
-export default class DisplaySubscriptionComponent extends Component {
+export default class SubscriptionComponent extends Component {
   @computed('args.state')
   get new() {
     return this.args.state === 'new';
