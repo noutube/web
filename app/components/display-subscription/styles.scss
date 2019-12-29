@@ -1,0 +1,15 @@
+.bar {
+  display: flex;
+  align-items: center;
+  @include theme((background: bg-hi));
+  padding: 8px;
+
+  > img {
+    width: 66px;
+    height: 66px;
+  }
+
+  > .detail {
+    margin-left: 8px;
+  }
+}

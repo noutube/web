@@ -1,0 +1,18 @@
+.menu-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  @include theme((background: bar, color: bg));
+
+  &,
+  > .extras-outer > .extras-inner {
+    display: flex;
+    align-items: center;
+
+    > a,
+    > button {
+      padding: 8px;
+      @include theme((color: inherit));
+    }
+  }
+}

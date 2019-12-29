@@ -1,0 +1,26 @@
+.item {
+  margin: 8px 0;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+
+  > .embed-button {
+    display: flex;
+
+    > img {
+      width: 106px;
+      height: 60px;
+    }
+  }
+
+  > .detail {
+    margin-left: 16px;
+  }
+}
+
+.embed-frame {
+  padding: 0 16px;
+}

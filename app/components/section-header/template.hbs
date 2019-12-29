@@ -1,3 +1,8 @@
-<div class="section">
+<div local-class="section-header">
+  {{#if @icon}}
+    <span local-class="icon">
+      <SvgIcon @name={{@icon}} />
+    </span>
+  {{/if}}
   {{yield}}
 </div>
