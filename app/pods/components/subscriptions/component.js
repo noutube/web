@@ -4,7 +4,7 @@ import { sort } from '@ember/object/computed';
 
 import { storageFor } from 'ember-local-storage';
 
-export default class DisplaySubscriptionsComponent extends Component {
+export default class SubscriptionsComponent extends Component {
   @storageFor('settings') settings;
 
   @computed('args.state', 'settings.{channelKey,channelDir}')

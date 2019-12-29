@@ -1,17 +1,21 @@
+<HeadLayout />
+
+{{title "NoUTube"}}
+
 <MenuBar />
 
 {{#if this.session.down}}
-  <AppDialog @title="NoUTube Down">
+  <Dialog @title="NoUTube Down">
     <p>Sorry, NoUTube seems to be down, please wait a bit and try again.</p>
-  </AppDialog>
+  </Dialog>
 {{/if}}
 
 {{#if this.session.popupOpen}}
-  <AppDialog @title="Signing In">
+  <Dialog @title="Signing In">
     <p>Please don't close this tab while signing in.</p>
-  </AppDialog>
+  </Dialog>
 {{/if}}
 
 {{yield}}
 
-<AppFooter />
+<Footer />

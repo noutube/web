@@ -7,26 +7,26 @@
 </PortalContent>
 
 {{#if this.showSorting}}
-  <AppDialog @title="Sorting Settings" @close={{this.toggleSorting}}>
+  <Dialog @title="Sorting Settings" @close={{this.toggleSorting}}>
     <SortingSettings />
-  </AppDialog>
+  </Dialog>
 {{/if}}
 
 {{#if this.newSubscriptions}}
   <SectionHeader @icon="gift">New Videos</SectionHeader>
   {{#if this.settings.channelGroup}}
-    <DisplaySubscriptions @subscriptions={{this.newSubscriptions}} @state="new" />
+    <Subscriptions @subscriptions={{this.newSubscriptions}} @state="new" />
   {{else}}
-    <DisplayUngrouped @items={{this.newItems}} />
+    <ItemsUngrouped @items={{this.newItems}} />
   {{/if}}
 {{/if}}
 
 {{#if this.laterSubscriptions}}
   <SectionHeader @icon="bookmark">Watch Later</SectionHeader>
   {{#if this.settings.channelGroup}}
-    <DisplaySubscriptions @subscriptions={{this.laterSubscriptions}} @state="later" />
+    <Subscriptions @subscriptions={{this.laterSubscriptions}} @state="later" />
   {{else}}
-    <DisplayUngrouped @items={{this.laterItems}} />
+    <ItemsUngrouped @items={{this.laterItems}} />
   {{/if}}
 {{/if}}
 
