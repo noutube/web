@@ -1,39 +1,48 @@
-import { computed } from '@ember/object';
-import { alias, filterBy, map, sum } from '@ember/object/computed';
-
 import Model, { belongsTo, hasMany } from '@ember-data/model';
 
 export default class SubscriptionModel extends Model {
   @belongsTo('channel', { async: false }) channel;
   @hasMany('items') items;
 
-  @filterBy('items', 'new') newItems;
-  @computed('newItems')
+  get newItems() {
+    return this.items.filterBy('new');
+  }
   get hasNew() {
     return this.newItems.length > 0;
   }
 
-  @filterBy('items', 'later') laterItems;
-  @computed('laterItems')
+  get laterItems() {
+    return this.items.filterBy('later');
+  }
   get hasLater() {
     return this.laterItems.length > 0;
   }
 
-  @computed('channel.title')
   get sortableTitle() {
     return this.channel.title.toLowerCase();
   }
-  @alias('sortableTitle') newSortableTitle;
-  @alias('sortableTitle') laterSortableTitle;
+  get newSortableTitle() {
+    return this.sortableTitle;
+  }
+  get laterSortableTitle() {
+    return this.sortableTitle;
+  }
 
-  @map('newItems.@each.video', (item) => item.video) newVideos;
-  @map('newVideos.@each.duration', (video) => video.duration) newDurations;
-  @sum('newDurations') newTotalDuration;
+  get newTotalDuration() {
+    let videos = this.newItems.map((item) => item.video);
+    let durations = videos.map((video) => video.duration);
+    return durations.reduce((acc, n) => acc + n, 0);
+  }
+  get laterTotalDuration() {
+    let videos = this.laterItems.map((item) => item.video);
+    let durations = videos.map((video) => video.duration);
+    return durations.reduce((acc, n) => acc + n, 0);
+  }
 
-  @map('laterItems.@each.video', (item) => item.video) laterVideos;
-  @map('laterVideos.@each.duration', (video) => video.duration) laterDurations;
-  @sum('laterDurations') laterTotalDuration;
-
-  @alias('newItems.length') newItemCount;
-  @alias('laterItems.length') laterItemCount;
+  get newItemCount() {
+    return this.newItems.length;
+  }
+  get laterItemCount() {
+    return this.laterItems.length;
+  }
 }

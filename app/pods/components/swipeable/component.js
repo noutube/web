@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import { htmlSafe } from '@ember/template';
 
 export default class SwipeableComponent extends Component {
@@ -8,11 +8,9 @@ export default class SwipeableComponent extends Component {
   swipeLimit = 50;
 
   // use to position element
-  @computed('offsetX', 'directionX')
   get swipePosition() {
     return this.offsetX * this.directionX;
   }
-  @computed('swipePosition')
   get style() {
     return htmlSafe(`transform: translateX(${this.swipePosition}px);`);
   }
@@ -21,11 +19,9 @@ export default class SwipeableComponent extends Component {
 
   @tracked isSwiping = false;
   @tracked deltaX = 0;
-  @computed('swipeLimit', 'deltaX')
   get offsetX() {
     return Math.min(this.swipeLimit, Math.abs(this.deltaX));
   }
-  @computed('deltaX')
   get directionX() {
     return Math.sign(this.deltaX);
   }

@@ -1,5 +1,4 @@
-import { action, computed } from '@ember/object';
-import { alias } from '@ember/object/computed';
+import { action } from '@ember/object';
 
 import Model, { attr, belongsTo } from '@ember-data/model';
 
@@ -9,12 +8,10 @@ export default class ItemModel extends Model {
   @belongsTo('subscription') subscription;
   @belongsTo('video', { async: false }) video;
 
-  @computed('state', 'isDeleted')
   get new() {
     return this.state === 'state_new' && !this.isDeleted;
   }
 
-  @computed('state', 'isDeleted')
   get later() {
     return this.state === 'state_later' && !this.isDeleted;
   }
@@ -23,12 +20,13 @@ export default class ItemModel extends Model {
     return Date.now() - this.video.publishedAt.getTime();
   }
 
-  @computed('video.title')
   get sortableTitle() {
     return this.video.title.toLowerCase();
   }
 
-  @alias('video.duration') duration;
+  get duration() {
+    return this.video.duration;
+  }
 
   @action
   markLater() {

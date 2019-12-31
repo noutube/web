@@ -1,12 +1,12 @@
 <div local-class="sorting-settings">
   <div local-class="row">
     Sort videos by
-    <XSelect @value={{this.videoKey}} @onChange={{this.selectVideoKey}} as |xs|>
+    <XSelect @value={{this.settings.videoKey}} @onChange={{fn (mut this.settings.videoKey)}} as |xs|>
       {{#each this.videoKeys as |videoKey|}}
         <xs.option @value={{videoKey.value}}>{{videoKey.label}}</xs.option>
       {{/each}}
     </XSelect>
-    <XSelect @value={{this.videoDir}} @onChange={{this.selectVideoDir}} as |xs|>
+    <XSelect @value={{this.settings.videoDir}} @onChange={{fn (mut this.settings.videoDir)}} as |xs|>
       {{#each this.dirs as |dir|}}
         <xs.option @value={{dir.value}}>{{dir.label}}</xs.option>
       {{/each}}
@@ -15,19 +15,19 @@
 
   <div local-class="row">
     <label>
-      <Input @type="checkbox" @checked={{this.channelGroup}} />
+      <Input @type="checkbox" @checked={{this.settings.channelGroup}} />
       Group videos by channel
     </label>
   </div>
 
   <div local-class="row">
     Sort channels by
-    <XSelect @value={{this.channelKey}} @onChange={{this.selectChannelKey}} @disabled={{not this.channelGroup}} as |xs|>
+    <XSelect @value={{this.settings.channelKey}} @onChange={{fn (mut this.settings.channelKey)}} @disabled={{not this.settings.channelGroup}} as |xs|>
       {{#each this.channelKeys as |channelKey|}}
         <xs.option @value={{channelKey.value}}>{{channelKey.label}}</xs.option>
       {{/each}}
     </XSelect>
-    <XSelect @value={{this.channelDir}} @onChange={{this.selectChannelDir}} @disabled={{not this.channelGroup}} as |xs|>
+    <XSelect @value={{this.settings.channelDir}} @onChange={{fn (mut this.settings.channelDir)}} @disabled={{not this.settings.channelGroup}} as |xs|>
       {{#each this.dirs as |dir|}}
         <xs.option @value={{dir.value}}>{{dir.label}}</xs.option>
       {{/each}}
