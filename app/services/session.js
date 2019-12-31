@@ -26,7 +26,7 @@ export default class SessionService extends Service {
     let json = window.localStorage.getItem(storageKey);
     try {
       return JSON.parse(json);
-    } catch (e) {
+    } catch {
       return null;
     }
   }

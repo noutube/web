@@ -1,5 +1,3 @@
-import { action } from '@ember/object';
-
 import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class ItemModel extends Model {
@@ -28,15 +26,21 @@ export default class ItemModel extends Model {
     return this.video.duration;
   }
 
-  @action
-  markLater() {
+  async markLater() {
     this.state = 'state_later';
-    this.save().catch(() => this.rollbackAttributes());
+    try {
+      await this.save();
+    } catch {
+      this.rollbackAttributes();
+    }
   }
 
-  @action
-  markDeleted() {
+  async markDeleted() {
     this.deleteRecord();
-    this.save().catch(() => this.rollbackAttributes());
+    try {
+      await this.save();
+    } catch {
+      this.rollbackAttributes();
+    }
   }
 }

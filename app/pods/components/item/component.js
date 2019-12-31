@@ -21,4 +21,14 @@ export default class ItemComponent extends Component {
   toggleEmbed() {
     this.embed = !this.embed;
   }
+
+  @action
+  markLater() {
+    this.args.item.markLater();
+  }
+
+  @action
+  markDeleted() {
+    this.args.item.markDeleted();
+  }
 }

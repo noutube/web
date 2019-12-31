@@ -1,5 +1,5 @@
 <div local-class="item">
-  <Swipeable @swipeLeft={{@item.markDeleted}} @swipeRight={{if @item.new @item.markLater @item.markDeleted}} @iconLeft="trash" @iconRight={{if @item.new "bookmark" "trash"}}>
+  <Swipeable @swipeLeft={{this.markDeleted}} @swipeRight={{if @item.new this.markLater this.markDeleted}} @iconLeft="trash" @iconRight={{if @item.new "bookmark" "trash"}}>
     <div local-class="bar">
       <button local-class="embed-button" type="button" {{on "click" this.toggleEmbed}}><img src={{@item.video.thumbnail}} alt={{@item.video.title}}></button>
       <div local-class="detail">
@@ -12,9 +12,9 @@
           {{/unless}}
         </p>
         {{#if @item.new}}
-          <p><button type="button" {{on "click" @item.markLater}}>Watch Later</button> &middot; <button type="button" {{on "click" @item.markDeleted}}>Ignore</button></p>
+          <p><button type="button" {{on "click" this.markLater}}>Watch Later</button> &middot; <button type="button" {{on "click" this.markDeleted}}>Ignore</button></p>
         {{else}}
-          <p><button type="button" {{on "click" @item.markDeleted}}>Watched</button></p>
+          <p><button type="button" {{on "click" this.markDeleted}}>Watched</button></p>
         {{/if}}
       </div>
     </div>
