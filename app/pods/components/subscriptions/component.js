@@ -1,20 +1,19 @@
 import Component from '@glimmer/component';
-import { computed } from '@ember/object';
-import { sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default class SubscriptionsComponent extends Component {
   @service settings;
 
-  @computed('args.state', 'settings.{channelKey,channelDir}')
-  get channelSort() {
+  get subscriptionsSorted() {
     let { channelKey, channelDir } = this.settings;
 
     // prepend state to channel key and camel case
     let finalChannelKey = `${this.args.state}${channelKey.charAt(0).toUpperCase()}${channelKey.slice(1)}`;
 
-    return [`${finalChannelKey}:${channelDir}`];
+    let sorted = this.args.subscriptions.sortBy(finalChannelKey);
+    if (channelDir === 'desc') {
+      sorted.reverse();
+    }
+    return sorted;
   }
-
-  @sort('args.subscriptions', 'channelSort') subscriptionsSorted;
 }

@@ -1,16 +1,16 @@
 import Component from '@glimmer/component';
-import { computed } from '@ember/object';
-import { sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default class ItemsComponent extends Component {
   @service settings;
 
-  @computed('settings.{videoKey,videoDir}')
-  get videoSort() {
+  get itemsSorted() {
     let { videoKey, videoDir } = this.settings;
-    return [`${videoKey}:${videoDir}`];
-  }
 
-  @sort('args.items', 'videoSort') itemsSorted;
+    let sorted = this.args.items.sortBy(videoKey);
+    if (videoDir === 'desc') {
+      sorted.reverse();
+    }
+    return sorted;
+  }
 }

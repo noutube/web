@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
-import { action, computed, set } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import { htmlSafe } from '@ember/template';
 
 export default class SwipeableComponent extends Component {
@@ -7,24 +8,20 @@ export default class SwipeableComponent extends Component {
   swipeLimit = 50;
 
   // use to position element
-  @computed('offsetX', 'directionX')
   get swipePosition() {
     return this.offsetX * this.directionX;
   }
-  @computed('swipePosition')
   get style() {
     return htmlSafe(`transform: translateX(${this.swipePosition}px);`);
   }
 
   // internals
 
-  isSwiping = false;
-  deltaX = 0;
-  @computed('swipeLimit', 'deltaX')
+  @tracked isSwiping = false;
+  @tracked deltaX = 0;
   get offsetX() {
     return Math.min(this.swipeLimit, Math.abs(this.deltaX));
   }
-  @computed('deltaX')
   get directionX() {
     return Math.sign(this.deltaX);
   }
@@ -32,14 +29,14 @@ export default class SwipeableComponent extends Component {
   @action
   panStart(event) {
     event.stopPropagation();
-    set(this, 'isSwiping', true);
-    set(this, 'deltaX', 0);
+    this.isSwiping = true;
+    this.deltaX = 0;
   }
   @action
   panMove(event) {
     if (this.isSwiping) {
       event.stopPropagation();
-      set(this, 'deltaX', event.gesture.deltaX);
+      this.deltaX = event.gesture.deltaX;
       if (Math.abs(event.gesture.deltaY) > this.swipeLimit / 2) {
         this.panCancel(event);
       }
@@ -48,7 +45,7 @@ export default class SwipeableComponent extends Component {
   @action
   panEnd(event) {
     event.stopPropagation();
-    set(this, 'isSwiping', false);
+    this.isSwiping = false;
     if (this.offsetX === this.swipeLimit) {
       if (this.directionX > 0) {
         this.args.swipeRight();
@@ -56,12 +53,12 @@ export default class SwipeableComponent extends Component {
         this.args.swipeLeft();
       }
     }
-    set(this, 'deltaX', 0);
+    this.deltaX = 0;
   }
   @action
   panCancel(event) {
     event.stopPropagation();
-    set(this, 'isSwiping', false);
-    set(this, 'deltaX', 0);
+    this.isSwiping = false;
+    this.deltaX = 0;
   }
 }

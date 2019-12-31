@@ -1,4 +1,3 @@
-import { computed } from '@ember/object';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
@@ -14,7 +13,6 @@ export default class FeedRoute extends Route {
   #feed = null;
   #reconnecting = false;
 
-  @computed('session.me')
   get cableAddress() {
     return `${config.backendOrigin.replace(/^http/, 'ws')}/cable/?user_email=${this.session.me.email}&user_token=${this.session.me.authenticationToken}`;
   }
