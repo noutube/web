@@ -1,16 +1,14 @@
 import Component from '@glimmer/component';
-import { computed, get } from '@ember/object';
+import { computed } from '@ember/object';
 import { sort } from '@ember/object/computed';
-
-import { storageFor } from 'ember-local-storage';
+import { inject as service } from '@ember/service';
 
 export default class SubscriptionsComponent extends Component {
-  @storageFor('settings') settings;
+  @service settings;
 
   @computed('args.state', 'settings.{channelKey,channelDir}')
   get channelSort() {
-    let channelKey = get(this.settings, 'channelKey');
-    let channelDir = get(this.settings, 'channelDir');
+    let { channelKey, channelDir } = this.settings;
 
     // prepend state to channel key and camel case
     let finalChannelKey = `${this.args.state}${channelKey.charAt(0).toUpperCase()}${channelKey.slice(1)}`;

@@ -1,11 +1,10 @@
 import Component from '@glimmer/component';
 import { action, computed, set } from '@ember/object';
 import { filterBy } from '@ember/object/computed';
-
-import { storageFor } from 'ember-local-storage';
+import { inject as service } from '@ember/service';
 
 export default class RouteFeedComponent extends Component {
-  @storageFor('settings') settings;
+  @service settings;
 
   @filterBy('args.subscriptions', 'hasNew') newSubscriptions;
   @filterBy('args.subscriptions', 'hasLater') laterSubscriptions;

@@ -1,10 +1,9 @@
 import Component from '@glimmer/component';
 import { action, computed, set } from '@ember/object';
-
-import { storageFor } from 'ember-local-storage';
+import { inject as service } from '@ember/service';
 
 export default class ItemComponent extends Component {
-  @storageFor('settings') settings;
+  @service settings;
 
   embed = false;
 

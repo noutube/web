@@ -3,10 +3,10 @@ import { inject as service } from '@ember/service';
 
 export default class ApplicationRoute extends Route {
   @service session;
-  @service theme;
+  @service settings;
 
   async beforeModel(transition) {
-    this.theme.applyTheme();
+    this.settings.applyTheme();
     await this.session.restore();
   }
 }
