@@ -1,8 +1,7 @@
 import Component from '@glimmer/component';
-import { action, set } from '@ember/object';
+import { action } from '@ember/object';
 import { alias, oneWay } from '@ember/object/computed';
-
-import { storageFor } from 'ember-local-storage';
+import { inject as service } from '@ember/service';
 
 import config from 'nou2ube/config/environment';
 
@@ -13,7 +12,7 @@ const {
 } = config;
 
 export default class SortingSettingsComponent extends Component {
-  @storageFor('settings') settings;
+  @service settings;
 
   videoKeys = videoKeys;
   channelKeys = channelKeys;
@@ -27,18 +26,18 @@ export default class SortingSettingsComponent extends Component {
 
   @action
   selectVideoKey(videoKey) {
-    set(this, 'settings.videoKey', videoKey);
+    this.settings.videoKey = videoKey;
   }
   @action
   selectVideoDir(videoDir) {
-    set(this, 'settings.videoDir', videoDir);
+    this.settings.videoDir = videoDir;
   }
   @action
   selectChannelKey(channelKey) {
-    set(this, 'settings.channelKey', channelKey);
+    this.settings.channelKey = channelKey;
   }
   @action
   selectChannelDir(channelDir) {
-    set(this, 'settings.channelDir', channelDir);
+    this.settings.channelDir = channelDir;
   }
 }

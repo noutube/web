@@ -1,6 +1,6 @@
 <div local-class="menu-bar">
   <PortalFor @name="menu-bar-extras" @class={{local-class "extras-outer"}} @portal-class={{local-class "extras-inner"}} />
-  <button type="button" {{on "click" this.theme.switchTheme}} title="Switch theme"><SvgIcon @name="droplet" /></button>
+  <button type="button" {{on "click" this.settings.switchTheme}} title="Switch theme"><SvgIcon @name="droplet" /></button>
   {{#if this.session.me}}
     <LinkTo @route="feed" title="Go to feed"><SvgIcon @name="inbox" /></LinkTo>
     <button type="button" {{on "click" this.session.signOut}} title="Sign out {{this.session.me.email}}"><SvgIcon @name="log-out" /></button>

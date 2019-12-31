@@ -1,15 +1,13 @@
-import { action, get, getProperties, set, setProperties } from '@ember/object';
+import { action, set } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
 
-import { storageFor } from 'ember-local-storage';
-
 import config from 'nou2ube/config/environment';
+
+const storageKey = 'storage:session';
 
 export default class SessionService extends Service {
   @service store;
   @service router;
-
-  @storageFor('session') session;
 
   me = null;
   down = false;
@@ -23,13 +21,23 @@ export default class SessionService extends Service {
     super.init(...arguments);
   }
 
+  restoreMe() {
+    let json = window.localStorage.getItem(storageKey);
+    try {
+      return JSON.parse(json);
+    } catch (e) {
+      return null;
+    }
+  }
+
   async restore() {
-    if (!this.session.isInitialContent()) {
+    let me = this.restoreMe();
+    if (me) {
       try {
         let response = await fetch(`${config.backendOrigin}/auth/restore`, {
           headers: {
-            'X-User-Email': get(this.session, 'email'),
-            'X-User-Token': get(this.session, 'authenticationToken')
+            'X-User-Email': me.email,
+            'X-User-Token': me.authenticationToken
           }
         });
         if (response.status > 500) {
@@ -114,9 +122,14 @@ export default class SessionService extends Service {
 
   persist() {
     if (this.me) {
-      setProperties(this.session, getProperties(this.me, ['id', 'email', 'authenticationToken']));
+      let json = JSON.stringify({
+        id: this.me.id,
+        email: this.me.email,
+        authenticationToken: this.me.authenticationToken
+      });
+      window.localStorage.setItem(storageKey, json);
     } else {
-      this.session.reset();
+      window.localStorage.removeItem(storageKey);
     }
   }
 
