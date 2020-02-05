@@ -32,7 +32,7 @@
     "ember-cli-deploy-build": "^2.0.0",
     "ember-cli-deploy-scp": "^1.0.9",
     "ember-cli-eslint": "^5.1.0",
-    "ember-cli-htmlbars": "^4.2.0",
+    "ember-cli-htmlbars": "^4.2.2",
     "ember-cli-inject-live-reload": "^2.0.1",
     "ember-cli-moment-shim": "^3.0.1",
     "ember-cli-sass": "^10.0.0",
