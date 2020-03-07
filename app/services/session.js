@@ -16,10 +16,10 @@ export default class SessionService extends Service {
   #popupInterval = null;
   @tracked popupOpen = false;
 
-  init() {
-    window.addEventListener('message', this.authMessage);
+  constructor() {
+    super(...arguments);
 
-    super.init(...arguments);
+    window.addEventListener('message', this.authMessage);
   }
 
   restoreMe() {
