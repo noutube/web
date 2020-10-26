@@ -1,0 +1,25 @@
+<div local-class="upload-opml">
+  {{#if this.inFlight}}
+    <div local-class="row">
+      Uploading...
+    </div>
+  {{else if this.succeeded}}
+    <div local-class="row">
+      Done!
+    </div>
+  {{else}}
+    {{#if this.failed}}
+      <div local-class="row">
+        Failed! Please try again.
+      </div>
+    {{/if}}
+
+    <div local-class="row">
+      Save your subscriptions from <a href="https://www.youtube.com/subscription_manager?action_takeout=1" target="_blank" rel="noopener noreferrer">YouTube Subscription Manager</a>
+    </div>
+
+    <div local-class="row">
+      Then, upload the file <input type="file" {{on "change" this.selectFile}}>
+    </div>
+  {{/if}}
+</div>

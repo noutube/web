@@ -38,4 +38,11 @@ export default class RouteFeedComponent extends Component {
   toggleSorting() {
     this.showSorting = !this.showSorting;
   }
+
+  @tracked showOpml = false;
+
+  @action
+  toggleOpml() {
+    this.showOpml = !this.showOpml;
+  }
 }
