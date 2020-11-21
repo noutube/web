@@ -4,7 +4,7 @@
 <PortalContent @for="menu-bar-extras">
   <button type="button" {{on "click" this.toggleSorting}} title="Sorting settings"><SvgIcon @name="sliders" /></button>
   <button type="button" {{on "click" this.settings.switchSize}} title="Switch player size"><SvgIcon @name="maximize" /></button>
-  <button type="button" {{on "click" this.toggleOpml}} title="Update subscriptions"><SvgIcon @name="list" /></button>
+  <button type="button" {{on "click" this.toggleTakeout}} title="Update subscriptions"><SvgIcon @name="list" /></button>
 </PortalContent>
 
 {{#if this.showSorting}}
@@ -13,9 +13,9 @@
   </Dialog>
 {{/if}}
 
-{{#if this.showOpml}}
-  <Dialog @title="Update Subscriptions" @close={{this.toggleOpml}}>
-    <UploadOpml />
+{{#if this.showTakeout}}
+  <Dialog @title="Update Subscriptions" @close={{this.toggleTakeout}}>
+    <UploadTakeout />
   </Dialog>
 {{/if}}
 

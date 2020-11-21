@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 
 import config from 'nou2ube/config/environment';
 
-export default class UploadOpmlComponent extends Component {
+export default class UploadTakeoutComponent extends Component {
   @service store;
 
   @tracked inFlight = false;
@@ -17,7 +17,7 @@ export default class UploadOpmlComponent extends Component {
     this.inFlight = true;
     try {
       let { headers } = this.store.adapterFor('subscription');
-      let response = await fetch(`${config.backendOrigin}/subscriptions/opml`, {
+      let response = await fetch(`${config.backendOrigin}/subscriptions/takeout`, {
         body: event.target.files[0],
         headers,
         method: 'POST'
