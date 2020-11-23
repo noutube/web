@@ -39,10 +39,10 @@ export default class RouteFeedComponent extends Component {
     this.showSorting = !this.showSorting;
   }
 
-  @tracked showTakeout = false;
+  @tracked showSubscriptions = false;
 
   @action
-  toggleTakeout() {
-    this.showTakeout = !this.showTakeout;
+  toggleSubscriptions() {
+    this.showSubscriptions = !this.showSubscriptions;
   }
 }
