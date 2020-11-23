@@ -5622,9 +5622,9 @@ ember-wormhole@^0.5.1, ember-wormhole@^0.5.5:
     ember-cli-babel "^6.10.0"
     ember-cli-htmlbars "^2.0.1"
 
-ember-youtube@DuBistKomisch/ember-youtube#358d2c5134ca5c31993c3d217b4fc3ad8df005ae:
+ember-youtube@DuBistKomisch/ember-youtube#f9474393a821a9bcbce392f88fad9aedcacf50a6:
   version "0.9.7"
-  resolved "https://codeload.github.com/DuBistKomisch/ember-youtube/tar.gz/358d2c5134ca5c31993c3d217b4fc3ad8df005ae"
+  resolved "https://codeload.github.com/DuBistKomisch/ember-youtube/tar.gz/f9474393a821a9bcbce392f88fad9aedcacf50a6"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-htmlbars "^2.0.1"

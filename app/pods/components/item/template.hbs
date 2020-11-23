@@ -20,7 +20,7 @@
     </div>
     {{#if this.showEmbed}}
       <div local-class="embed-frame">
-        <EmberYoutube @ytid={{@item.video.apiId}} @width={{this.settings.sizeWidth}} @height={{this.settings.sizeHeight}} @playerVars={{hash autoplay=1 rel=0}} @ended={{this.embedEnded}} />
+        <EmberYoutube @ytid={{@item.video.apiId}} @width={{this.settings.sizeWidth}} @height={{this.settings.sizeHeight}} @speed={{this.settings.speed}} @playerVars={{hash autoplay=1 rel=0}} @ended={{this.embedEnded}} />
       </div>
     {{/if}}
   </Swipeable>

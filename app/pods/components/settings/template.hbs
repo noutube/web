@@ -57,6 +57,15 @@
   </div>
 
   <div local-class="row">
+    Speed
+    <XSelect @value={{this.settings.speed}} @onChange={{fn (mut this.settings.speed)}} as |xs|>
+      {{#each this.speeds as |speed|}}
+        <xs.option @value={{speed}}>{{speed}}x</xs.option>
+      {{/each}}
+    </XSelect>
+  </div>
+
+  <div local-class="row">
     <label>
       <Input @type="checkbox" @checked={{this.settings.autoplay}} />
       Autoplay next video in group

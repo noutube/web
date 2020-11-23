@@ -8,7 +8,8 @@ const {
   sizes,
   videoKeys,
   channelKeys,
-  dirs
+  dirs,
+  speeds
 } = config;
 
 export default class SettingsComponent extends Component {
@@ -19,4 +20,5 @@ export default class SettingsComponent extends Component {
   videoKeys = videoKeys;
   channelKeys = channelKeys;
   dirs = dirs;
+  speeds = speeds;
 }

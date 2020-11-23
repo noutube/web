@@ -88,4 +88,13 @@ export default class SettingsService extends Service {
   set autoplay(autoplay) {
     this.storage.set('autoplay', autoplay);
   }
+
+  // speed
+
+  get speed() {
+    return this.storage.get('speed');
+  }
+  set speed(speed) {
+    this.storage.set('speed', speed);
+  }
 }

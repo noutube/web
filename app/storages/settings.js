@@ -8,7 +8,8 @@ const {
   channelKeys: [{ value: defaultChannelKey }],
   dirs: [{ value: defaultDir }],
   defaultChannelGroup,
-  defaultAutoplay
+  defaultAutoplay,
+  defaultSpeed
 } = config;
 
 export default class SettingsStorage extends StorageObject {
@@ -21,7 +22,8 @@ export default class SettingsStorage extends StorageObject {
       channelKey: defaultChannelKey,
       channelDir: defaultDir,
       channelGroup: defaultChannelGroup,
-      autoplay: defaultAutoplay
+      autoplay: defaultAutoplay,
+      speed: defaultSpeed
     };
   }
 }
