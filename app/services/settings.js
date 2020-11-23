@@ -4,7 +4,7 @@ import Service from '@ember/service';
 import { storageFor } from 'ember-local-storage';
 
 import config from 'nou2ube/config/environment';
-const { sizes, themes } = config;
+const { themes } = config;
 
 export default class SettingsService extends Service {
   @storageFor('settings') storage;
@@ -24,13 +24,6 @@ export default class SettingsService extends Service {
 
   get sizeWidth() {
     return this.size * 16 / 9;
-  }
-
-  @action
-  switchSize() {
-    let currentSizeIndex = sizes.indexOf(this.size);
-    let newSizeIndex = (currentSizeIndex + 1) % sizes.length;
-    this.size = sizes[newSizeIndex];
   }
 
   // sorting
