@@ -1,4 +1,13 @@
 <div local-class="settings">
+  <div local-class="row">
+    Theme
+    <XSelect @value={{this.settings.theme}} @onChange={{fn (mut this.settings.theme)}} as |xs|>
+      {{#each this.themes as |theme|}}
+        <xs.option @value={{theme.value}}>{{theme.label}}</xs.option>
+      {{/each}}
+    </XSelect>
+  </div>
+
   <h3>Sorting</h3>
 
   <div local-class="row">

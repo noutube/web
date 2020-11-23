@@ -2,7 +2,7 @@ import StorageObject from 'ember-local-storage/local/object';
 
 import config from 'nou2ube/config/environment';
 const {
-  themes: [defaultTheme],
+  themes: [{ value: defaultTheme }],
   sizes: [defaultSize],
   videoKeys: [{ value: defaultVideoKey }],
   channelKeys: [{ value: defaultChannelKey }],

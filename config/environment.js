@@ -25,7 +25,12 @@ module.exports = function(environment) {
 
     backendOrigin: 'http://localhost:9292',
 
-    themes: ['light', 'dark', 'gruvbox-light', 'gruvbox-dark'],
+    themes: [
+      { value: 'light', label: 'Solarized Light' },
+      { value: 'dark', label: 'Solarized Dark' },
+      { value: 'gruvbox-light', label: 'Gruvbox Light' },
+      { value: 'gruvbox-dark', label: 'Gruvbox Dark' }
+    ],
     sizes: [360, 480, 720, 1080],
     videoKeys: [
       { value: 'age', label: 'age' },
