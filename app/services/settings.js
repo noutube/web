@@ -90,4 +90,13 @@ export default class SettingsService extends Service {
     this.theme = themes[newThemeIndex];
     this.applyTheme();
   }
+
+  // autoplay
+
+  get autoplay() {
+    return this.storage.get('autoplay');
+  }
+  set autoplay(autoplay) {
+    this.storage.set('autoplay', autoplay);
+  }
 }

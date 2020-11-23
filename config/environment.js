@@ -41,7 +41,8 @@ module.exports = function(environment) {
       { value: 'asc', label: 'ascending' },
       { value: 'desc', label: 'descending' }
     ],
-    defaultChannelGroup: true
+    defaultChannelGroup: true,
+    defaultAutoplay: false
   };
 
   if (environment === 'development') {

@@ -7,7 +7,8 @@ const {
   videoKeys: [{ value: defaultVideoKey }],
   channelKeys: [{ value: defaultChannelKey }],
   dirs: [{ value: defaultDir }],
-  defaultChannelGroup
+  defaultChannelGroup,
+  defaultAutoplay
 } = config;
 
 export default class SettingsStorage extends StorageObject {
@@ -19,7 +20,8 @@ export default class SettingsStorage extends StorageObject {
       videoDir: defaultDir,
       channelKey: defaultChannelKey,
       channelDir: defaultDir,
-      channelGroup: defaultChannelGroup
+      channelGroup: defaultChannelGroup,
+      autoplay: defaultAutoplay
     };
   }
 }

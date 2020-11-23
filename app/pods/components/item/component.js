@@ -39,7 +39,9 @@ export default class ItemComponent extends Component {
 
   @action
   embedEnded() {
-    this.embed = false;
-    this.args.onEmbedEnded();
+    if (this.settings.autoplay) {
+      this.embed = false;
+      this.args.onEmbedEnded();
+    }
   }
 }
