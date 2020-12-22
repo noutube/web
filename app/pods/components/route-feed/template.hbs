@@ -1,5 +1,5 @@
 {{!-- can't override parent's separator, have to just replace whole title --}}
-{{title this.titleNotification " NoUTube" replace=true}}
+{{page-title this.titleNotification " NoUTube" replace=true}}
 
 <PortalContent @for="menu-bar-extras">
   <button type="button" {{on "click" this.toggleSettings}} title="Settings"><SvgIcon @name="sliders" /></button>
