@@ -11,7 +11,9 @@
   }
 
   > .middle {
-    margin: 12px;
+    padding: 0 12px;
+    max-height: 60vh;
+    overflow-y: auto;
   }
 
   > .bottom {

@@ -1,0 +1,12 @@
+<div local-class="subscriptions-summary">
+  <h3>Current List</h3>
+
+  {{#each this.subscriptionsSorted as |subscription|}}
+    <div local-class="subscription">
+      <img src={{subscription.channel.thumbnail}} alt={{subscription.channel.title}}>
+      <div local-class="detail">
+        <a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{subscription.channel.apiId}}">{{subscription.channel.title}}</a>
+      </div>
+    </div>
+  {{/each}}
+</div>

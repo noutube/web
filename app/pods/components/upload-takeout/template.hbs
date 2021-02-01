@@ -1,0 +1,35 @@
+<div local-class="upload-takeout">
+  <h3>Update</h3>
+
+  {{#if this.inFlight}}
+    <div local-class="row">
+      Uploading...
+    </div>
+  {{else if this.succeeded}}
+    <div local-class="row">
+      Done!
+    </div>
+  {{else}}
+    {{#if this.failed}}
+      <div local-class="row">
+        Failed! Please try again.
+      </div>
+    {{/if}}
+
+    <div local-class="row">
+      You will need to log in and make a <a href="https://takeout.google.com" target="_blank" rel="noopener noreferrer">Google Takeout</a>.
+    </div>
+
+    <div local-class="row">
+      Deselect everything besides "YouTube and YouTube Music" &gt; "subscriptions".
+    </div>
+
+    <div local-class="row">
+      Download the zip file, then upload the "subscriptions.json" file it contains.
+    </div>
+
+    <div local-class="row">
+      <input type="file" {{on "change" this.selectFile}}>
+    </div>
+  {{/if}}
+</div>

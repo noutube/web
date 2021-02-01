@@ -1,0 +1,20 @@
+.subscriptions-summary {
+  > h3 {
+    margin: 12px 0;
+  }
+
+  > .subscription {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+
+    > img {
+      width: 22px;
+      height: 22px;
+    }
+
+    > .detail {
+      margin-left: 8px;
+    }
+  }
+}
