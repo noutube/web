@@ -1,10 +1,6 @@
-import { action } from '@ember/object';
 import Service from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-
-import config from 'nou2ube/config/environment';
-const { sizes, themes } = config;
 
 export default class SettingsService extends Service {
   @storageFor('settings') storage;
@@ -24,13 +20,6 @@ export default class SettingsService extends Service {
 
   get sizeWidth() {
     return this.size * 16 / 9;
-  }
-
-  @action
-  switchSize() {
-    let currentSizeIndex = sizes.indexOf(this.size);
-    let newSizeIndex = (currentSizeIndex + 1) % sizes.length;
-    this.size = sizes[newSizeIndex];
   }
 
   // sorting
@@ -75,6 +64,7 @@ export default class SettingsService extends Service {
   }
   set theme(theme) {
     this.storage.set('theme', theme);
+    this.applyTheme();
   }
 
   applyTheme() {
@@ -90,11 +80,21 @@ export default class SettingsService extends Service {
     }
   }
 
-  @action
-  switchTheme() {
-    let currentThemeIndex = themes.indexOf(this.theme);
-    let newThemeIndex = (currentThemeIndex + 1) % themes.length;
-    this.theme = themes[newThemeIndex];
-    this.applyTheme();
+  // autoplay
+
+  get autoplay() {
+    return this.storage.get('autoplay');
+  }
+  set autoplay(autoplay) {
+    this.storage.set('autoplay', autoplay);
+  }
+
+  // speed
+
+  get speed() {
+    return this.storage.get('speed');
+  }
+  set speed(speed) {
+    this.storage.set('speed', speed);
   }
 }

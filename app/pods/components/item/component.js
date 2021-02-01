@@ -8,6 +8,10 @@ export default class ItemComponent extends Component {
 
   @tracked embed = false;
 
+  get showEmbed() {
+    return this.embed || this.args.autoplay;
+  }
+
   get formattedDuration() {
     let { duration } = this.args.item.video;
     let result = `${(`00${Math.floor(duration / 60) % 60}`).slice(-2)}:${(`00${duration % 60}`).slice(-2)}`;
@@ -19,7 +23,8 @@ export default class ItemComponent extends Component {
 
   @action
   toggleEmbed() {
-    this.embed = !this.embed;
+    this.embed = !this.showEmbed;
+    this.args.onEmbedToggled();
   }
 
   @action
@@ -30,5 +35,13 @@ export default class ItemComponent extends Component {
   @action
   markDeleted() {
     this.args.item.markDeleted();
+  }
+
+  @action
+  embedEnded() {
+    if (this.settings.autoplay) {
+      this.embed = false;
+      this.args.onEmbedEnded();
+    }
   }
 }

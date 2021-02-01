@@ -32,11 +32,11 @@ export default class RouteFeedComponent extends Component {
     return this.newItems.length > 0 ? `(${this.newItems.length})` : '';
   }
 
-  @tracked showSorting = false;
+  @tracked showSettings = false;
 
   @action
-  toggleSorting() {
-    this.showSorting = !this.showSorting;
+  toggleSettings() {
+    this.showSettings = !this.showSettings;
   }
 
   @tracked showSubscriptions = false;

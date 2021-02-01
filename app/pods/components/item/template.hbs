@@ -18,9 +18,9 @@
         {{/if}}
       </div>
     </div>
-    {{#if this.embed}}
+    {{#if this.showEmbed}}
       <div local-class="embed-frame">
-        <iframe title="{{@item.video.title}} - YouTube" width={{this.settings.sizeWidth}} height={{this.settings.sizeHeight}} src="https://www.youtube.com/embed/{{@item.video.apiId}}?version=3&amp;rel=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
+        <EmberYoutube @ytid={{@item.video.apiId}} @width={{this.settings.sizeWidth}} @height={{this.settings.sizeHeight}} @speed={{this.settings.speed}} @playerVars={{hash autoplay=1 rel=0}} @ended={{this.embedEnded}} />
       </div>
     {{/if}}
   </Swipeable>

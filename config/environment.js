@@ -25,7 +25,12 @@ module.exports = function(environment) {
 
     backendOrigin: 'http://localhost:9292',
 
-    themes: ['light', 'dark', 'gruvbox-light', 'gruvbox-dark'],
+    themes: [
+      { value: 'light', label: 'Solarized Light' },
+      { value: 'dark', label: 'Solarized Dark' },
+      { value: 'gruvbox-light', label: 'Gruvbox Light' },
+      { value: 'gruvbox-dark', label: 'Gruvbox Dark' }
+    ],
     sizes: [360, 480, 720, 1080],
     videoKeys: [
       { value: 'age', label: 'age' },
@@ -41,7 +46,10 @@ module.exports = function(environment) {
       { value: 'asc', label: 'ascending' },
       { value: 'desc', label: 'descending' }
     ],
-    defaultChannelGroup: true
+    defaultChannelGroup: true,
+    defaultAutoplay: false,
+    speeds: [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+    defaultSpeed: 1
   };
 
   if (environment === 'development') {

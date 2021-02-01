@@ -2,12 +2,14 @@ import StorageObject from 'ember-local-storage/local/object';
 
 import config from 'nou2ube/config/environment';
 const {
-  themes: [defaultTheme],
+  themes: [{ value: defaultTheme }],
   sizes: [defaultSize],
   videoKeys: [{ value: defaultVideoKey }],
   channelKeys: [{ value: defaultChannelKey }],
   dirs: [{ value: defaultDir }],
-  defaultChannelGroup
+  defaultChannelGroup,
+  defaultAutoplay,
+  defaultSpeed
 } = config;
 
 export default class SettingsStorage extends StorageObject {
@@ -19,7 +21,9 @@ export default class SettingsStorage extends StorageObject {
       videoDir: defaultDir,
       channelKey: defaultChannelKey,
       channelDir: defaultDir,
-      channelGroup: defaultChannelGroup
+      channelGroup: defaultChannelGroup,
+      autoplay: defaultAutoplay,
+      speed: defaultSpeed
     };
   }
 }

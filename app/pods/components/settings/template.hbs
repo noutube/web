@@ -1,4 +1,15 @@
-<div local-class="sorting-settings">
+<div local-class="settings">
+  <div local-class="row">
+    Theme
+    <XSelect @value={{this.settings.theme}} @onChange={{fn (mut this.settings.theme)}} as |xs|>
+      {{#each this.themes as |theme|}}
+        <xs.option @value={{theme.value}}>{{theme.label}}</xs.option>
+      {{/each}}
+    </XSelect>
+  </div>
+
+  <h3>Sorting</h3>
+
   <div local-class="row">
     Sort videos by
     <XSelect @value={{this.settings.videoKey}} @onChange={{fn (mut this.settings.videoKey)}} as |xs|>
@@ -32,5 +43,32 @@
         <xs.option @value={{dir.value}}>{{dir.label}}</xs.option>
       {{/each}}
     </XSelect>
+  </div>
+
+  <h3>Playback</h3>
+
+  <div local-class="row">
+    Resolution
+    <XSelect @value={{this.settings.size}} @onChange={{fn (mut this.settings.size)}} as |xs|>
+      {{#each this.sizes as |size|}}
+        <xs.option @value={{size}}>{{size}}p</xs.option>
+      {{/each}}
+    </XSelect>
+  </div>
+
+  <div local-class="row">
+    Speed
+    <XSelect @value={{this.settings.speed}} @onChange={{fn (mut this.settings.speed)}} as |xs|>
+      {{#each this.speeds as |speed|}}
+        <xs.option @value={{speed}}>{{speed}}x</xs.option>
+      {{/each}}
+    </XSelect>
+  </div>
+
+  <div local-class="row">
+    <label>
+      <Input @type="checkbox" @checked={{this.settings.autoplay}} />
+      Autoplay next video in group
+    </label>
   </div>
 </div>

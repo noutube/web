@@ -1,15 +1,14 @@
 {{!-- can't override parent's separator, have to just replace whole title --}}
-{{title this.titleNotification " NoUTube" replace=true}}
+{{page-title this.titleNotification " NoUTube" replace=true}}
 
 <PortalContent @for="menu-bar-extras">
-  <button type="button" {{on "click" this.toggleSorting}} title="Sorting settings"><SvgIcon @name="sliders" /></button>
-  <button type="button" {{on "click" this.settings.switchSize}} title="Switch player size"><SvgIcon @name="maximize" /></button>
+  <button type="button" {{on "click" this.toggleSettings}} title="Settings"><SvgIcon @name="sliders" /></button>
   <button type="button" {{on "click" this.toggleSubscriptions}} title="Subscriptions"><SvgIcon @name="list" /></button>
 </PortalContent>
 
-{{#if this.showSorting}}
-  <Dialog @title="Sorting Settings" @close={{this.toggleSorting}}>
-    <SortingSettings />
+{{#if this.showSettings}}
+  <Dialog @title="Settings" @close={{this.toggleSettings}}>
+    <Settings />
   </Dialog>
 {{/if}}
 
