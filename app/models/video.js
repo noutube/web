@@ -13,4 +13,8 @@ export default class VideoModel extends Model {
 
   @belongsTo('channel') channel;
   @hasMany('items') items;
+
+  get showAt() {
+    return this.scheduledAt || this.publishedAt;
+  }
 }
