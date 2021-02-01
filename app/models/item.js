@@ -15,7 +15,7 @@ export default class ItemModel extends Model {
   }
 
   get age() {
-    return Date.now() - this.video.publishedAt.getTime();
+    return Date.now() - this.video.showAt.getTime();
   }
 
   get sortableTitle() {
