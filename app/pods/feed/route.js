@@ -14,7 +14,9 @@ export default class FeedRoute extends Route {
   #reconnecting = false;
 
   get cableAddress() {
-    return `${config.backendOrigin.replace(/^http/, 'ws')}/cable/?user_email=${this.session.me.email}&user_token=${this.session.me.authenticationToken}`;
+    return `${config.backendOrigin.replace(/^http/, 'ws')}/cable/?user_email=${
+      this.session.me.email
+    }&user_token=${this.session.me.authenticationToken}`;
   }
 
   async beforeModel(transition) {
@@ -83,7 +85,7 @@ export default class FeedRoute extends Route {
 
   deactivate() {
     if (this.#consumer) {
-      this.#consumer.destroy();
+      this.#consumer.disconnect();
       this.#consumer = null;
       this.#feed.unsubscribe();
       this.#feed = null;

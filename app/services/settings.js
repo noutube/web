@@ -19,7 +19,7 @@ export default class SettingsService extends Service {
   }
 
   get sizeWidth() {
-    return this.size * 16 / 9;
+    return this.size * (16 / 9);
   }
 
   // sorting

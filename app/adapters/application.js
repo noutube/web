@@ -11,10 +11,10 @@ export default class ApplicationAdapter extends JSONAPIAdapter {
 
   get headers() {
     return {
-      ...this.session.me && {
+      ...(this.session.me && {
         'X-User-Email': this.session.me.email,
         'X-User-Token': this.session.me.authenticationToken
-      }
+      })
     };
   }
 }

@@ -75,7 +75,9 @@ export default class SessionService extends Service {
     if (event.data.name === 'login') {
       this.closePopup();
       try {
-        let response = await fetch(`${config.backendOrigin}/auth/sign_in?code=${event.data.data.code}`);
+        let response = await fetch(
+          `${config.backendOrigin}/auth/sign_in?code=${event.data.data.code}`
+        );
         let payload = await response.json();
         this.pushMe(payload);
         console.debug('[session] signed in');

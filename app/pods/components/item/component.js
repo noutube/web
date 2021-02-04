@@ -14,7 +14,9 @@ export default class ItemComponent extends Component {
 
   get formattedDuration() {
     let { duration } = this.args.item.video;
-    let result = `${(`00${Math.floor(duration / 60) % 60}`).slice(-2)}:${(`00${duration % 60}`).slice(-2)}`;
+    let result = `${`00${Math.floor(duration / 60) % 60}`.slice(-2)}:${`00${
+      duration % 60
+    }`.slice(-2)}`;
     if (duration >= 60 * 60) {
       result = `${Math.floor(duration / 60 / 60)}:${result}`;
     }

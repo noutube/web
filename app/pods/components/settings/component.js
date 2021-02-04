@@ -3,14 +3,7 @@ import { inject as service } from '@ember/service';
 
 import config from 'nou2ube/config/environment';
 
-const {
-  themes,
-  sizes,
-  videoKeys,
-  channelKeys,
-  dirs,
-  speeds
-} = config;
+const { themes, sizes, videoKeys, channelKeys, dirs, speeds } = config;
 
 export default class SettingsComponent extends Component {
   @service settings;

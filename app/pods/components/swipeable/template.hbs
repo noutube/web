@@ -1,4 +1,4 @@
-<div local-class="swipeable {{if this.isSwiping "swiping"}}" {{on "panstart" this.panStart}} {{on "panmove" this.panMove}} {{on "panend" this.panEnd}} {{on "pancancel" this.panCancel}} {{! template-lint-disable no-invalid-interactive }}>
+<div {{recognize-gesture "pan"}} local-class="swipeable {{if this.isSwiping "swiping"}}" {{on "panstart" this.panStart}} {{on "panmove" this.panMove}} {{on "panend" this.panEnd}} {{on "pancancel" this.panCancel}}>
   <div local-class="swipeable-child" style={{this.style}}>
     <div local-class="swipeable-right">
       <SvgIcon @name={{@iconRight}} />

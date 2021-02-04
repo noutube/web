@@ -12,6 +12,8 @@
 /.env*
 /.pnp*
 /.sass-cache
+/.eslintcache
+/.stylelintcache
 /connect.lock
 /coverage/
 /libpeerconnection.log
