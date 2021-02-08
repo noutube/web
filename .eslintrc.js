@@ -28,7 +28,8 @@ module.exports = {
     'keyword-spacing': ['error', { overrides: { catch: { after: true } } }],
     'lines-between-class-members': 'off',
     'padding-line-between-statements': 'off',
-    'import/no-relative-parent-imports': 'off'
+    'import/no-relative-parent-imports': 'off',
+    'ember/use-ember-data-rfc-395-imports': 'off' // need registries for types
   },
   overrides: [
     // node files
@@ -60,6 +61,20 @@ module.exports = {
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'node/no-unpublished-require': 'off'
+      }
+    },
+    // typescript files
+    {
+      files: ['**/*.ts'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        project: './tsconfig.json'
+      },
+      extends: ['plugin:@typescript-eslint/recommended'],
+      rules: {
+        '@typescript-eslint/no-empty-interface': 'off',
+        '@typescript-eslint/no-unused-vars': ['error', { args: 'none' }], // ignore arguments since we can't mark unused with underscores
+        semi: 'off'
       }
     }
   ]
