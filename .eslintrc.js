@@ -10,7 +10,7 @@ module.exports = {
       legacyDecorators: true
     }
   },
-  plugins: ['ember'],
+  plugins: ['ember', 'import'],
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
@@ -20,16 +20,32 @@ module.exports = {
     browser: true
   },
   rules: {
-    'no-unused-vars': ['error', { args: 'none' }], // ignore arguments since we can't mark unused with underscores
-    semi: ['error', 'always'],
-    indent: ['error', 2, { SwitchCase: 1 }],
-    camelcase: 'off', // we need camelcase for API interaction
-    'no-console': 'off', // see https://github.com/emberjs/rfcs/pull/176#issuecomment-272566327
-    'keyword-spacing': ['error', { overrides: { catch: { after: true } } }],
-    'lines-between-class-members': 'off',
-    'padding-line-between-statements': 'off',
-    'import/no-relative-parent-imports': 'off',
-    'ember/use-ember-data-rfc-395-imports': 'off' // need registries for types
+    'import/order': [
+      'error',
+      {
+        // parent is abused to mean parts of ember
+        groups: ['parent', 'external', 'internal'],
+        pathGroupsExcludedImportTypes: [],
+        pathGroups: [
+          {
+            group: 'parent',
+            pattern: '{@ember-data,@ember,@glimmer,ember-data}/**'
+          },
+          {
+            group: 'parent',
+            pattern: '{handlebars,rsvp}'
+          },
+          {
+            group: 'internal',
+            pattern: 'nou2ube/**'
+          }
+        ],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc'
+        }
+      }
+    ]
   },
   overrides: [
     // node files
@@ -73,8 +89,10 @@ module.exports = {
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
         '@typescript-eslint/no-empty-interface': 'off',
-        '@typescript-eslint/no-unused-vars': ['error', { args: 'none' }], // ignore arguments since we can't mark unused with underscores
-        semi: 'off'
+        '@typescript-eslint/no-unused-vars': ['error', { args: 'none' }], // ignore arguments
+        'ember/use-ember-data-rfc-395-imports': 'off', // need registries for types
+        'prefer-rest-params': 'off', // need super(...arguments)
+        semi: 'off' // broken, prettier does it anyway
       }
     }
   ]

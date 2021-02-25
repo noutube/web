@@ -1,6 +1,6 @@
 import ArrayProxy from '@ember/array';
-import Route from '@ember/routing/route';
 import Transition from '@ember/routing/-private/transition';
+import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import ModelRegistry from 'ember-data/types/registries/model';
 import { hash } from 'rsvp';

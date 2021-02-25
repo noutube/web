@@ -1,5 +1,5 @@
-import EmberArray from '@ember/array';
 import Model, { attr, hasMany } from '@ember-data/model';
+import EmberArray from '@ember/array';
 
 import SubscriptionModel from 'nou2ube/models/subscription';
 import VideoModel from 'nou2ube/models/video';

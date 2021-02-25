@@ -1,7 +1,7 @@
+import Store from '@ember-data/store';
 import { action } from '@ember/object';
 import RouterService from '@ember/routing/router-service';
 import Service, { inject as service } from '@ember/service';
-import Store from '@ember-data/store';
 import { tracked } from '@glimmer/tracking';
 
 import config from 'nou2ube/config/environment';

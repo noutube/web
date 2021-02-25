@@ -1,6 +1,7 @@
 import Application from '@ember/application';
-import Resolver from 'ember-resolver';
+
 import loadInitializers from 'ember-load-initializers';
+import Resolver from 'ember-resolver';
 
 import config from 'nou2ube/config/environment';
 
