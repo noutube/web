@@ -1,5 +1,5 @@
-import EmberArray from '@ember/array';
 import Model, { belongsTo, hasMany } from '@ember-data/model';
+import EmberArray from '@ember/array';
 
 import ApplicationAdapter from 'nou2ube/adapters/application';
 import ChannelModel from 'nou2ube/models/channel';
