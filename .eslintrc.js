@@ -88,11 +88,12 @@ module.exports = {
       },
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
-        '@typescript-eslint/no-empty-interface': 'off',
+        '@typescript-eslint/no-empty-interface': [
+          'error',
+          { allowSingleExtends: true }
+        ],
         '@typescript-eslint/no-unused-vars': ['error', { args: 'none' }], // ignore arguments
-        'ember/use-ember-data-rfc-395-imports': 'off', // need registries for types
-        'prefer-rest-params': 'off', // need super(...arguments)
-        semi: 'off' // broken, prettier does it anyway
+        'prefer-rest-params': 'off' // need super(...arguments)
       }
     }
   ]

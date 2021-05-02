@@ -1,7 +1,8 @@
 .bar {
+  @include theme((background: bg-hi));
+
   display: flex;
   align-items: center;
-  @include theme((background: bg-hi));
   padding: 8px;
 
   > img {

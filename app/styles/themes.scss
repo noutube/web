@@ -28,10 +28,8 @@ $gruvbox: (
   dark2:          #504945,
   dark3:          #665c54,
   dark4:          #7c6f64,
-
   gray_245:       #928374,
   gray_244:       #928374,
-
   light0_hard:    #f9f5d7,
   light0:         #fbf1c7,
   light0_soft:    #f2e5bc,
@@ -39,7 +37,6 @@ $gruvbox: (
   light2:         #d5c4a1,
   light3:         #bdae93,
   light4:         #a89984,
-
   bright_red:     #fb4934,
   bright_green:   #b8bb26,
   bright_yellow:  #fabd2f,
@@ -47,7 +44,6 @@ $gruvbox: (
   bright_purple:  #d3869b,
   bright_aqua:    #8ec07c,
   bright_orange:  #fe8019,
-
   neutral_red:    #cc241d,
   neutral_green:  #98971a,
   neutral_yellow: #d79921,
@@ -55,7 +51,6 @@ $gruvbox: (
   neutral_purple: #b16286,
   neutral_aqua:   #689d6a,
   neutral_orange: #d65d0e,
-
   faded_red:      #9d0006,
   faded_green:    #79740e,
   faded_yellow:   #b57614,
@@ -124,6 +119,7 @@ $themes: (
         @if $value == null {
           @error 'could not resolve #{$args} in #{$name} to a value for #{$property}';
         }
+
         #{$property}: $value;
       }
     }

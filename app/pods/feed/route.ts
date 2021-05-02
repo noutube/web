@@ -2,6 +2,7 @@ import ArrayProxy from '@ember/array';
 import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+// eslint-disable-next-line ember/use-ember-data-rfc-395-imports
 import ModelRegistry from 'ember-data/types/registries/model';
 import { hash } from 'rsvp';
 

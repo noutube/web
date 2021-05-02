@@ -1,10 +1,11 @@
 .section-header {
+  @include theme((background: bar, color: bg));
+
   display: flex;
   align-items: center;
   margin: 0;
   padding: 8px 16px;
   min-height: 24px;
-  @include theme((background: bar, color: bg));
   font-size: 125%;
   font-weight: bold;
 

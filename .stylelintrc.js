@@ -10,6 +10,10 @@ module.exports = {
     'max-nesting-depth': null,
     'order/order': null,
     'order/properties-alphabetical-order': null,
-    'selector-max-compound-selectors': null
+    'selector-max-compound-selectors': null,
+    'selector-pseudo-class-no-unknown': [
+      true,
+      { ignorePseudoClasses: ['global'] }
+    ]
   }
 };

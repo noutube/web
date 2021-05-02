@@ -1,8 +1,9 @@
 .menu-bar {
+  @include theme((background: bar, color: bg));
+
   position: absolute;
   top: 0;
   right: 0;
-  @include theme((background: bar, color: bg));
 
   &,
   > .extras-outer > .extras-inner {
@@ -11,8 +12,9 @@
 
     > a,
     > button {
-      padding: 8px;
       @include theme((color: inherit));
+
+      padding: 8px;
     }
   }
 }

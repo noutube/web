@@ -9,10 +9,12 @@
     @function half-alpha($value) {
       @return color.scale($value, $alpha: -50%);
     }
+
     @include theme((background: bg meta.get-function('half-alpha')));
   }
 }
 
+/* stylelint-disable-next-line no-descending-specificity -- confused by :global */
 :global(.ember-modal-wrapper) {
   &:global(.emd-static) {
     &:global(.emd-wrapper-target-attachment-center) {

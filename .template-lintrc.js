@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  extends: ['octane', 'stylistic'],
+  extends: ['recommended', 'stylistic'],
   rules: {
     'no-inline-styles': { allowDynamicStyles: true },
     // stylistic requires editorconfig
