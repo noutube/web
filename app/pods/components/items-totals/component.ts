@@ -1,15 +1,23 @@
-import Component from '@glimmer/component';
+import Component from '@glint/environment-ember-loose/glimmer-component';
 
 import ItemModel from 'nou2ube/models/item';
 
-interface Args {
-  items: ItemModel[];
+interface Signature {
+  Args: {
+    items: ItemModel[];
+  };
 }
 
-export default class ItemsTotals extends Component<Args> {
+export default class ItemsTotalsComponent extends Component<Signature> {
   get totalDuration(): number {
     const videos = this.args.items.map((item) => item.video);
     const durations = videos.map((video) => video.duration);
     return durations.reduce((acc, n) => acc + n, 0);
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    ItemsTotals: typeof ItemsTotalsComponent;
   }
 }

@@ -1,18 +1,20 @@
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import Component from '@glint/environment-ember-loose/glimmer-component';
 
 import ItemModel from 'nou2ube/models/item';
 import SubscriptionModel from 'nou2ube/models/subscription';
 import SettingsService from 'nou2ube/services/settings';
 
-interface Args {
-  items: ItemModel[];
-  subscriptions: SubscriptionModel[];
+interface Signature {
+  Args: {
+    items: ItemModel[];
+    subscriptions: SubscriptionModel[];
+  };
 }
 
-export default class RouteFeedComponent extends Component<Args> {
+export default class RouteFeedComponent extends Component<Signature> {
   @service declare settings: SettingsService;
 
   get newSubscriptions(): SubscriptionModel[] {
@@ -53,5 +55,11 @@ export default class RouteFeedComponent extends Component<Args> {
   @action
   toggleSubscriptions(): void {
     this.showSubscriptions = !this.showSubscriptions;
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    RouteFeed: typeof RouteFeedComponent;
   }
 }

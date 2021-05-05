@@ -1,23 +1,30 @@
 import { action } from '@ember/object';
 import { htmlSafe } from '@ember/template';
-import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import Component from '@glint/environment-ember-loose/glimmer-component';
 import { SafeString } from 'handlebars';
 
 import { Input } from 'hammerjs';
+
+import { IconName } from 'nou2ube/pods/components/svg-icon/component';
 
 interface HammerEvent extends Event {
   gesture: typeof Input;
 }
 
-interface Args {
-  iconLeft: string;
-  iconRight: string;
-  swipeLeft: () => void;
-  swipeRight: () => void;
+interface Signature {
+  Args: {
+    iconLeft: IconName;
+    iconRight: IconName;
+    swipeLeft: () => void;
+    swipeRight: () => void;
+  };
+  Yields: {
+    default: [];
+  };
 }
 
-export default class SwipeableComponent extends Component<Args> {
+export default class SwipeableComponent extends Component<Signature> {
   // configurable properties
   swipeLimit = 50;
 
@@ -74,5 +81,11 @@ export default class SwipeableComponent extends Component<Args> {
     event.stopPropagation();
     this.isSwiping = false;
     this.deltaX = 0;
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Swipeable: typeof SwipeableComponent;
   }
 }

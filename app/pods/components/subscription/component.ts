@@ -1,15 +1,17 @@
 import { action } from '@ember/object';
-import Component from '@glimmer/component';
+import Component from '@glint/environment-ember-loose/glimmer-component';
 
 import ItemModel from 'nou2ube/models/item';
 import SubscriptionModel from 'nou2ube/models/subscription';
 
-interface Args {
-  subscription: SubscriptionModel;
-  state: 'new' | 'later';
+interface Signature {
+  Args: {
+    subscription: SubscriptionModel;
+    state: 'new' | 'later';
+  };
 }
 
-export default class SubscriptionComponent extends Component<Args> {
+export default class SubscriptionComponent extends Component<Signature> {
   get new(): boolean {
     return this.args.state === 'new';
   }
@@ -30,5 +32,11 @@ export default class SubscriptionComponent extends Component<Args> {
   @action
   ignoreAll(): void {
     this.items.invoke('markDeleted');
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Subscription: typeof SubscriptionComponent;
   }
 }

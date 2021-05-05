@@ -29,7 +29,7 @@ module.exports = {
         pathGroups: [
           {
             group: 'parent',
-            pattern: '{@ember-data,@ember,@glimmer,ember-data}/**'
+            pattern: '{@ember-data,@ember,@glimmer,@glint,ember-data}/**'
           },
           {
             group: 'parent',

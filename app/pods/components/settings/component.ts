@@ -1,5 +1,5 @@
 import { inject as service } from '@ember/service';
-import Component from '@glimmer/component';
+import Component from '@glint/environment-ember-loose/glimmer-component';
 
 import config from 'nou2ube/config/environment';
 import SettingsService from 'nou2ube/services/settings';
@@ -15,4 +15,10 @@ export default class SettingsComponent extends Component {
   channelKeys = channelKeys;
   dirs = dirs;
   speeds = speeds;
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Settings: typeof SettingsComponent;
+  }
 }
