@@ -1,6 +1,8 @@
+import Store from '@ember-data/store';
 import ArrayProxy from '@ember/array';
 import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
+import RouterService from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 // eslint-disable-next-line ember/use-ember-data-rfc-395-imports
 import ModelRegistry from 'ember-data/types/registries/model';
@@ -40,7 +42,9 @@ type FeedMessage = FeedCreateMessage | FeedUpdateMessage | FeedDestroyMessage;
 
 export default class FeedRoute extends Route {
   @service declare cable: CableService;
+  @service declare router: RouterService;
   @service declare session: SessionService;
+  @service declare store: Store;
 
   #consumer: Consumer | null = null;
   #feed: Subscription | null = null;
@@ -57,7 +61,7 @@ export default class FeedRoute extends Route {
 
   async beforeModel(transition: Transition): Promise<void> {
     if (!this.session.me && !this.session.down) {
-      this.transitionTo('landing');
+      this.router.transitionTo('landing');
     }
   }
 

@@ -11,8 +11,8 @@ import User from 'nou2ube/models/user';
 const storageKey = 'storage:session';
 
 export default class SessionService extends Service {
-  @service declare store: Store;
   @service declare router: RouterService;
+  @service declare store: Store;
 
   @tracked me: User | null = null;
   @tracked down = false;
