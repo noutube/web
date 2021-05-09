@@ -7,20 +7,34 @@
   align-items: center;
   padding: 0 16px;
 
-  > .embed-button {
+  > .play-button {
     display: flex;
+    position: relative;
 
     > img {
       width: 106px;
       height: 60px;
+    }
+
+    > .play-icon {
+      @function half-alpha($value) {
+        @return color.scale($value, $alpha: -50%);
+      }
+
+      @include theme((background: bg meta.get-function('half-alpha'), color: emph));
+
+      display: flex;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      align-items: center;
+      justify-content: center;
     }
   }
 
   > .detail {
     margin-left: 16px;
   }
-}
-
-.embed-frame {
-  padding: 0 16px;
 }

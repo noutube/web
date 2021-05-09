@@ -1,0 +1,18 @@
+<div local-class="player">
+  {{#if this.player.item}}
+    <div local-class="top">
+      <img src={{this.player.item.subscription.channel.thumbnail}} alt={{this.player.item.subscription.channel.title}}>
+      {{this.player.item.subscription.channel.title}}
+      &mdash;
+      {{this.player.item.video.title}}
+    </div>
+    <EmberYoutube
+      @ended={{this.player.embedEnded}}
+      @height={{this.settings.sizeHeight}}
+      @playerVars={{hash autoplay=1 rel=0}}
+      @speed={{this.settings.speed}}
+      @width={{this.settings.sizeWidth}}
+      @ytid={{this.player.item.video.apiId}}
+    />
+  {{/if}}
+</div>

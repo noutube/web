@@ -1,26 +1,19 @@
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 
 import ItemModel from 'nou2ube/models/item';
+import PlayerService from 'nou2ube/services/player';
 import SettingsService from 'nou2ube/services/settings';
 
 interface Args {
-  autoplay: boolean;
   item: ItemModel;
-  onEmbedEnded: () => void;
-  onEmbedToggled: () => void;
+  play: (item: ItemModel) => void;
 }
 
 export default class ItemComponent extends Component<Args> {
+  @service declare player: PlayerService;
   @service declare settings: SettingsService;
-
-  @tracked embed = false;
-
-  get showEmbed(): boolean {
-    return this.embed || this.args.autoplay;
-  }
 
   get formattedDuration(): string {
     const { duration } = this.args.item.video;
@@ -33,10 +26,8 @@ export default class ItemComponent extends Component<Args> {
     }
   }
 
-  @action
-  toggleEmbed(): void {
-    this.embed = !this.showEmbed;
-    this.args.onEmbedToggled();
+  get playing(): boolean {
+    return this.player.item === this.args.item;
   }
 
   @action
@@ -47,13 +38,5 @@ export default class ItemComponent extends Component<Args> {
   @action
   markDeleted(): void {
     this.args.item.markDeleted();
-  }
-
-  @action
-  embedEnded(): void {
-    if (this.settings.autoplay) {
-      this.embed = false;
-      this.args.onEmbedEnded();
-    }
   }
 }
