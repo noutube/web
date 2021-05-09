@@ -6,15 +6,8 @@
   right: 0;
 
   &,
-  > .extras-outer > .extras-inner {
+  > .extras {
     display: flex;
     align-items: center;
-
-    > a,
-    > button {
-      @include theme((color: inherit));
-
-      padding: 8px;
-    }
   }
 }

@@ -1155,6 +1155,14 @@
     ember-cli-babel "^7.22.1"
     ember-compatibility-helpers "^1.1.1"
 
+"@ember/render-modifiers@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@ember/render-modifiers/-/render-modifiers-1.0.2.tgz#2e87c48db49d922ce4850d707215caaac60d8444"
+  integrity sha512-6tEnHl5+62NTSAG2mwhGMFPhUrJQjoVqV+slsn+rlTknm2Zik+iwxBQEbwaiQOU1FUYxkS8RWcieovRNMR8inQ==
+  dependencies:
+    ember-cli-babel "^7.10.0"
+    ember-modifier-manager-polyfill "^1.1.0"
+
 "@ember/string@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@ember/string/-/string-1.0.0.tgz#3a2254caedacb95e09071204d36cad49e0f8b855"
@@ -5985,7 +5993,7 @@ ember-modal-dialog@^3.0.0-beta.0:
     ember-ignore-children-helper "^1.0.1"
     ember-wormhole "^0.5.5"
 
-ember-modifier-manager-polyfill@^1.2.0:
+ember-modifier-manager-polyfill@^1.1.0, ember-modifier-manager-polyfill@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ember-modifier-manager-polyfill/-/ember-modifier-manager-polyfill-1.2.0.tgz#cf4444e11a42ac84f5c8badd85e635df57565dda"
   integrity sha512-bnaKF1LLKMkBNeDoetvIJ4vhwRPKIIumWr6dbVuW6W6p4QV8ZiO+GdF8J7mxDNlog9CeL9Z/7wam4YS86G8BYA==
@@ -6021,14 +6029,6 @@ ember-page-title@^6.2.1:
   integrity sha512-cfBDuP14KBJCdz/AeBQJFGnJbUHd2gmenG+i0ilR2kYX0G0zHAsseFZFuTNVZDNiQ8BnMdrdjRnfjx9Vdi/dag==
   dependencies:
     ember-cli-babel "^7.22.1"
-
-ember-portal@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/ember-portal/-/ember-portal-0.2.0.tgz#4a2ef24b37b0bd0501517c6c4a2125893e2105b2"
-  integrity sha512-hvn941DRoM5PNfBFJ20OFISQiEvVqxLK0qiyc/JM83HDD2Msn7imRvgSddluNZQmqcyDNeSn+UQQdjiMdG5L0A==
-  dependencies:
-    ember-cli-babel "^6.6.0"
-    ember-wormhole "^0.5.1"
 
 ember-qunit@^5.1.4:
   version "5.1.4"
@@ -6152,7 +6152,7 @@ ember-truth-helpers@^3.0.0:
   dependencies:
     ember-cli-babel "^7.22.1"
 
-ember-wormhole@^0.5.1, ember-wormhole@^0.5.5:
+ember-wormhole@^0.5.5:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/ember-wormhole/-/ember-wormhole-0.5.5.tgz#db417ff748cb21e574cd5f233889897bc27096cb"
   integrity sha512-z8l3gpoKmRA2BnTwvnYRk4jKVcETKHpddsD6kpS+EJ4EfyugadFS3zUqBmRDuJhFbNP8BVBLXlbbATj+Rk1Kgg==

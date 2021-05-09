@@ -1,11 +1,11 @@
 <div local-class="menu-bar">
-  <PortalFor @name="menu-bar-extras" @class={{local-class "extras-outer"}} @portal-class={{local-class "extras-inner"}} />
+  <div local-class="extras" {{did-insert this.setExtras}} {{will-destroy this.clearExtras}}></div>
   {{#if this.session.me}}
     {{#unless this.isOnFeed}}
-      <LinkTo @route="feed" title="Go to feed"><SvgIcon @name="inbox" /></LinkTo>
+      <MenuBar::Button @onClick={{this.goToFeed}} @title="Go to feed" @icon="inbox" />
     {{/unless}}
-    <button type="button" {{on "click" this.session.signOut}} title="Sign out {{this.session.me.email}}"><SvgIcon @name="log-out" /></button>
+    <MenuBar::Button @onClick={{this.session.signOut}} @title="Sign out {{this.session.me.email}}" @icon="log-out" />
   {{else}}
-    <button type="button" {{on "click" this.session.signIn}} title="Sign in"><SvgIcon @name="log-in" /></button>
+    <MenuBar::Button @onClick={{this.session.signIn}} @title="Sign In" @icon="log-in" />
   {{/if}}
 </div>

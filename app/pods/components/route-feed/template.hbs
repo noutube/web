@@ -1,10 +1,10 @@
 {{!-- can't override parent's separator, have to just replace whole title --}}
 {{page-title this.titleNotification " NoUTube" replace=true}}
 
-<PortalContent @for="menu-bar-extras">
-  <button type="button" {{on "click" this.toggleSettings}} title="Settings"><SvgIcon @name="sliders" /></button>
-  <button type="button" {{on "click" this.toggleSubscriptions}} title="Subscriptions"><SvgIcon @name="list" /></button>
-</PortalContent>
+<MenuBar::Extras>
+  <MenuBar::Button @onClick={{this.toggleSettings}} @title="Settings" @icon="sliders" />
+  <MenuBar::Button @onClick={{this.toggleSubscriptions}} @title="Subscriptions" @icon="list" />
+</MenuBar::Extras>
 
 {{#if this.showSettings}}
   <Dialog @title="Settings" @close={{this.toggleSettings}}>
