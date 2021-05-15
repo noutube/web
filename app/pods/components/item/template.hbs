@@ -1,7 +1,14 @@
 <div local-class="item">
   <Swipeable @swipeLeft={{this.markDeleted}} @swipeRight={{if @item.new this.markLater this.markDeleted}} @iconLeft="trash" @iconRight={{if @item.new "bookmark" "trash"}}>
     <div local-class="bar">
-      <button local-class="embed-button" type="button" {{on "click" this.toggleEmbed}}><img src={{@item.video.thumbnail}} alt={{@item.video.title}}></button>
+      <button local-class="play-button" type="button" {{on "click" (if this.playing this.player.stop @play)}}>
+        <img src={{@item.video.thumbnail}} alt={{@item.video.title}}>
+        {{#if this.playing}}
+          <div local-class="play-icon">
+            <SvgIcon @name="play" @size={{48}} />
+          </div>
+        {{/if}}
+      </button>
       <div local-class="detail">
         <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/watch?v={{@item.video.apiId}}">{{@item.video.title}}</a></p>
         <p>
@@ -26,17 +33,18 @@
             by <a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{@item.subscription.channel.apiId}}">{{@item.subscription.channel.title}}</a>
           {{/unless}}
         </p>
-        {{#if @item.new}}
-          <p><button type="button" {{on "click" this.markLater}}>Watch Later</button> &middot; <button type="button" {{on "click" this.markDeleted}}>Ignore</button></p>
-        {{else}}
-          <p><button type="button" {{on "click" this.markDeleted}}>Watched</button></p>
-        {{/if}}
+        <p>
+          {{#if @item.new}}
+            <button type="button" {{on "click" this.markLater}}>Watch Later</button>
+            &middot;
+            <button type="button" {{on "click" this.markDeleted}}>Ignore</button>
+          {{else}}
+            <button type="button" {{on "click" this.markDeleted}}>Watched</button>
+          {{/if}}
+          &middot;
+          <button type="button" {{on "click" (if this.playing this.player.stop @play)}}>{{if this.playing "Stop" "Play"}}</button>
+        </p>
       </div>
     </div>
-    {{#if this.showEmbed}}
-      <div local-class="embed-frame">
-        <EmberYoutube @ytid={{@item.video.apiId}} @width={{this.settings.sizeWidth}} @height={{this.settings.sizeHeight}} @speed={{this.settings.speed}} @playerVars={{hash autoplay=1 rel=0}} @ended={{this.embedEnded}} />
-      </div>
-    {{/if}}
   </Swipeable>
 </div>

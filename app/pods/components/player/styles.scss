@@ -1,0 +1,30 @@
+.player {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+
+  > .top {
+    @include theme((background: bar, color: bg));
+
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 8px;
+    padding: 8px;
+    font-weight: bold;
+
+    > img {
+      margin-right: 8px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  > :global(.EmberYoutube) {
+    @include theme((background: bg));
+
+    > iframe {
+      display: block;
+    }
+  }
+}

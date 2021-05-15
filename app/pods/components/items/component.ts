@@ -1,9 +1,9 @@
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 
 import ItemModel from 'nou2ube/models/item';
+import PlayerService from 'nou2ube/services/player';
 import SettingsService from 'nou2ube/services/settings';
 
 interface Args {
@@ -11,9 +11,8 @@ interface Args {
 }
 
 export default class ItemsComponent extends Component<Args> {
+  @service declare player: PlayerService;
   @service declare settings: SettingsService;
-
-  @tracked autoplayId: string | null = null;
 
   get itemsSorted(): ItemModel[] {
     const { videoKey, videoDir } = this.settings;
@@ -26,13 +25,19 @@ export default class ItemsComponent extends Component<Args> {
   }
 
   @action
-  embedEnded(item: ItemModel): void {
-    const items = this.itemsSorted;
-    this.autoplayId = items[items.indexOf(item) + 1]?.id;
+  play(item: ItemModel): void {
+    this.player.item = item;
+    this.player.onPlayEnded = this.playEnded;
   }
 
   @action
-  embedToggled(): void {
-    this.autoplayId = null;
+  playEnded(item: ItemModel): ItemModel | null {
+    const items = this.itemsSorted;
+    const next = items.indexOf(item) + 1;
+    if (next > 0 && next < items.length) {
+      return items[next];
+    } else {
+      return null;
+    }
   }
 }

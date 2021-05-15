@@ -1,3 +1,3 @@
 {{#each this.itemsSorted as |item|}}
-  <Item @item={{item}} @autoplay={{eq item.id this.autoplayId}} @onEmbedEnded={{fn this.embedEnded item}} @onEmbedToggled={{this.embedToggled}} />
+  <Item @item={{item}} @play={{fn this.play item}} />
 {{/each}}
