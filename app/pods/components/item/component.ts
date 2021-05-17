@@ -31,12 +31,15 @@ export default class ItemComponent extends Component<Args> {
   }
 
   @action
-  markLater(): void {
-    this.args.item.markLater();
+  async markLater(): Promise<void> {
+    await this.args.item.markLater();
   }
 
   @action
-  markDeleted(): void {
-    this.args.item.markDeleted();
+  async markDeleted(): Promise<void> {
+    if (this.playing) {
+      this.player.stop();
+    }
+    await this.args.item.markDeleted();
   }
 }

@@ -35,14 +35,31 @@
         </p>
         <p>
           {{#if @item.new}}
-            <button type="button" {{on "click" this.markLater}}>Watch Later</button>
+            <button type="button" {{on "click" this.markLater}}>
+              <SvgIcon @name="bookmark" @size={{16}} />
+              Watch Later
+            </button>
             &middot;
-            <button type="button" {{on "click" this.markDeleted}}>Ignore</button>
+            <button type="button" {{on "click" this.markDeleted}}>
+              <SvgIcon @name="trash" @size={{16}} />
+              Ignore
+            </button>
           {{else}}
-            <button type="button" {{on "click" this.markDeleted}}>Watched</button>
+            <button type="button" {{on "click" this.markDeleted}}>
+              <SvgIcon @name="trash" @size={{16}} />
+              Watched
+            </button>
           {{/if}}
           &middot;
-          <button type="button" {{on "click" (if this.playing this.player.stop @play)}}>{{if this.playing "Stop" "Play"}}</button>
+          <button type="button" {{on "click" (if this.playing this.player.stop @play)}}>
+            {{#if this.playing}}
+              <SvgIcon @name="square" @size={{16}} />
+              Stop
+            {{else}}
+              <SvgIcon @name="play" @size={{16}} />
+              Play
+            {{/if}}
+          </button>
         </p>
       </div>
     </div>

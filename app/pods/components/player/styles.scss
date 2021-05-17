@@ -17,6 +17,14 @@
       width: 24px;
       height: 24px;
     }
+
+    > .spacer {
+      flex-grow: 1;
+    }
+
+    > button {
+      @include theme((color: inherit));
+    }
   }
 
   /* stylelint-disable-next-line selector-class-pattern */
