@@ -2,10 +2,11 @@
   {{#if this.player.item}}
     <div local-class="top">
       <img src={{this.player.item.subscription.channel.thumbnail}} alt={{this.player.item.subscription.channel.title}}>
-      {{this.player.item.subscription.channel.title}}
-      &mdash;
-      {{this.player.item.video.title}}
-      <div local-class="spacer"></div>
+      <span local-class="title">
+        {{this.player.item.subscription.channel.title}}
+        &mdash;
+        {{this.player.item.video.title}}
+      </span>
       <button local-class="menu-bar-button" type="button" {{on "click" this.player.stop}}>
         <SvgIcon @name="x" />
       </button>

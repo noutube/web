@@ -6,11 +6,13 @@
   > .top {
     @include theme((background: bar, color: bg));
 
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     border-top-left-radius: 8px;
     padding: 8px;
-    font-weight: bold;
+    width: 0;
+    min-width: 100%;
 
     > img {
       margin-right: 8px;
@@ -18,12 +20,18 @@
       height: 24px;
     }
 
-    > .spacer {
+    > .title {
       flex-grow: 1;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: bold;
     }
 
     > button {
       @include theme((color: inherit));
+
+      margin-left: 8px;
     }
   }
 
