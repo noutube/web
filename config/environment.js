@@ -32,7 +32,7 @@ module.exports = function (environment) {
       { value: 'gruvbox-light', label: 'Gruvbox Light' },
       { value: 'gruvbox-dark', label: 'Gruvbox Dark' }
     ],
-    sizes: [360, 480, 720, 1080],
+    sizes: [360, 480, 720, 1080, 0],
     videoKeys: [
       { value: 'age', label: 'age' },
       { value: 'sortableTitle', label: 'title' },

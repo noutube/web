@@ -1,15 +1,15 @@
-<div local-class="player">
-  {{#if this.player.item}}
+{{#if this.player.item}}
+  <div local-class="player {{unless this.settings.size "auto"}}">
     <div local-class="top">
+      <button local-class="menu-bar-button" type="button" {{on "click" this.player.stop}}>
+        <SvgIcon @name="x" />
+      </button>
       <img src={{this.player.item.subscription.channel.thumbnail}} alt={{this.player.item.subscription.channel.title}}>
       <span local-class="title">
         {{this.player.item.subscription.channel.title}}
         &mdash;
         {{this.player.item.video.title}}
       </span>
-      <button local-class="menu-bar-button" type="button" {{on "click" this.player.stop}}>
-        <SvgIcon @name="x" />
-      </button>
     </div>
     <EmberYoutube
       @ended={{this.player.embedEnded}}
@@ -19,5 +19,5 @@
       @width={{this.settings.sizeWidth}}
       @ytid={{this.player.item.video.apiId}}
     />
-  {{/if}}
-</div>
+  </div>
+{{/if}}
