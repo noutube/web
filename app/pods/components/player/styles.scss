@@ -50,7 +50,8 @@
   }
 
   &.auto {
-    width: 100vw;
+    // tweaked from https://stackoverflow.com/a/20593342/3453300
+    width: 100%;
     max-width: 16 / 9 * 100vh;
     height: 9 / 16 * 100vw;
     max-height: 100vh;
