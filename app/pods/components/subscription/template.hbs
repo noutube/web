@@ -4,11 +4,24 @@
     <div local-class="detail">
       <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{@subscription.channel.apiId}}">{{@subscription.channel.title}}</a></p>
       <ItemsTotals @items={{this.items}} />
-      {{#if (eq @state "new")}}
-        <p><button type="button" {{on "click" this.markAllLater}}>Watch All Later</button> &middot; <button type="button" {{on "click" this.ignoreAll}}>Ignore All</button></p>
-      {{else}}
-        <p><button type="button" {{on "click" this.ignoreAll}}>Watched All</button></p>
-      {{/if}}
+      <p>
+        {{#if (eq @state "new")}}
+          <button type="button" {{on "click" this.markAllLater}}>
+            <SvgIcon @name="bookmark" @size={{16}} />
+            Watch All Later
+          </button>
+          &middot;
+          <button type="button" {{on "click" this.ignoreAll}}>
+            <SvgIcon @name="trash" @size={{16}} />
+            Ignore All
+          </button>
+        {{else}}
+          <button type="button" {{on "click" this.ignoreAll}}>
+            <SvgIcon @name="trash" @size={{16}} />
+            Watched All
+          </button>
+        {{/if}}
+      </p>
     </div>
   </div>
   <Items @items={{this.items}} />
