@@ -51,13 +51,7 @@
     Resolution
     <XSelect @value={{this.settings.size}} @onChange={{fn (mut this.settings.size)}} as |xs|>
       {{#each this.sizes as |size|}}
-        <xs.option @value={{size}}>
-          {{#if size}}
-            {{size}}p
-          {{else}}
-            Auto
-          {{/if}}
-        </xs.option>
+        <xs.option @value={{size}}>{{size}}p</xs.option>
       {{/each}}
     </XSelect>
   </div>
