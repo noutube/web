@@ -1,16 +1,18 @@
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Component from '@glimmer/component';
+import Component from '@glint/environment-ember-loose/glimmer-component';
 
 import ItemModel from 'nou2ube/models/item';
 import PlayerService from 'nou2ube/services/player';
 import SettingsService from 'nou2ube/services/settings';
 
-interface Args {
-  items: ItemModel[];
+interface Signature {
+  Args: {
+    items: ItemModel[];
+  };
 }
 
-export default class ItemsComponent extends Component<Args> {
+export default class ItemsComponent extends Component<Signature> {
   @service declare player: PlayerService;
   @service declare settings: SettingsService;
 
@@ -39,5 +41,11 @@ export default class ItemsComponent extends Component<Args> {
     } else {
       return null;
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Items: typeof ItemsComponent;
   }
 }

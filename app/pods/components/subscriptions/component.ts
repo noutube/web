@@ -1,15 +1,17 @@
 import { inject as service } from '@ember/service';
-import Component from '@glimmer/component';
+import Component from '@glint/environment-ember-loose/glimmer-component';
 
 import SubscriptionModel from 'nou2ube/models/subscription';
 import SettingsService from 'nou2ube/services/settings';
 
-interface Args {
-  subscriptions: SubscriptionModel[];
-  state: 'new' | 'later';
+interface Signature {
+  Args: {
+    subscriptions: SubscriptionModel[];
+    state: 'new' | 'later';
+  };
 }
 
-export default class SubscriptionsComponent extends Component<Args> {
+export default class SubscriptionsComponent extends Component<Signature> {
   @service declare settings: SettingsService;
 
   get subscriptionsSorted(): SubscriptionModel[] {
@@ -25,5 +27,11 @@ export default class SubscriptionsComponent extends Component<Args> {
       sorted.reverse();
     }
     return sorted;
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Subscriptions: typeof SubscriptionsComponent;
   }
 }
