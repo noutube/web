@@ -101,7 +101,7 @@ $themes: (
 
 @mixin theme($properties, $self: false) {
   @each $name, $theme in $themes {
-    #{selector-self($self, ':global(.theme--#{$name})')} {
+    #{selector-self($self, '.theme--#{$name}')} {
       @each $property, $args in $properties {
         $key: list.nth($args, 1);
         // default to first argument

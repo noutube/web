@@ -52,8 +52,8 @@
   &.auto {
     // tweaked from https://stackoverflow.com/a/20593342/3453300
     width: 100%;
-    max-width: 16 / 9 * 100vh;
-    height: 9 / 16 * 100vw;
+    max-width: math.div(16, 9) * 100vh;
+    height: math.div(9, 16) * 100vw;
     max-height: 100vh;
 
     /* stylelint-disable-next-line selector-class-pattern */
