@@ -1,0 +1,53 @@
+<SectionHeader
+  @backIcon="home"
+  @backRoute="landing"
+  @icon="user-plus"
+>
+  Register
+</SectionHeader>
+
+<div local-class="register">
+  <div local-class="row">
+    <label>
+      Email
+      <Input
+        @type="text"
+        @value={{this.email}}
+        disable={{not-eq this.state "inFlight"}}
+        {{on "input" this.handleEmail}}
+        @enter={{this.register}}
+      />
+    </label>
+  </div>
+
+  <div local-class="row">
+    <label>
+      Password
+      <Input
+        @type="password"
+        @value={{this.password}}
+        disable={{not-eq this.state "inFlight"}}
+        {{on "input" this.handlePassword}}
+        @enter={{this.register}}
+      />
+    </label>
+  </div>
+
+  <div local-class="row">
+    {{#if (eq this.state "inFlight")}}
+      Registering...
+    {{else if (eq this.state "success")}}
+      Registered!
+    {{else if (eq this.state "failure")}}
+      Failed! Please try again.
+    {{else}}
+      <button
+        type="button"
+        disabled={{not this.valid}}
+        {{on "click" this.register}}
+      >
+        Register
+      </button>
+    {{/if}}
+  </div>
+</div>

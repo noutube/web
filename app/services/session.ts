@@ -16,30 +16,26 @@ export default class SessionService extends Service {
 
   @tracked me: User | null = null;
   @tracked down = false;
-  #popup: Window | null = null;
-  #popupInterval?: number;
-  @tracked popupOpen = false;
 
-  constructor() {
-    super(...arguments);
-
-    window.addEventListener('message', this.authMessage);
-  }
-
-  restoreMe(): User | null {
-    const json = window.localStorage.getItem(storageKey);
-    if (!json) {
-      return null;
+  @action
+  async destroyMe(): Promise<void> {
+    if (!this.me) {
+      return;
     }
+
     try {
-      return JSON.parse(json);
-    } catch {
-      return null;
+      this.me.deleteRecord();
+      await this.me.save();
+      console.debug('[session] user destroyed');
+      this.#clear();
+    } catch (error) {
+      console.warn('[session] user destroy failed', error);
+      this.me.rollbackAttributes();
     }
   }
 
   async restore(): Promise<void> {
-    const me = this.restoreMe();
+    const me = this.#restore();
     if (me) {
       try {
         const response = await fetch(`${config.backendOrigin}/auth/restore`, {
@@ -52,87 +48,77 @@ export default class SessionService extends Service {
           throw response.status;
         } else if (response.ok) {
           const payload = await response.json();
-          this.pushMe(payload);
+          this.#push(payload);
           console.debug('[session] restored');
         } else {
           console.warn('[session] restore failed: rejected', response.status);
-          this.clear();
+          this.#clear();
         }
-      } catch (e) {
-        console.warn('[session] restore failed: down', e);
+      } catch (error) {
+        console.warn('[session] restore failed: down', error);
         this.down = true;
       }
     }
   }
 
-  @action
-  signIn(): void {
-    this.closePopup();
-    this.#popup = window.open(`${config.backendOrigin}/auth`);
-    this.#popupInterval = window.setInterval(this.pollPopup, 1000);
-    this.popupOpen = true;
+  async register(email: string, password: string): Promise<void> {
+    // for some reason passing as the initial hash doesn't work
+    const me = this.store.createRecord('user');
+    me.email = email;
+    me.password = password;
+    try {
+      await me.save();
+      this.me = me;
+      this.#persist();
+      console.debug('[session] registered');
+      this.router.transitionTo('feed');
+    } catch (error) {
+      console.warn('[session] register failed', error);
+      throw error;
+    }
   }
 
-  @action
-  async authMessage(event: MessageEvent): Promise<void> {
-    if (event.origin !== config.backendOrigin) {
-      return;
-    }
-
-    if (event.data.name === 'login') {
-      this.closePopup();
-      try {
-        const response = await fetch(
-          `${config.backendOrigin}/auth/sign_in?code=${event.data.data.code}`
-        );
+  async signIn(email: string, password: string): Promise<void> {
+    try {
+      const response = await fetch(`${config.backendOrigin}/auth`, {
+        body: JSON.stringify({ email, password }),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.status > 500) {
+        throw response.status;
+      } else if (response.ok) {
         const payload = await response.json();
-        this.pushMe(payload);
+        this.#push(payload);
         console.debug('[session] signed in');
         this.router.transitionTo('feed');
-      } catch (e) {
-        console.warn('[session] sign in failed', e);
+      } else {
+        throw response.status;
       }
+    } catch (error) {
+      console.warn('[session] sign in failed', error);
+      throw error;
     }
-  }
-
-  pushMe(payload: JSONAPIPayload): void {
-    this.store.pushPayload(payload);
-    this.me = this.store.peekRecord('user', payload.data.id);
-    this.persist();
   }
 
   @action
   signOut(): void {
     console.debug('[session] signed out');
-    this.clear();
+    this.#clear();
   }
 
-  @action
-  async destroyMe(): Promise<void> {
-    if (!this.me) {
-      return;
-    }
-    try {
-      this.me.deleteRecord();
-      await this.me.save();
-      console.debug('[session] user destroyed');
-      this.clear();
-    } catch (e) {
-      console.warn('[session] user destroy failed', e);
-      this.me.rollbackAttributes();
-    }
-  }
-
-  clear(): void {
+  #clear(): void {
     if (this.me) {
       this.me.unloadRecord();
       this.me = null;
     }
-    this.persist();
+    this.#persist();
     this.router.transitionTo('landing');
   }
 
-  persist(): void {
+  #persist(): void {
     if (this.me) {
       const json = JSON.stringify({
         id: this.me.id,
@@ -145,20 +131,21 @@ export default class SessionService extends Service {
     }
   }
 
-  @action
-  pollPopup(): void {
-    if (this.#popup && this.#popup.closed) {
-      this.closePopup();
-    }
+  #push(payload: JSONAPIPayload): void {
+    this.store.pushPayload(payload);
+    this.me = this.store.peekRecord('user', payload.data.id);
+    this.#persist();
   }
 
-  closePopup(): void {
-    if (this.#popup) {
-      this.#popup.close();
-      this.#popup = null;
-      window.clearInterval(this.#popupInterval);
-      this.#popupInterval = undefined;
-      this.popupOpen = false;
+  #restore(): User | null {
+    const json = window.localStorage.getItem(storageKey);
+    if (!json) {
+      return null;
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return null;
     }
   }
 }

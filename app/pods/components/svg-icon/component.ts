@@ -2,7 +2,9 @@ import Component from '@glint/environment-ember-loose/glimmer-component';
 
 export type IconName =
   | 'bookmark'
+  | 'chevron-right'
   | 'gift'
+  | 'home'
   | 'inbox'
   | 'list'
   | 'loader'
@@ -16,6 +18,9 @@ export type IconName =
   | 'sliders'
   | 'square'
   | 'trash'
+  | 'user'
+  | 'user-minus'
+  | 'user-plus'
   | 'x';
 
 interface Signature {
@@ -23,9 +28,14 @@ interface Signature {
     name: IconName;
     size?: number;
   };
+  Element: SVGElement;
 }
 
-export default class SvgIconComponent extends Component<Signature> {}
+export default class SvgIconComponent extends Component<Signature> {
+  get size(): number {
+    return this.args.size ?? 24;
+  }
+}
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {

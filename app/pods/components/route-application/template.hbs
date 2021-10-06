@@ -2,19 +2,13 @@
 
 <MenuBar />
 
+{{yield}}
+
 {{#if this.session.down}}
   <Dialog @title="NoUTube Down">
     <p>Sorry, NoUTube seems to be down, please wait a bit and try again.</p>
   </Dialog>
 {{/if}}
-
-{{#if this.session.popupOpen}}
-  <Dialog @title="Signing In">
-    <p>Please don't close this tab while signing in.</p>
-  </Dialog>
-{{/if}}
-
-{{yield}}
 
 <Footer />
 

@@ -4,15 +4,14 @@ import RouterService from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 
 import SessionService from 'nou2ube/services/session';
-import SettingsService from 'nou2ube/services/settings';
 
-export default class ApplicationRoute extends Route {
+export default class RegisterRoute extends Route {
   @service declare router: RouterService;
   @service declare session: SessionService;
-  @service declare settings: SettingsService;
 
   async beforeModel(transition: Transition): Promise<void> {
-    this.settings.applyTheme();
-    await this.session.restore();
+    if (this.session.me || this.session.down) {
+      this.router.transitionTo('feed');
+    }
   }
 }

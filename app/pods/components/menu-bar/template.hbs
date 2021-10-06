@@ -1,11 +1,3 @@
 <div local-class="menu-bar">
   <div local-class="extras" {{did-insert this.setExtras}} {{will-destroy this.clearExtras}}></div>
-  {{#if this.session.me}}
-    {{#unless this.isOnFeed}}
-      <MenuBar::Button @onClick={{this.goToFeed}} @title="Go to feed" @icon="inbox" />
-    {{/unless}}
-    <MenuBar::Button @onClick={{this.session.signOut}} @title="Sign out {{this.session.me.email}}" @icon="log-out" />
-  {{else}}
-    <MenuBar::Button @onClick={{this.session.signIn}} @title="Sign In" @icon="log-in" />
-  {{/if}}
 </div>

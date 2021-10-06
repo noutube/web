@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import RouterService from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glint/environment-ember-loose/glimmer-component';
@@ -15,7 +16,11 @@ interface Signature {
 }
 
 export default class RouteFeedComponent extends Component<Signature> {
+  @service declare router: RouterService;
   @service declare settings: SettingsService;
+
+  @tracked showSettings = false;
+  @tracked showSubscriptions = false;
 
   get newSubscriptions(): SubscriptionModel[] {
     return this.args.subscriptions.filterBy('hasNew');
@@ -43,14 +48,15 @@ export default class RouteFeedComponent extends Component<Signature> {
     return this.newItems.length > 0 ? `(${this.newItems.length})` : '';
   }
 
-  @tracked showSettings = false;
+  @action
+  goToAccount(): void {
+    this.router.transitionTo('account');
+  }
 
   @action
   toggleSettings(): void {
     this.showSettings = !this.showSettings;
   }
-
-  @tracked showSubscriptions = false;
 
   @action
   toggleSubscriptions(): void {

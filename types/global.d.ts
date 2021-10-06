@@ -7,6 +7,7 @@ import DidInsertModifier from '@gavant/glint-template-types/types/ember-render-m
 import WillDestroyModifier from '@gavant/glint-template-types/types/ember-render-modifiers/will-destroy';
 import EqHelper from '@gavant/glint-template-types/types/ember-truth-helpers/eq';
 import NotHelper from '@gavant/glint-template-types/types/ember-truth-helpers/not';
+import NotEqHelper from '@gavant/glint-template-types/types/ember-truth-helpers/not-eq';
 import { pluralize } from 'ember-inflector';
 import { Recognizer } from 'hammerjs';
 import { TemplateFactory } from 'htmlbars-inline-precompile';
@@ -125,6 +126,7 @@ declare module '@glint/environment-ember-loose/registry' {
     'moment-duration': typeof MomentDurationHelper;
     'moment-from-now': typeof MomentFromNowHelper;
     not: typeof NotHelper;
+    'not-eq': typeof NotEqHelper;
     'page-title': typeof PageTitleHelper;
     pluralize: typeof PluralizeHelper;
     'recognize-gesture': typeof RecognizeGestureModifier;

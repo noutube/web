@@ -1,0 +1,69 @@
+<SectionHeader
+  @backIcon="inbox"
+  @backRoute="feed"
+  @icon="user"
+>
+  Account
+</SectionHeader>
+
+<div local-class="account">
+  <div local-class="row">
+    Signed in as {{this.session.me.email}}
+  </div>
+
+  <div local-class="row">
+    <button type="button" {{on "click" this.session.signOut}}>
+      <SvgIcon @name="log-out" @size={{16}} />
+      Sign Out
+    </button>
+  </div>
+
+  <div local-class="row">
+    <button type="button" {{on "click" this.toggleDestroyMe}}>
+      <SvgIcon @name="user-minus" @size={{16}} />
+      Delete Account
+    </button>
+  </div>
+
+  <h3>Change Password</h3>
+
+  <div local-class="row">
+    <label>
+      New Password
+      <Input
+        @type="password"
+        @value={{this.session.me.password}}
+        disable={{not-eq this.state "inFlight"}}
+        {{on "input" this.handlePassword}}
+        @enter={{this.savePassword}}
+      />
+    </label>
+  </div>
+
+  <div local-class="row">
+    {{#if (eq this.state "inFlight")}}
+      Saving...
+    {{else if (eq this.state "success")}}
+      Saved!
+    {{else if (eq this.state "failure")}}
+      Failed! Please try again.
+    {{else}}
+      <button
+        type="button"
+        disabled={{not this.session.me.password}}
+        {{on "click" this.savePassword}}
+      >
+        Save
+      </button>
+    {{/if}}
+  </div>
+</div>
+
+{{#if this.showDestroyMe}}
+  <Dialog @title="Delete Account" @close={{this.toggleDestroyMe}} @accept={{this.session.destroyMe}}>
+    <div local-class="delete">
+      <p>You are about to permanently delete your account.</p>
+      <p>Are you sure?</p>
+    </div>
+  </Dialog>
+{{/if}}

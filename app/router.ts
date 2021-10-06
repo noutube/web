@@ -8,7 +8,9 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
+  this.route('account');
   this.route('feed');
   this.route('landing');
-  this.route('privacy');
+  this.route('register');
+  this.route('sign-in');
 });

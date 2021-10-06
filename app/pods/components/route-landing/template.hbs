@@ -1,7 +1,20 @@
-<SectionHeader>NoUTube</SectionHeader>
+<MenuBar::Extras>
+  {{#if this.session.me}}
+    <MenuBar::Button @onClick={{this.goToFeed}} @title="Feed" @icon="inbox" />
+  {{else}}
+    <MenuBar::Button @onClick={{this.goToRegister}} @title="Register" @icon="user-plus" />
+    <MenuBar::Button @onClick={{this.goToSignIn}} @title="Sign in" @icon="log-in" />
+  {{/if}}
+</MenuBar::Extras>
+
+<SectionHeader @icon="home">NoUTube</SectionHeader>
 
 <div class="message">
   <p>Basically a site which lets you organise the videos your YouTube subscriptions upload.</p>
   <p>Kind of like the built in "Watch Later" playlist on YouTube, but much nicer to use.</p>
-  <p>You have to <button type="button" {{on "click" this.session.signIn}}>sign in</button> with the Google account you use for YouTube.</p>
+  {{#if this.session.me}}
+    <p>Continue to your <LinkTo @route="feed">feed</LinkTo>.</p>
+  {{else}}
+    <p>Please <LinkTo @route="register">register</LinkTo> or <LinkTo @route="sign-in">sign in</LinkTo>.</p>
+  {{/if}}
 </div>

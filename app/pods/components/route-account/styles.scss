@@ -1,0 +1,27 @@
+.account {
+  @include theme((background: bg-hi, color: emph));
+
+  padding: 0 8px;
+  overflow: auto;
+
+  > h3,
+  > .row {
+    margin: 12px 0;
+
+    > label {
+      display: flex;
+      flex-direction: column;
+
+      > input {
+        margin-top: 4px;
+        max-width: 300px;
+      }
+    }
+  }
+}
+
+.delete {
+  > p {
+    margin: 8px 0;
+  }
+}
