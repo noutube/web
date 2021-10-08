@@ -8,7 +8,7 @@
 
 <div local-class="account">
   <div local-class="row">
-    Signed in as {{this.session.me.email}}
+    Signed in as {{@user.email}}
   </div>
 
   <div local-class="row">
@@ -19,7 +19,7 @@
   </div>
 
   <div local-class="row">
-    <button type="button" {{on "click" this.toggleDestroyMe}}>
+    <button type="button" {{on "click" this.toggleDestroyUser}}>
       <SvgIcon @name="user-minus" @size={{16}} />
       Delete Account
     </button>
@@ -32,7 +32,7 @@
       New Password
       <Input
         @type="password"
-        @value={{this.session.me.password}}
+        @value={{@user.password}}
         disable={{not-eq this.state "inFlight"}}
         {{on "input" this.handlePassword}}
         @enter={{this.savePassword}}
@@ -50,7 +50,7 @@
     {{else}}
       <button
         type="button"
-        disabled={{not this.session.me.password}}
+        disabled={{not @user.password}}
         {{on "click" this.savePassword}}
       >
         Save
@@ -59,8 +59,8 @@
   </div>
 </div>
 
-{{#if this.showDestroyMe}}
-  <Dialog @title="Delete Account" @close={{this.toggleDestroyMe}} @accept={{this.session.destroyMe}}>
+{{#if this.showDestroyUser}}
+  <Dialog @title="Delete Account" @close={{this.toggleDestroyUser}} @accept={{this.destroyUser}}>
     <div local-class="delete">
       <p>You are about to permanently delete your account.</p>
       <p>Are you sure?</p>

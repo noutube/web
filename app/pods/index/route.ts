@@ -10,7 +10,7 @@ export default class IndexRoute extends Route {
   @service declare session: SessionService;
 
   async beforeModel(transition: Transition): Promise<void> {
-    if (this.session.me || this.session.down) {
+    if (this.session.signedIn || this.session.down) {
       this.router.transitionTo('feed');
     } else {
       this.router.transitionTo('landing');

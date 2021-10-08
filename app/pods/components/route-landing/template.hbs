@@ -1,5 +1,5 @@
 <MenuBar::Extras>
-  {{#if this.session.me}}
+  {{#if this.session.signedIn}}
     <MenuBar::Button @onClick={{this.goToFeed}} @title="Feed" @icon="inbox" />
   {{else}}
     <MenuBar::Button @onClick={{this.goToRegister}} @title="Register" @icon="user-plus" />
@@ -12,7 +12,7 @@
 <div class="message">
   <p>Basically a site which lets you organise the videos your YouTube subscriptions upload.</p>
   <p>Kind of like the built in "Watch Later" playlist on YouTube, but much nicer to use.</p>
-  {{#if this.session.me}}
+  {{#if this.session.signedIn}}
     <p>Continue to your <LinkTo @route="feed">feed</LinkTo>.</p>
   {{else}}
     <p>Please <LinkTo @route="register">register</LinkTo> or <LinkTo @route="sign-in">sign in</LinkTo>.</p>

@@ -52,15 +52,15 @@ export default class FeedRoute extends Route {
 
   get cableAddress(): string {
     const base = `${config.backendOrigin.replace(/^http/, 'ws')}/cable/`;
-    if (this.session.me) {
-      return `${base}?user_email=${this.session.me.email}&user_token=${this.session.me.authenticationToken}`;
+    if (this.session.signedIn) {
+      return `${base}?token=${this.session.token}`;
     } else {
       return base;
     }
   }
 
   async beforeModel(transition: Transition): Promise<void> {
-    if (!this.session.me && !this.session.down) {
+    if (!this.session.signedIn && !this.session.down) {
       this.router.transitionTo('landing');
     }
   }

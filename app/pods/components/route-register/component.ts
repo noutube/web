@@ -1,3 +1,4 @@
+import Store from '@ember-data/store';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
@@ -7,6 +8,7 @@ import SessionService from 'nou2ube/services/session';
 
 export default class RouteRegisterComponent extends Component {
   @service declare session: SessionService;
+  @service declare store: Store;
 
   @tracked email = '';
   @tracked password = '';
@@ -38,12 +40,18 @@ export default class RouteRegisterComponent extends Component {
       return;
     }
 
+    const user = this.store.createRecord('user');
     try {
       this.state = 'inFlight';
-      await this.session.register(this.email, this.password);
+      user.email = this.email;
+      user.password = this.password;
+      await user.save();
+      await this.session.signIn(this.email, this.password);
       this.state = 'success';
     } catch (error) {
       this.state = 'failure';
+    } finally {
+      user.unloadRecord();
     }
   }
 }

@@ -11,9 +11,8 @@ export default class ApplicationAdapter extends JSONAPIAdapter {
 
   get headers(): Record<string, string> {
     return {
-      ...(this.session.me && {
-        'X-User-Email': this.session.me.email,
-        'X-User-Token': this.session.me.authenticationToken
+      ...(this.session.token && {
+        Authorization: `Bearer ${this.session.token}`
       })
     };
   }

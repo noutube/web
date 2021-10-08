@@ -4,98 +4,81 @@ import RouterService from '@ember/routing/router-service';
 import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import config from 'nou2ube/config/environment';
-import JSONAPIPayload from 'nou2ube/lib/types/json-api-payload';
-import User from 'nou2ube/models/user';
+import jwtDecode from 'jwt-decode';
 
-const storageKey = 'storage:session';
+import config from 'nou2ube/config/environment';
+
+const storageKey = 'storage:token';
+
+interface JWTPayload {
+  id: string;
+}
 
 export default class SessionService extends Service {
   @service declare router: RouterService;
   @service declare store: Store;
 
-  @tracked me: User | null = null;
+  @tracked token: string | null = null;
   @tracked down = false;
 
-  @action
-  async destroyMe(): Promise<void> {
-    if (!this.me) {
-      return;
-    }
+  get signedIn(): boolean {
+    return !!this.token;
+  }
 
-    try {
-      this.me.deleteRecord();
-      await this.me.save();
-      console.debug('[session] user destroyed');
-      this.#clear();
-    } catch (error) {
-      console.warn('[session] user destroy failed', error);
-      this.me.rollbackAttributes();
+  get id(): string | null {
+    if (this.token) {
+      const { id } = jwtDecode(this.token) as JWTPayload;
+      return id;
+    } else {
+      return null;
     }
   }
 
   async restore(): Promise<void> {
-    const me = this.#restore();
-    if (me) {
-      try {
-        const response = await fetch(`${config.backendOrigin}/auth/restore`, {
-          headers: {
-            'X-User-Email': me.email,
-            'X-User-Token': me.authenticationToken
-          }
-        });
-        if (response.status > 500) {
-          throw response.status;
-        } else if (response.ok) {
-          const payload = await response.json();
-          this.#push(payload);
-          console.debug('[session] restored');
-        } else {
-          console.warn('[session] restore failed: rejected', response.status);
-          this.#clear();
-        }
-      } catch (error) {
-        console.warn('[session] restore failed: down', error);
-        this.down = true;
-      }
+    const token = this.#restore();
+    if (!token) {
+      return;
     }
-  }
 
-  async register(email: string, password: string): Promise<void> {
-    // for some reason passing as the initial hash doesn't work
-    const me = this.store.createRecord('user');
-    me.email = email;
-    me.password = password;
     try {
-      await me.save();
-      this.me = me;
-      this.#persist();
-      console.debug('[session] registered');
-      this.router.transitionTo('feed');
-    } catch (error) {
-      console.warn('[session] register failed', error);
-      throw error;
-    }
-  }
-
-  async signIn(email: string, password: string): Promise<void> {
-    try {
-      const response = await fetch(`${config.backendOrigin}/auth`, {
-        body: JSON.stringify({ email, password }),
-        method: 'POST',
+      const response = await fetch(`${config.backendOrigin}/tokens/valid`, {
         headers: {
-          'Content-Type': 'application/json'
+          Authorization: `Bearer ${token}`
         }
       });
       if (response.status > 500) {
         throw response.status;
       } else if (response.ok) {
-        const payload = await response.json();
-        this.#push(payload);
+        this.#push(token);
+        console.debug('[session] restored');
+      } else {
+        console.warn('[session] restore failed: rejected', response.status);
+        this.#clear();
+      }
+    } catch (error) {
+      console.warn('[session] restore failed: down', error);
+      this.down = true;
+    }
+  }
+
+  async signIn(email: string, password: string): Promise<void> {
+    try {
+      const response = await fetch(`${config.backendOrigin}/tokens`, {
+        body: JSON.stringify({ email, password }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      });
+      if (response.status > 500) {
+        throw response.status;
+      } else if (response.ok) {
+        const { token } = await response.json();
+        this.#push(token);
         console.debug('[session] signed in');
-        this.router.transitionTo('feed');
       } else {
         throw response.status;
+        this.#clear();
       }
     } catch (error) {
       console.warn('[session] sign in failed', error);
@@ -110,42 +93,26 @@ export default class SessionService extends Service {
   }
 
   #clear(): void {
-    if (this.me) {
-      this.me.unloadRecord();
-      this.me = null;
-    }
+    this.token = null;
     this.#persist();
     this.router.transitionTo('landing');
   }
 
   #persist(): void {
-    if (this.me) {
-      const json = JSON.stringify({
-        id: this.me.id,
-        email: this.me.email,
-        authenticationToken: this.me.authenticationToken
-      });
-      window.localStorage.setItem(storageKey, json);
+    if (this.token) {
+      window.localStorage.setItem(storageKey, this.token);
     } else {
       window.localStorage.removeItem(storageKey);
     }
   }
 
-  #push(payload: JSONAPIPayload): void {
-    this.store.pushPayload(payload);
-    this.me = this.store.peekRecord('user', payload.data.id);
+  #push(token: string): void {
+    this.token = token;
     this.#persist();
+    this.router.transitionTo('feed');
   }
 
-  #restore(): User | null {
-    const json = window.localStorage.getItem(storageKey);
-    if (!json) {
-      return null;
-    }
-    try {
-      return JSON.parse(json);
-    } catch {
-      return null;
-    }
+  #restore(): string | null {
+    return window.localStorage.getItem(storageKey);
   }
 }
