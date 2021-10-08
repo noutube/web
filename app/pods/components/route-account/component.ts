@@ -15,8 +15,13 @@ interface Signature {
 export default class AccountComponent extends Component<Signature> {
   @service declare session: SessionService;
 
+  @tracked password = '';
   @tracked showDestroyUser = false;
   @tracked state: 'idle' | 'inFlight' | 'success' | 'failure' = 'idle';
+
+  get valid(): boolean {
+    return !!this.password;
+  }
 
   @action
   async destroyUser(): Promise<void> {
@@ -32,18 +37,26 @@ export default class AccountComponent extends Component<Signature> {
   @action
   handlePassword(event: InputEvent): void {
     if (event.target instanceof HTMLInputElement) {
-      this.args.user.password = event.target.value;
+      this.password = event.target.value;
       this.state = 'idle';
     }
   }
 
   @action
-  async savePassword(): Promise<void> {
+  async savePassword(event: Event): Promise<void> {
+    event.preventDefault();
+
+    if (!this.valid) {
+      return;
+    }
+
     try {
       this.state = 'inFlight';
+      this.args.user.password = this.password;
       await this.args.user.save();
       this.state = 'success';
     } catch (error) {
+      this.args.user.rollbackAttributes();
       this.state = 'failure';
     }
   }

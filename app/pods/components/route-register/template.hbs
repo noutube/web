@@ -6,30 +6,28 @@
   Register
 </SectionHeader>
 
-<div local-class="register">
+<form local-class="register" {{on "submit" this.register}}>
   <div local-class="row">
     <label>
       Email
-      <Input
-        @type="text"
-        @value={{this.email}}
+      <input
+        type="text"
+        value={{this.email}}
         disable={{not-eq this.state "inFlight"}}
         {{on "input" this.handleEmail}}
-        @enter={{this.register}}
-      />
+      >
     </label>
   </div>
 
   <div local-class="row">
     <label>
       Password
-      <Input
-        @type="password"
-        @value={{this.password}}
+      <input
+        type="password"
+        value={{this.password}}
         disable={{not-eq this.state "inFlight"}}
         {{on "input" this.handlePassword}}
-        @enter={{this.register}}
-      />
+      >
     </label>
   </div>
 
@@ -42,12 +40,11 @@
       Failed! Please try again.
     {{else}}
       <button
-        type="button"
+        type="submit"
         disabled={{not this.valid}}
-        {{on "click" this.register}}
       >
         Register
       </button>
     {{/if}}
   </div>
-</div>
+</form>

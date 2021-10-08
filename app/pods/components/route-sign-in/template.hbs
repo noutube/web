@@ -6,30 +6,28 @@
   Sign In
 </SectionHeader>
 
-<div local-class="signin">
+<form local-class="signin" {{on "submit" this.signIn}}>
   <div local-class="row">
     <label>
       Email
-      <Input
-        @type="text"
-        @value={{this.email}}
+      <input
+        type="text"
+        value={{this.email}}
         disable={{not-eq this.state "inFlight"}}
         {{on "input" this.handleEmail}}
-        @enter={{this.signIn}}
-      />
+      >
     </label>
   </div>
 
   <div local-class="row">
     <label>
       Password
-      <Input
-        @type="password"
-        @value={{this.password}}
+      <input
+        type="password"
+        value={{this.password}}
         disable={{not-eq this.state "inFlight"}}
         {{on "input" this.handlePassword}}
-        @enter={{this.signIn}}
-      />
+      >
     </label>
   </div>
 
@@ -42,12 +40,11 @@
       Failed! Please try again.
     {{else}}
       <button
-        type="button"
+        type="submit"
         disabled={{not this.valid}}
-        {{on "click" this.signIn}}
       >
         Sign In
       </button>
     {{/if}}
   </div>
-</div>
+</form>

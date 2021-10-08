@@ -14,12 +14,14 @@
 
   > .chevron {
     @include theme((color: bg-hi));
-
-    margin: 0 -4px;
   }
 
   > .icon {
     margin-left: 8px;
+
+    &.after-back {
+      margin-left: 4px;
+    }
   }
 
   > .content {

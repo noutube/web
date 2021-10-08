@@ -33,7 +33,9 @@ export default class RouteSignInComponent extends Component {
   }
 
   @action
-  async signIn(): Promise<void> {
+  async signIn(event: Event): Promise<void> {
+    event.preventDefault();
+
     if (!this.valid) {
       return;
     }

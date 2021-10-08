@@ -6,7 +6,7 @@
   Account
 </SectionHeader>
 
-<div local-class="account">
+<form local-class="account" {{on "submit" this.savePassword}}>
   <div local-class="row">
     Signed in as {{@user.email}}
   </div>
@@ -30,13 +30,12 @@
   <div local-class="row">
     <label>
       New Password
-      <Input
-        @type="password"
-        @value={{@user.password}}
-        disable={{not-eq this.state "inFlight"}}
+      <input
+        type="password"
+        value={{this.password}}
+        isable={{not-eq this.state "inFlight"}}
         {{on "input" this.handlePassword}}
-        @enter={{this.savePassword}}
-      />
+      >
     </label>
   </div>
 
@@ -49,15 +48,14 @@
       Failed! Please try again.
     {{else}}
       <button
-        type="button"
-        disabled={{not @user.password}}
-        {{on "click" this.savePassword}}
+        type="submit"
+        disabled={{not this.valid}}
       >
         Save
       </button>
     {{/if}}
   </div>
-</div>
+</form>
 
 {{#if this.showDestroyUser}}
   <Dialog @title="Delete Account" @close={{this.toggleDestroyUser}} @accept={{this.destroyUser}}>

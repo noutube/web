@@ -4,7 +4,7 @@
     <SvgIcon local-class="chevron" @name="chevron-right" @size={{20}} />
   {{/if}}
   {{#if @icon}}
-    <span local-class="icon">
+    <span local-class="icon {{if @backIcon "after-back"}}">
       <SvgIcon @name={{@icon}} />
     </span>
   {{/if}}

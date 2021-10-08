@@ -35,7 +35,9 @@ export default class RouteRegisterComponent extends Component {
   }
 
   @action
-  async register(): Promise<void> {
+  async register(event: Event): Promise<void> {
+    event.preventDefault();
+
     if (!this.valid) {
       return;
     }
