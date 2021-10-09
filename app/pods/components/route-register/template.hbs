@@ -8,27 +8,26 @@
 
 <form local-class="register" {{on "submit" this.register}}>
   <div local-class="row">
-    <label>
-      Email
-      <input
-        type="text"
-        value={{this.email}}
-        disable={{not-eq this.state "inFlight"}}
-        {{on "input" this.handleEmail}}
-      >
-    </label>
+    <FormInput
+      @attribute="email"
+      @disabled={{eq this.state "inFlight"}}
+      @errors={{this.errors}}
+      @label="Email"
+      @onChange={{this.handleEmail}}
+      @value={{this.email}}
+    />
   </div>
 
   <div local-class="row">
-    <label>
-      Password
-      <input
-        type="password"
-        value={{this.password}}
-        disable={{not-eq this.state "inFlight"}}
-        {{on "input" this.handlePassword}}
-      >
-    </label>
+    <FormInput
+      @attribute="password"
+      @disabled={{eq this.state "inFlight"}}
+      @errors={{this.errors}}
+      @label="Password"
+      @onChange={{this.handlePassword}}
+      @type="password"
+      @value={{this.password}}
+    />
   </div>
 
   <div local-class="row">

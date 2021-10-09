@@ -1,3 +1,4 @@
+import { InvalidError, errorsArrayToHash } from '@ember-data/adapter/error';
 import Store from '@ember-data/store';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
@@ -11,6 +12,7 @@ export default class RouteRegisterComponent extends Component {
   @service declare store: Store;
 
   @tracked email = '';
+  @tracked errors: Record<string, string> = {};
   @tracked password = '';
   @tracked state: 'idle' | 'inFlight' | 'success' | 'failure' = 'idle';
 
@@ -19,19 +21,15 @@ export default class RouteRegisterComponent extends Component {
   }
 
   @action
-  handleEmail(event: InputEvent): void {
-    if (event.target instanceof HTMLInputElement) {
-      this.email = event.target.value;
-      this.state = 'idle';
-    }
+  handleEmail(email: string): void {
+    this.email = email;
+    this.state = 'idle';
   }
 
   @action
-  handlePassword(event: InputEvent): void {
-    if (event.target instanceof HTMLInputElement) {
-      this.password = event.target.value;
-      this.state = 'idle';
-    }
+  handlePassword(password: string): void {
+    this.password = password;
+    this.state = 'idle';
   }
 
   @action
@@ -51,6 +49,11 @@ export default class RouteRegisterComponent extends Component {
       await this.session.signIn(this.email, this.password);
       this.state = 'success';
     } catch (error) {
+      if (error instanceof InvalidError) {
+        this.errors = errorsArrayToHash(error.errors);
+      } else {
+        this.errors = {};
+      }
       this.state = 'failure';
     } finally {
       user.unloadRecord();

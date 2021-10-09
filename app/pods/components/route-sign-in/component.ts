@@ -17,19 +17,15 @@ export default class RouteSignInComponent extends Component {
   }
 
   @action
-  handleEmail(event: InputEvent): void {
-    if (event.target instanceof HTMLInputElement) {
-      this.email = event.target.value;
-      this.state = 'idle';
-    }
+  handleEmail(email: string): void {
+    this.email = email;
+    this.state = 'idle';
   }
 
   @action
-  handlePassword(event: InputEvent): void {
-    if (event.target instanceof HTMLInputElement) {
-      this.password = event.target.value;
-      this.state = 'idle';
-    }
+  handlePassword(password: string): void {
+    this.password = password;
+    this.state = 'idle';
   }
 
   @action

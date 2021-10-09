@@ -1,0 +1,12 @@
+<label local-class="form-input">
+  {{@label}}
+  <input
+    type={{this.type}}
+    value={{@value}}
+    disabled={{@disabled}}
+    {{on "input" this.handleInput}}
+  >
+  {{#if this.error}}
+    <span local-class="error">{{this.error}}</span>
+  {{/if}}
+</label>

@@ -6,15 +6,5 @@
 
   > .row {
     margin: 12px 0;
-
-    > label {
-      display: flex;
-      flex-direction: column;
-
-      > input {
-        margin-top: 4px;
-        max-width: 300px;
-      }
-    }
   }
 }

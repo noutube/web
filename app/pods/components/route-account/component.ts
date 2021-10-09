@@ -1,3 +1,4 @@
+import { InvalidError, errorsArrayToHash } from '@ember-data/adapter/error';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
@@ -15,6 +16,7 @@ interface Signature {
 export default class AccountComponent extends Component<Signature> {
   @service declare session: SessionService;
 
+  @tracked errors: Record<string, string> = {};
   @tracked password = '';
   @tracked showDestroyUser = false;
   @tracked state: 'idle' | 'inFlight' | 'success' | 'failure' = 'idle';
@@ -35,11 +37,9 @@ export default class AccountComponent extends Component<Signature> {
   }
 
   @action
-  handlePassword(event: InputEvent): void {
-    if (event.target instanceof HTMLInputElement) {
-      this.password = event.target.value;
-      this.state = 'idle';
-    }
+  handlePassword(password: string): void {
+    this.password = password;
+    this.state = 'idle';
   }
 
   @action
@@ -56,6 +56,11 @@ export default class AccountComponent extends Component<Signature> {
       await this.args.user.save();
       this.state = 'success';
     } catch (error) {
+      if (error instanceof InvalidError) {
+        this.errors = errorsArrayToHash(error.errors);
+      } else {
+        this.errors = {};
+      }
       this.args.user.rollbackAttributes();
       this.state = 'failure';
     }

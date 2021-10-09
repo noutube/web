@@ -28,15 +28,15 @@
   <h3>Change Password</h3>
 
   <div local-class="row">
-    <label>
-      New Password
-      <input
-        type="password"
-        value={{this.password}}
-        isable={{not-eq this.state "inFlight"}}
-        {{on "input" this.handlePassword}}
-      >
-    </label>
+    <FormInput
+      @attribute="password"
+      @disabled={{eq this.state "inFlight"}}
+      @errors={{this.errors}}
+      @label="New Password"
+      @onChange={{this.handlePassword}}
+      @type="password"
+      @value={{this.password}}
+    />
   </div>
 
   <div local-class="row">
