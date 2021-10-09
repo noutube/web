@@ -13,7 +13,7 @@
   font-weight: bold;
 
   > .chevron {
-    @include theme((color: bg-hi));
+    opacity: 75%;
   }
 
   > .icon {
