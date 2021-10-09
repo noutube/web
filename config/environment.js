@@ -2,8 +2,8 @@
 
 module.exports = function (environment) {
   let ENV = {
-    modulePrefix: 'nou2ube',
-    podModulePrefix: 'nou2ube/pods',
+    modulePrefix: 'noutube',
+    podModulePrefix: 'noutube/pods',
     environment,
     rootURL: '/',
     locationType: 'auto',

@@ -1,7 +1,7 @@
 import { inject as service } from '@ember/service';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import MenuBarService from 'nou2ube/services/menu-bar';
+import MenuBarService from 'noutube/services/menu-bar';
 
 interface Signature {
   Yields: {

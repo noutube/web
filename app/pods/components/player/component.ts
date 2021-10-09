@@ -3,8 +3,8 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import PlayerService from 'nou2ube/services/player';
-import SettingsService from 'nou2ube/services/settings';
+import PlayerService from 'noutube/services/player';
+import SettingsService from 'noutube/services/settings';
 
 export default class PlayerComponent extends Component {
   @service declare player: PlayerService;

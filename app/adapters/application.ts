@@ -1,8 +1,8 @@
 import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import { inject as service } from '@ember/service';
 
-import config from 'nou2ube/config/environment';
-import SessionService from 'nou2ube/services/session';
+import config from 'noutube/config/environment';
+import SessionService from 'noutube/services/session';
 
 export default class ApplicationAdapter extends JSONAPIAdapter {
   @service declare session: SessionService;

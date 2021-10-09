@@ -5,7 +5,7 @@ import config, {
   VideoKey,
   ChannelKey,
   Dir
-} from 'nou2ube/config/environment';
+} from 'noutube/config/environment';
 
 const {
   themes: [{ value: defaultTheme }],

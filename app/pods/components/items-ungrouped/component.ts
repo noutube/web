@@ -1,6 +1,6 @@
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import ItemModel from 'nou2ube/models/item';
+import ItemModel from 'noutube/models/item';
 
 interface Signature {
   Args: {

@@ -2,8 +2,8 @@ import Service from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
 
-import { Theme, VideoKey, ChannelKey, Dir } from 'nou2ube/config/environment';
-import SettingsStorage from 'nou2ube/storages/settings';
+import { Theme, VideoKey, ChannelKey, Dir } from 'noutube/config/environment';
+import SettingsStorage from 'noutube/storages/settings';
 
 export default class SettingsService extends Service {
   @storageFor('settings') declare storage: SettingsStorage;

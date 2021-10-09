@@ -3,7 +3,7 @@ import Route from '@ember/routing/route';
 import RouterService from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 
-import SessionService from 'nou2ube/services/session';
+import SessionService from 'noutube/services/session';
 
 export default class SignInRoute extends Route {
   @service declare router: RouterService;

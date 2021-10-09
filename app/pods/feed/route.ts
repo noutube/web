@@ -11,11 +11,11 @@ import { hash } from 'rsvp';
 import CableService from '@algonauti/ember-cable/services/cable';
 import { Consumer, Subscription } from '@rails/actioncable';
 
-import config from 'nou2ube/config/environment';
-import JSONAPIPayload from 'nou2ube/lib/types/json-api-payload';
-import ItemModel from 'nou2ube/models/item';
-import SubscriptionModel from 'nou2ube/models/subscription';
-import SessionService from 'nou2ube/services/session';
+import config from 'noutube/config/environment';
+import JSONAPIPayload from 'noutube/lib/types/json-api-payload';
+import ItemModel from 'noutube/models/item';
+import SubscriptionModel from 'noutube/models/subscription';
+import SessionService from 'noutube/services/session';
 
 interface Model {
   items: ArrayProxy<ItemModel>;

@@ -2,8 +2,8 @@ import { action } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import ItemModel from 'nou2ube/models/item';
-import SettingsService from 'nou2ube/services/settings';
+import ItemModel from 'noutube/models/item';
+import SettingsService from 'noutube/services/settings';
 
 export default class PlayerService extends Service {
   @service declare settings: SettingsService;

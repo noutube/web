@@ -6,7 +6,7 @@ import { SafeString } from 'handlebars';
 
 import { Input } from 'hammerjs';
 
-import { IconName } from 'nou2ube/pods/components/svg-icon/component';
+import { IconName } from 'noutube/pods/components/svg-icon/component';
 
 interface HammerEvent extends Event {
   gesture: typeof Input;

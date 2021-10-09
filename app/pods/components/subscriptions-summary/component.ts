@@ -1,10 +1,11 @@
+import ArrayProxy from '@ember/array';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import SubscriptionModel from 'nou2ube/models/subscription';
+import SubscriptionModel from 'noutube/models/subscription';
 
 interface Signature {
   Args: {
-    subscriptions: SubscriptionModel[];
+    subscriptions: ArrayProxy<SubscriptionModel>;
   };
 }
 

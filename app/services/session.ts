@@ -6,7 +6,7 @@ import { tracked } from '@glimmer/tracking';
 
 import jwtDecode from 'jwt-decode';
 
-import config from 'nou2ube/config/environment';
+import config from 'noutube/config/environment';
 
 const storageKey = 'storage:token';
 
@@ -35,7 +35,7 @@ export default class SessionService extends Service {
   }
 
   async restore(): Promise<void> {
-    const token = this.#restore();
+    const token = window.localStorage.getItem(storageKey);
     if (!token) {
       return;
     }
@@ -49,11 +49,11 @@ export default class SessionService extends Service {
       if (response.status > 500) {
         throw response.status;
       } else if (response.ok) {
-        this.#push(token);
+        this.push(token);
         console.debug('[session] restored');
       } else {
         console.warn('[session] restore failed: rejected', response.status);
-        this.#clear();
+        this.clear();
       }
     } catch (error) {
       console.warn('[session] restore failed: down', error);
@@ -74,11 +74,11 @@ export default class SessionService extends Service {
         throw response.status;
       } else if (response.ok) {
         const { token } = await response.json();
-        this.#push(token);
+        this.push(token);
         console.debug('[session] signed in');
       } else {
         throw response.status;
-        this.#clear();
+        this.clear();
       }
     } catch (error) {
       console.warn('[session] sign in failed', error);
@@ -89,16 +89,16 @@ export default class SessionService extends Service {
   @action
   signOut(): void {
     console.debug('[session] signed out');
-    this.#clear();
+    this.clear();
   }
 
-  #clear(): void {
+  private clear(): void {
     this.token = null;
-    this.#persist();
+    this.persist();
     this.router.transitionTo('landing');
   }
 
-  #persist(): void {
+  private persist(): void {
     if (this.token) {
       window.localStorage.setItem(storageKey, this.token);
     } else {
@@ -106,13 +106,9 @@ export default class SessionService extends Service {
     }
   }
 
-  #push(token: string): void {
+  private push(token: string): void {
     this.token = token;
-    this.#persist();
+    this.persist();
     this.router.transitionTo('feed');
-  }
-
-  #restore(): string | null {
-    return window.localStorage.getItem(storageKey);
   }
 }

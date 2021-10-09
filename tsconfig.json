@@ -21,10 +21,10 @@
     "module": "es6",
     "experimentalDecorators": true,
     "paths": {
-      "nou2ube/tests/*": [
+      "noutube/tests/*": [
         "tests/*"
       ],
-      "nou2ube/*": [
+      "noutube/*": [
         "app/*"
       ],
       "*": [

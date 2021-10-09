@@ -4,7 +4,7 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import config from 'nou2ube/config/environment';
+import config from 'noutube/config/environment';
 
 export default class UploadTakeoutComponent extends Component {
   @service declare store: Store;
