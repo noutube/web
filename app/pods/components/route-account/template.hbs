@@ -1,0 +1,67 @@
+<SectionHeader
+  @backIcon="inbox"
+  @backRoute="feed"
+  @icon="user"
+>
+  Account
+</SectionHeader>
+
+<form local-class="account" {{on "submit" this.savePassword}}>
+  <div local-class="row">
+    Signed in as {{@user.email}}
+  </div>
+
+  <div local-class="row">
+    <button type="button" {{on "click" this.session.signOut}}>
+      <SvgIcon @name="log-out" @size={{16}} />
+      Sign Out
+    </button>
+  </div>
+
+  <div local-class="row">
+    <button type="button" {{on "click" this.toggleDestroyUser}}>
+      <SvgIcon @name="user-minus" @size={{16}} />
+      Delete Account
+    </button>
+  </div>
+
+  <h3>Change Password</h3>
+
+  <div local-class="row">
+    <FormInput
+      @attribute="password"
+      @disabled={{eq this.state "inFlight"}}
+      @errors={{this.errors}}
+      @label="New Password"
+      @onChange={{this.handlePassword}}
+      @type="password"
+      @value={{this.password}}
+    />
+  </div>
+
+  <div local-class="row">
+    {{#if (eq this.state "inFlight")}}
+      Saving...
+    {{else if (eq this.state "success")}}
+      Saved!
+    {{else if (eq this.state "failure")}}
+      Failed! Please try again.
+    {{else}}
+      <button
+        type="submit"
+        disabled={{not this.valid}}
+      >
+        Save
+      </button>
+    {{/if}}
+  </div>
+</form>
+
+{{#if this.showDestroyUser}}
+  <Dialog @title="Delete Account" @close={{this.toggleDestroyUser}} @accept={{this.destroyUser}}>
+    <div local-class="delete">
+      <p>You are about to permanently delete your account.</p>
+      <p>Are you sure?</p>
+    </div>
+  </Dialog>
+{{/if}}

@@ -1,0 +1,49 @@
+<SectionHeader
+  @backIcon="home"
+  @backRoute="landing"
+  @icon="user-plus"
+>
+  Register
+</SectionHeader>
+
+<form local-class="register" {{on "submit" this.register}}>
+  <div local-class="row">
+    <FormInput
+      @attribute="email"
+      @disabled={{eq this.state "inFlight"}}
+      @errors={{this.errors}}
+      @label="Email"
+      @onChange={{this.handleEmail}}
+      @value={{this.email}}
+    />
+  </div>
+
+  <div local-class="row">
+    <FormInput
+      @attribute="password"
+      @disabled={{eq this.state "inFlight"}}
+      @errors={{this.errors}}
+      @label="Password"
+      @onChange={{this.handlePassword}}
+      @type="password"
+      @value={{this.password}}
+    />
+  </div>
+
+  <div local-class="row">
+    {{#if (eq this.state "inFlight")}}
+      Registering...
+    {{else if (eq this.state "success")}}
+      Registered!
+    {{else if (eq this.state "failure")}}
+      Failed! Please try again.
+    {{else}}
+      <button
+        type="submit"
+        disabled={{not this.valid}}
+      >
+        Register
+      </button>
+    {{/if}}
+  </div>
+</form>

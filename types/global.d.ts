@@ -137,3 +137,13 @@ declare module 'nou2ube/templates/*' {
   const tmpl: TemplateFactory;
   export default tmpl;
 }
+
+// Fix some broken ember-data types
+declare module 'ember-data' {
+  export namespace DS {
+    export interface InvalidError {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      errors: any[];
+    }
+  }
+}

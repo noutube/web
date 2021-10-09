@@ -1,0 +1,10 @@
+.register {
+  @include theme((background: bg-hi, color: emph));
+
+  padding: 0 8px;
+  overflow: auto;
+
+  > .row {
+    margin: 12px 0;
+  }
+}

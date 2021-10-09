@@ -15,17 +15,20 @@ export default class UploadTakeoutComponent extends Component {
 
   @action
   async selectFile(event: Event): Promise<void> {
+    if (!(event.target instanceof HTMLInputElement)) {
+      return;
+    }
+
     this.inFlight = true;
     try {
       const { headers } = this.store.adapterFor('subscription');
-      const target = event.target as HTMLInputElement;
-      if (!target.files) {
+      if (!event.target.files) {
         throw 'no file';
       }
       const response = await fetch(
         `${config.backendOrigin}/subscriptions/takeout`,
         {
-          body: target.files[0],
+          body: event.target.files[0],
           headers,
           method: 'POST'
         }

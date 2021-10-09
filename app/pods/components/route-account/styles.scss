@@ -1,0 +1,17 @@
+.account {
+  @include theme((background: bg-hi, color: emph));
+
+  padding: 0 8px;
+  overflow: auto;
+
+  > h3,
+  > .row {
+    margin: 12px 0;
+  }
+}
+
+.delete {
+  > p {
+    margin: 8px 0;
+  }
+}

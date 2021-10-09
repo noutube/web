@@ -7,12 +7,24 @@
   align-items: center;
   z-index: 47;
   margin: 0;
-  padding: 8px 16px;
+  padding: 0 16px 0 8px;
   min-height: 24px;
   font-size: 125%;
   font-weight: bold;
 
+  > .chevron {
+    opacity: 75%;
+  }
+
   > .icon {
-    margin-right: 8px;
+    margin-left: 8px;
+
+    &.after-back {
+      margin-left: 4px;
+    }
+  }
+
+  > .content {
+    margin: 8px 16px 8px 8px;
   }
 }

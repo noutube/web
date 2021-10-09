@@ -1,0 +1,45 @@
+<SectionHeader
+  @backIcon="home"
+  @backRoute="landing"
+  @icon="log-in"
+>
+  Sign In
+</SectionHeader>
+
+<form local-class="signin" {{on "submit" this.signIn}}>
+  <div local-class="row">
+    <FormInput
+      @disabled={{eq this.state "inFlight"}}
+      @label="Email"
+      @onChange={{this.handleEmail}}
+      @value={{this.email}}
+    />
+  </div>
+
+  <div local-class="row">
+    <FormInput
+      @disabled={{eq this.state "inFlight"}}
+      @label="Password"
+      @onChange={{this.handlePassword}}
+      @type="password"
+      @value={{this.password}}
+    />
+  </div>
+
+  <div local-class="row">
+    {{#if (eq this.state "inFlight")}}
+      Signing in...
+    {{else if (eq this.state "success")}}
+      Signed in!
+    {{else if (eq this.state "failure")}}
+      Failed! Please try again.
+    {{else}}
+      <button
+        type="submit"
+        disabled={{not this.valid}}
+      >
+        Sign In
+      </button>
+    {{/if}}
+  </div>
+</form>

@@ -68,7 +68,8 @@ $themes: (
     pri: map.get($solarized, base00),
     emph: map.get($solarized, base01),
     link: map.get($solarized, _violet),
-    bar: map.get($solarized, _blue)
+    bar: map.get($solarized, _blue),
+    error: map.get($solarized, _red)
   ),
   dark: (
     bg: map.get($solarized, base03),
@@ -77,7 +78,8 @@ $themes: (
     pri: map.get($solarized, base0),
     emph: map.get($solarized, base1),
     link: map.get($solarized, _violet),
-    bar: map.get($solarized, _blue)
+    bar: map.get($solarized, _blue),
+    error: map.get($solarized, _red)
   ),
   gruvbox-light: (
     bg: map.get($gruvbox, light0),
@@ -86,7 +88,8 @@ $themes: (
     pri: map.get($gruvbox, dark1),
     emph: map.get($gruvbox, dark0),
     link: map.get($gruvbox, neutral_yellow),
-    bar: map.get($gruvbox, neutral_red)
+    bar: map.get($gruvbox, neutral_red),
+    error: map.get($gruvbox, bright_red)
   ),
   gruvbox-dark: (
     bg: map.get($gruvbox, dark0),
@@ -95,7 +98,8 @@ $themes: (
     pri: map.get($gruvbox, light1),
     emph: map.get($gruvbox, light0),
     link: map.get($gruvbox, neutral_yellow),
-    bar: map.get($gruvbox, neutral_red)
+    bar: map.get($gruvbox, neutral_red),
+    error: map.get($gruvbox, bright_red)
   )
 );
 

@@ -1,0 +1,15 @@
+.form-input {
+  display: flex;
+  flex-direction: column;
+
+  > input {
+    margin-top: 4px;
+    max-width: 300px;
+  }
+
+  > .error {
+    @include theme((color: error));
+
+    margin-top: 4px;
+  }
+}

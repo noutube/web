@@ -4,161 +4,115 @@ import RouterService from '@ember/routing/router-service';
 import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import config from 'nou2ube/config/environment';
-import JSONAPIPayload from 'nou2ube/lib/types/json-api-payload';
-import User from 'nou2ube/models/user';
+import jwtDecode from 'jwt-decode';
 
-const storageKey = 'storage:session';
+import config from 'nou2ube/config/environment';
+
+const storageKey = 'storage:token';
+
+interface JWTPayload {
+  id: string;
+}
 
 export default class SessionService extends Service {
   @service declare router: RouterService;
   @service declare store: Store;
 
-  @tracked me: User | null = null;
+  @tracked token: string | null = null;
   @tracked down = false;
-  #popup: Window | null = null;
-  #popupInterval?: number;
-  @tracked popupOpen = false;
 
-  constructor() {
-    super(...arguments);
-
-    window.addEventListener('message', this.authMessage);
+  get signedIn(): boolean {
+    return !!this.token;
   }
 
-  restoreMe(): User | null {
-    const json = window.localStorage.getItem(storageKey);
-    if (!json) {
-      return null;
-    }
-    try {
-      return JSON.parse(json);
-    } catch {
+  get id(): string | null {
+    if (this.token) {
+      const { id } = jwtDecode(this.token) as JWTPayload;
+      return id;
+    } else {
       return null;
     }
   }
 
   async restore(): Promise<void> {
-    const me = this.restoreMe();
-    if (me) {
-      try {
-        const response = await fetch(`${config.backendOrigin}/auth/restore`, {
-          headers: {
-            'X-User-Email': me.email,
-            'X-User-Token': me.authenticationToken
-          }
-        });
-        if (response.status > 500) {
-          throw response.status;
-        } else if (response.ok) {
-          const payload = await response.json();
-          this.pushMe(payload);
-          console.debug('[session] restored');
-        } else {
-          console.warn('[session] restore failed: rejected', response.status);
-          this.clear();
-        }
-      } catch (e) {
-        console.warn('[session] restore failed: down', e);
-        this.down = true;
-      }
-    }
-  }
-
-  @action
-  signIn(): void {
-    this.closePopup();
-    this.#popup = window.open(`${config.backendOrigin}/auth`);
-    this.#popupInterval = window.setInterval(this.pollPopup, 1000);
-    this.popupOpen = true;
-  }
-
-  @action
-  async authMessage(event: MessageEvent): Promise<void> {
-    if (event.origin !== config.backendOrigin) {
+    const token = this.#restore();
+    if (!token) {
       return;
     }
 
-    if (event.data.name === 'login') {
-      this.closePopup();
-      try {
-        const response = await fetch(
-          `${config.backendOrigin}/auth/sign_in?code=${event.data.data.code}`
-        );
-        const payload = await response.json();
-        this.pushMe(payload);
-        console.debug('[session] signed in');
-        this.router.transitionTo('feed');
-      } catch (e) {
-        console.warn('[session] sign in failed', e);
+    try {
+      const response = await fetch(`${config.backendOrigin}/tokens/valid`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.status > 500) {
+        throw response.status;
+      } else if (response.ok) {
+        this.#push(token);
+        console.debug('[session] restored');
+      } else {
+        console.warn('[session] restore failed: rejected', response.status);
+        this.#clear();
       }
+    } catch (error) {
+      console.warn('[session] restore failed: down', error);
+      this.down = true;
     }
   }
 
-  pushMe(payload: JSONAPIPayload): void {
-    this.store.pushPayload(payload);
-    this.me = this.store.peekRecord('user', payload.data.id);
-    this.persist();
+  async signIn(email: string, password: string): Promise<void> {
+    try {
+      const response = await fetch(`${config.backendOrigin}/tokens`, {
+        body: JSON.stringify({ email, password }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      });
+      if (response.status > 500) {
+        throw response.status;
+      } else if (response.ok) {
+        const { token } = await response.json();
+        this.#push(token);
+        console.debug('[session] signed in');
+      } else {
+        throw response.status;
+        this.#clear();
+      }
+    } catch (error) {
+      console.warn('[session] sign in failed', error);
+      throw error;
+    }
   }
 
   @action
   signOut(): void {
     console.debug('[session] signed out');
-    this.clear();
+    this.#clear();
   }
 
-  @action
-  async destroyMe(): Promise<void> {
-    if (!this.me) {
-      return;
-    }
-    try {
-      this.me.deleteRecord();
-      await this.me.save();
-      console.debug('[session] user destroyed');
-      this.clear();
-    } catch (e) {
-      console.warn('[session] user destroy failed', e);
-      this.me.rollbackAttributes();
-    }
-  }
-
-  clear(): void {
-    if (this.me) {
-      this.me.unloadRecord();
-      this.me = null;
-    }
-    this.persist();
+  #clear(): void {
+    this.token = null;
+    this.#persist();
     this.router.transitionTo('landing');
   }
 
-  persist(): void {
-    if (this.me) {
-      const json = JSON.stringify({
-        id: this.me.id,
-        email: this.me.email,
-        authenticationToken: this.me.authenticationToken
-      });
-      window.localStorage.setItem(storageKey, json);
+  #persist(): void {
+    if (this.token) {
+      window.localStorage.setItem(storageKey, this.token);
     } else {
       window.localStorage.removeItem(storageKey);
     }
   }
 
-  @action
-  pollPopup(): void {
-    if (this.#popup && this.#popup.closed) {
-      this.closePopup();
-    }
+  #push(token: string): void {
+    this.token = token;
+    this.#persist();
+    this.router.transitionTo('feed');
   }
 
-  closePopup(): void {
-    if (this.#popup) {
-      this.#popup.close();
-      this.#popup = null;
-      window.clearInterval(this.#popupInterval);
-      this.#popupInterval = undefined;
-      this.popupOpen = false;
-    }
+  #restore(): string | null {
+    return window.localStorage.getItem(storageKey);
   }
 }
