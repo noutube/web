@@ -13,7 +13,7 @@ interface Signature {
   };
 }
 
-export default class AccountComponent extends Component<Signature> {
+export default class RouteAccountComponent extends Component<Signature> {
   @service declare session: SessionService;
 
   @tracked errors: Record<string, string> = {};
@@ -74,6 +74,6 @@ export default class AccountComponent extends Component<Signature> {
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
-    Account: typeof AccountComponent;
+    RouteAccount: typeof RouteAccountComponent;
   }
 }

@@ -1,3 +1,4 @@
+import ArrayProxy from '@ember/array';
 import { action } from '@ember/object';
 import RouterService from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
@@ -10,8 +11,8 @@ import SettingsService from 'noutube/services/settings';
 
 interface Signature {
   Args: {
-    items: ItemModel[];
-    subscriptions: SubscriptionModel[];
+    items: ArrayProxy<ItemModel>;
+    subscriptions: ArrayProxy<SubscriptionModel>;
   };
 }
 
