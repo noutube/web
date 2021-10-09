@@ -4,8 +4,8 @@ import { start } from 'ember-qunit';
 import * as QUnit from 'qunit';
 import { setup } from 'qunit-dom';
 
-import Application from 'nou2ube/app';
-import config from 'nou2ube/config/environment';
+import Application from 'noutube/app';
+import config from 'noutube/config/environment';
 
 setApplication(Application.create(config.APP));
 

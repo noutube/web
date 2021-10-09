@@ -7,9 +7,9 @@ module.exports = function (defaults) {
     cssModules: {
       headerModules: [
         // @use needs to be the first thing in the concatenated file
-        'nou2ube/styles/use',
+        'noutube/styles/use',
         // need theme mixin available everywhere
-        'nou2ube/styles/themes'
+        'noutube/styles/themes'
       ]
     },
     fingerprint: {

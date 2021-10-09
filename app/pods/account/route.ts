@@ -4,8 +4,8 @@ import Route from '@ember/routing/route';
 import RouterService from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 
-import User from 'nou2ube/models/user';
-import SessionService from 'nou2ube/services/session';
+import User from 'noutube/models/user';
+import SessionService from 'noutube/services/session';
 
 export default class AccountRoute extends Route {
   @service declare router: RouterService;

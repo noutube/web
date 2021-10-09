@@ -37,7 +37,7 @@ module.exports = {
           },
           {
             group: 'internal',
-            pattern: 'nou2ube/**'
+            pattern: 'noutube/**'
           }
         ],
         'newlines-between': 'always',

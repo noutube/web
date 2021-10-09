@@ -133,7 +133,7 @@ declare module '@glint/environment-ember-loose/registry' {
 }
 
 // Types for compiled templates
-declare module 'nou2ube/templates/*' {
+declare module 'noutube/templates/*' {
   const tmpl: TemplateFactory;
   export default tmpl;
 }

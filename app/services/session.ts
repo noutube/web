@@ -6,7 +6,7 @@ import { tracked } from '@glimmer/tracking';
 
 import jwtDecode from 'jwt-decode';
 
-import config from 'nou2ube/config/environment';
+import config from 'noutube/config/environment';
 
 const storageKey = 'storage:token';
 

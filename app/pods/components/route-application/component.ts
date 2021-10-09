@@ -1,7 +1,7 @@
 import { inject as service } from '@ember/service';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import SessionService from 'nou2ube/services/session';
+import SessionService from 'noutube/services/session';
 
 interface Signature {
   Yields: {

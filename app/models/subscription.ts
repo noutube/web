@@ -1,9 +1,9 @@
 import Model, { belongsTo, hasMany } from '@ember-data/model';
 import EmberArray from '@ember/array';
 
-import ApplicationAdapter from 'nou2ube/adapters/application';
-import ChannelModel from 'nou2ube/models/channel';
-import ItemModel from 'nou2ube/models/item';
+import ApplicationAdapter from 'noutube/adapters/application';
+import ChannelModel from 'noutube/models/channel';
+import ItemModel from 'noutube/models/item';
 
 export default class SubscriptionModel extends Model {
   @belongsTo('channel', { async: false })

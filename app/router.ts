@@ -1,6 +1,6 @@
 import EmberRouter from '@ember/routing/router';
 
-import config from 'nou2ube/config/environment';
+import config from 'noutube/config/environment';
 
 export default class Router extends EmberRouter {
   location = config.locationType;

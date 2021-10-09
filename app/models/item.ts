@@ -1,7 +1,7 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 
-import SubscriptionModel from 'nou2ube/models/subscription';
-import VideoModel from 'nou2ube/models/video';
+import SubscriptionModel from 'noutube/models/subscription';
+import VideoModel from 'noutube/models/video';
 
 export default class ItemModel extends Model {
   @attr('string') declare state: 'state_new' | 'state_later';

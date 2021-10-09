@@ -1,8 +1,8 @@
 import { inject as service } from '@ember/service';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import SubscriptionModel from 'nou2ube/models/subscription';
-import SettingsService from 'nou2ube/services/settings';
+import SubscriptionModel from 'noutube/models/subscription';
+import SettingsService from 'noutube/services/settings';
 
 interface Signature {
   Args: {

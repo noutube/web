@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import SessionService from 'nou2ube/services/session';
+import SessionService from 'noutube/services/session';
 
 export default class RouteSignInComponent extends Component {
   @service declare session: SessionService;

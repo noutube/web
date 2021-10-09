@@ -4,8 +4,8 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import User from 'nou2ube/models/user';
-import SessionService from 'nou2ube/services/session';
+import User from 'noutube/models/user';
+import SessionService from 'noutube/services/session';
 
 interface Signature {
   Args: {

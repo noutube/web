@@ -1,8 +1,8 @@
 import { action } from '@ember/object';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import ItemModel from 'nou2ube/models/item';
-import SubscriptionModel from 'nou2ube/models/subscription';
+import ItemModel from 'noutube/models/item';
+import SubscriptionModel from 'noutube/models/subscription';
 
 interface Signature {
   Args: {
