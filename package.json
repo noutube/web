@@ -84,7 +84,7 @@
     "ember-source": "~3.26.1",
     "ember-template-lint": "^3.2.0",
     "ember-truth-helpers": "^3.0.0",
-    "ember-youtube": "DuBistKomisch/ember-youtube#f9474393a821a9bcbce392f88fad9aedcacf50a6",
+    "ember-youtube": "DuBistKomisch/ember-youtube#e5b556ad477226970e4c50bf582d4f00bcd2019c",
     "emberx-select": "^4.0.0-beta.2",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",

@@ -16,6 +16,7 @@ interface EmberYoutubeComponentSignature {
   Args: {
     ended?: () => void;
     height?: number;
+    playbackRateChanged?: (rate: number) => void;
     playerVars?: Record<string, unknown>;
     speed?: number;
     width?: number;

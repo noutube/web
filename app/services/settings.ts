@@ -99,5 +99,18 @@ export default class SettingsService extends Service {
   }
   set speed(speed: number) {
     this.storage.set('speed', speed);
+    // clear per-channel speeds matching the new speed
+    this.channelSpeeds = Object.fromEntries(
+      Object.entries(this.channelSpeeds).filter(
+        ([channelApiId, oldSpeed]) => oldSpeed !== speed
+      )
+    );
+  }
+
+  get channelSpeeds(): Record<string, number> {
+    return this.storage.get('channelSpeeds');
+  }
+  set channelSpeeds(channelSpeeds: Record<string, number>) {
+    this.storage.set('channelSpeeds', channelSpeeds);
   }
 }

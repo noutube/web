@@ -28,6 +28,7 @@ export interface Settings {
   channelGroup: boolean;
   autoplay: boolean;
   speed: number;
+  channelSpeeds: Record<string, number>;
 }
 
 export default class SettingsStorage extends StorageObject<Settings> {
@@ -41,7 +42,8 @@ export default class SettingsStorage extends StorageObject<Settings> {
       channelDir: defaultDir,
       channelGroup: defaultChannelGroup,
       autoplay: defaultAutoplay,
-      speed: defaultSpeed
+      speed: defaultSpeed,
+      channelSpeeds: {}
     };
   }
 }

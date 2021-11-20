@@ -92,7 +92,10 @@ module.exports = {
           'error',
           { allowSingleExtends: true }
         ],
-        '@typescript-eslint/no-unused-vars': ['error', { args: 'none' }], // ignore arguments
+        '@typescript-eslint/no-unused-vars': [
+          'error',
+          { args: 'none', ignoreRestSiblings: true }
+        ], // ignore arguments
         'prefer-rest-params': 'off' // need super(...arguments)
       }
     }

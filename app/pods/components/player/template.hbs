@@ -17,8 +17,9 @@
     <EmberYoutube
       @ended={{this.player.embedEnded}}
       @height={{this.settings.sizeHeight}}
+      @playbackRateChanged={{this.playbackRateChanged}}
       @playerVars={{hash autoplay=1 rel=0}}
-      @speed={{this.settings.speed}}
+      @speed={{this.speed}}
       @width={{this.settings.sizeWidth}}
       @ytid={{this.player.item.video.apiId}}
     />
