@@ -12,6 +12,38 @@ export default class PlayerComponent extends Component {
 
   @tracked auto = false;
 
+  get channelApiId(): string | undefined {
+    return this.player.item?.subscription.channel.apiId;
+  }
+
+  get speed(): number {
+    const { channelApiId } = this;
+    if (!channelApiId) {
+      return this.settings.speed;
+    }
+
+    return this.settings.channelSpeeds[channelApiId] ?? this.settings.speed;
+  }
+
+  @action
+  playbackRateChanged(rate: number): void {
+    const { channelApiId } = this;
+    if (!channelApiId) {
+      return;
+    }
+
+    if (rate === this.settings.speed) {
+      const { [channelApiId]: oldSpeed, ...channelSpeeds } =
+        this.settings.channelSpeeds;
+      this.settings.channelSpeeds = channelSpeeds;
+    } else {
+      this.settings.channelSpeeds = {
+        ...this.settings.channelSpeeds,
+        [channelApiId]: rate
+      };
+    }
+  }
+
   @action
   toggleAuto(): void {
     this.auto = !this.auto;
