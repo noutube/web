@@ -21,18 +21,15 @@ export default class UploadTakeoutComponent extends Component {
 
     this.inFlight = true;
     try {
-      const { headers } = this.store.adapterFor('subscription');
+      const { headers } = this.store.adapterFor('channel');
       if (!event.target.files) {
         throw 'no file';
       }
-      const response = await fetch(
-        `${config.backendOrigin}/subscriptions/takeout`,
-        {
-          body: event.target.files[0],
-          headers,
-          method: 'POST'
-        }
-      );
+      const response = await fetch(`${config.backendOrigin}/channels/takeout`, {
+        body: event.target.files[0],
+        headers,
+        method: 'POST'
+      });
       if (!response.ok) {
         throw response.status;
       }

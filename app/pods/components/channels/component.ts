@@ -1,20 +1,20 @@
 import { inject as service } from '@ember/service';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import SubscriptionModel from 'noutube/models/subscription';
+import ChannelModel from 'noutube/models/channel';
 import SettingsService from 'noutube/services/settings';
 
 interface Signature {
   Args: {
-    subscriptions: SubscriptionModel[];
+    channels: ChannelModel[];
     state: 'new' | 'later';
   };
 }
 
-export default class SubscriptionsComponent extends Component<Signature> {
+export default class ChannelsComponent extends Component<Signature> {
   @service declare settings: SettingsService;
 
-  get subscriptionsSorted(): SubscriptionModel[] {
+  get channelsSorted(): ChannelModel[] {
     const { channelKey, channelDir } = this.settings;
 
     // prepend state to channel key and camel case
@@ -22,7 +22,7 @@ export default class SubscriptionsComponent extends Component<Signature> {
       .charAt(0)
       .toUpperCase()}${channelKey.slice(1)}`;
 
-    const sorted = this.args.subscriptions.sortBy(finalChannelKey);
+    const sorted = this.args.channels.sortBy(finalChannelKey);
     if (channelDir === 'desc') {
       sorted.reverse();
     }
@@ -32,6 +32,6 @@ export default class SubscriptionsComponent extends Component<Signature> {
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
-    Subscriptions: typeof SubscriptionsComponent;
+    Channels: typeof ChannelsComponent;
   }
 }

@@ -2,7 +2,7 @@ export default config;
 
 export type Theme = 'light' | 'dark' | 'gruvbox-light' | 'gruvbox-dark';
 export type VideoKey = 'age' | 'sortableTitle' | 'duration';
-export type ChannelKey = 'sortableTitle' | 'totalDuration' | 'itemCount';
+export type ChannelKey = 'sortableTitle' | 'totalDuration' | 'videoCount';
 export type Dir = 'asc' | 'desc';
 
 interface Setting<T> {

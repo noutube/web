@@ -1,4 +1,4 @@
-{{#if this.player.item}}
+{{#if this.player.video}}
   <div local-class="player {{if this.auto "auto"}}">
     <div local-class="top">
       <button type="button" {{on "click" this.player.stop}}>
@@ -7,11 +7,11 @@
       <button type="button" {{on "click" this.toggleAuto}}>
         <SvgIcon @name={{if this.auto "minimize-2" "maximize-2"}} />
       </button>
-      <img src={{this.player.item.subscription.channel.thumbnail}} alt={{this.player.item.subscription.channel.title}}>
+      <img src={{this.player.video.channel.thumbnail}} alt={{this.player.video.channel.title}}>
       <span local-class="title">
-        {{this.player.item.subscription.channel.title}}
+        {{this.player.video.channel.title}}
         &mdash;
-        {{this.player.item.video.title}}
+        {{this.player.video.title}}
       </span>
     </div>
     <EmberYoutube
@@ -21,7 +21,7 @@
       @playerVars={{hash autoplay=1 rel=0}}
       @speed={{this.speed}}
       @width={{this.settings.sizeWidth}}
-      @ytid={{this.player.item.video.apiId}}
+      @ytid={{this.player.video.apiId}}
     />
   </div>
 {{/if}}

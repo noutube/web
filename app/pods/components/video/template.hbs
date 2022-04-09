@@ -1,8 +1,8 @@
-<div local-class="item">
-  <Swipeable @swipeLeft={{this.markDeleted}} @swipeRight={{if @item.new this.markLater this.markDeleted}} @iconLeft="trash" @iconRight={{if @item.new "bookmark" "trash"}}>
+<div local-class="video">
+  <Swipeable @swipeLeft={{this.markDeleted}} @swipeRight={{if @video.new this.markLater this.markDeleted}} @iconLeft="trash" @iconRight={{if @video.new "bookmark" "trash"}}>
     <div local-class="bar">
       <button local-class="play-button" type="button" {{on "click" (if this.playing this.player.stop @play)}}>
-        <img src={{@item.video.thumbnail}} alt={{@item.video.title}}>
+        <img src={{@video.thumbnail}} alt={{@video.title}}>
         {{#if this.playing}}
           <div local-class="play-icon">
             <SvgIcon @name="play" @size={{48}} />
@@ -10,31 +10,31 @@
         {{/if}}
       </button>
       <div local-class="detail">
-        <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/watch?v={{@item.video.apiId}}">{{@item.video.title}}</a></p>
+        <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/watch?v={{@video.apiId}}">{{@video.title}}</a></p>
         <p>
-          {{#if @item.video.duration}}
-            <span title={{@item.video.duration}}>{{this.formattedDuration}}</span>,
+          {{#if @video.duration}}
+            <span title={{@video.duration}}>{{this.formattedDuration}}</span>,
           {{/if}}
-          {{#if @item.video.isLiveContent}}
+          {{#if @video.isLiveContent}}
             live
-          {{else if @item.video.isUpcoming}}
+          {{else if @video.isUpcoming}}
             premieres
-          {{else if @item.video.scheduledAt}}
+          {{else if @video.scheduledAt}}
             premiered
           {{else}}
             published
           {{/if}}
-          {{#if @item.video.isLive}}
+          {{#if @video.isLive}}
             now
           {{else}}
-            <span title={{moment @item.video.showAt}}>{{moment-from-now @item.video.showAt interval=60000}}</span>
+            <span title={{moment @video.showAt}}>{{moment-from-now @video.showAt interval=60000}}</span>
           {{/if}}
           {{#unless this.settings.channelGroup}}
-            by <a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{@item.subscription.channel.apiId}}">{{@item.subscription.channel.title}}</a>
+            by <a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{@video.channel.apiId}}">{{@video.channel.title}}</a>
           {{/unless}}
         </p>
         <p>
-          {{#if @item.new}}
+          {{#if @video.new}}
             <button type="button" {{on "click" this.markLater}}>
               <SvgIcon @name="bookmark" @size={{16}} />
               Watch Later

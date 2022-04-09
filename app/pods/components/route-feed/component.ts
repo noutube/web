@@ -5,14 +5,14 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import ItemModel from 'noutube/models/item';
-import SubscriptionModel from 'noutube/models/subscription';
+import ChannelModel from 'noutube/models/channel';
+import VideoModel from 'noutube/models/video';
 import SettingsService from 'noutube/services/settings';
 
 interface Signature {
   Args: {
-    items: ArrayProxy<ItemModel>;
-    subscriptions: ArrayProxy<SubscriptionModel>;
+    videos: ArrayProxy<VideoModel>;
+    channels: ArrayProxy<ChannelModel>;
   };
 }
 
@@ -21,32 +21,32 @@ export default class RouteFeedComponent extends Component<Signature> {
   @service declare settings: SettingsService;
 
   @tracked showSettings = false;
-  @tracked showSubscriptions = false;
+  @tracked showChannels = false;
 
-  get newSubscriptions(): SubscriptionModel[] {
-    return this.args.subscriptions.filterBy('hasNew');
+  get newChannels(): ChannelModel[] {
+    return this.args.channels.filterBy('hasNew');
   }
-  get laterSubscriptions(): SubscriptionModel[] {
-    return this.args.subscriptions.filterBy('hasLater');
-  }
-
-  get newItems(): ItemModel[] {
-    return this.args.items.filterBy('new');
-  }
-  get laterItems(): ItemModel[] {
-    return this.args.items.filterBy('later');
+  get laterChannels(): ChannelModel[] {
+    return this.args.channels.filterBy('hasLater');
   }
 
-  get allItems(): ItemModel[] {
-    return this.args.items.filterBy('isDeleted', false);
+  get newVideos(): VideoModel[] {
+    return this.args.videos.filterBy('new');
+  }
+  get laterVideos(): VideoModel[] {
+    return this.args.videos.filterBy('later');
   }
 
-  get anyItems(): boolean {
-    return this.allItems.length > 0;
+  get allVideos(): VideoModel[] {
+    return this.args.videos.filterBy('isDeleted', false);
+  }
+
+  get anyVideos(): boolean {
+    return this.allVideos.length > 0;
   }
 
   get titleNotification(): string {
-    return this.newItems.length > 0 ? `(${this.newItems.length})` : '';
+    return this.newVideos.length > 0 ? `(${this.newVideos.length})` : '';
   }
 
   @action
@@ -60,8 +60,8 @@ export default class RouteFeedComponent extends Component<Signature> {
   }
 
   @action
-  toggleSubscriptions(): void {
-    this.showSubscriptions = !this.showSubscriptions;
+  toggleChannels(): void {
+    this.showChannels = !this.showChannels;
   }
 }
 
