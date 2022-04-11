@@ -50,6 +50,7 @@ export default class VideoModel extends Model {
     this.deleteRecord();
     try {
       await this.save();
+      this.unloadRecord();
     } catch {
       this.rollbackAttributes();
     }

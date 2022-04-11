@@ -22,13 +22,8 @@ interface Model {
   videos: ArrayProxy<VideoModel>;
 }
 
-type FeedCreateMessage = {
-  action: 'create';
-  payload: JSONAPIPayload;
-};
-
-type FeedUpdateMessage = {
-  action: 'update';
+type FeedPushMessage = {
+  action: 'push';
   payload: JSONAPIPayload;
 };
 
@@ -38,7 +33,7 @@ type FeedDestroyMessage = {
   type: keyof ModelRegistry;
 };
 
-type FeedMessage = FeedCreateMessage | FeedUpdateMessage | FeedDestroyMessage;
+type FeedMessage = FeedPushMessage | FeedDestroyMessage;
 
 export default class FeedRoute extends Route {
   @service declare cable: CableService;
@@ -107,14 +102,13 @@ export default class FeedRoute extends Route {
       received: (data: FeedMessage) => {
         console.debug('[feed] message', data);
         switch (data.action) {
-          case 'create':
-          case 'update':
+          case 'push':
             this.store.pushPayload(data.payload);
             break;
           case 'destroy': {
             const record = this.store.peekRecord(data.type, data.id);
-            if (record && !record.isDeleted) {
-              record.deleteRecord();
+            if (record && !record.isSaving) {
+              record.unloadRecord();
             }
             break;
           }
@@ -145,6 +139,6 @@ export default class FeedRoute extends Route {
     // manually remove anything removed on server
     before
       .filter((model) => !after.findBy('id', model.id))
-      .forEach((model) => model.deleteRecord());
+      .forEach((model) => model.unloadRecord());
   }
 }
