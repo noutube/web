@@ -1,6 +1,8 @@
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
 export type IconName =
+  | 'bell'
+  | 'bell-off'
   | 'bookmark'
   | 'chevron-right'
   | 'gift'

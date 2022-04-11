@@ -1,5 +1,6 @@
 import Model, { attr, hasMany } from '@ember-data/model';
 import EmberArray from '@ember/array';
+import { action } from '@ember/object';
 
 import ApplicationAdapter from 'noutube/adapters/application';
 import VideoModel from 'noutube/models/video';
@@ -49,6 +50,26 @@ export default class ChannelModel extends Model {
   }
   get laterVideoCount(): number {
     return this.laterVideos.length;
+  }
+
+  @action
+  async subscribe(): Promise<void> {
+    this.isSubscribed = true;
+    try {
+      await this.save();
+    } catch {
+      this.rollbackAttributes();
+    }
+  }
+
+  @action
+  async unsubscribe(): Promise<void> {
+    this.isSubscribed = false;
+    try {
+      await this.save();
+    } catch {
+      this.rollbackAttributes();
+    }
   }
 }
 
