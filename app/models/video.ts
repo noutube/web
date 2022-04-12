@@ -1,8 +1,6 @@
-import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
-import EmberArray from '@ember/array';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
 import ChannelModel from 'noutube/models/channel';
-import ItemModel from 'noutube/models/item';
 
 export default class VideoModel extends Model {
   @attr('string') declare apiId: string;
@@ -14,14 +12,47 @@ export default class VideoModel extends Model {
   @attr('boolean') declare isLiveContent: boolean;
   @attr('boolean') declare isUpcoming: boolean;
   @attr('date') declare scheduledAt: Date | null;
+  @attr('string') declare state: 'state_new' | 'state_later';
 
   @belongsTo('channel', { async: false })
   declare channel: ChannelModel;
-  @hasMany('items', { async: false })
-  declare items: EmberArray<ItemModel>;
 
   get showAt(): Date {
     return this.scheduledAt ?? this.publishedAt;
+  }
+
+  get new(): boolean {
+    return this.state === 'state_new' && !this.isDeleted;
+  }
+
+  get later(): boolean {
+    return this.state === 'state_later' && !this.isDeleted;
+  }
+
+  get age(): number {
+    return Date.now() - this.showAt.getTime();
+  }
+
+  get sortableTitle(): string {
+    return this.title.toLowerCase();
+  }
+
+  async markLater(): Promise<void> {
+    this.state = 'state_later';
+    try {
+      await this.save();
+    } catch {
+      this.rollbackAttributes();
+    }
+  }
+
+  async markDeleted(): Promise<void> {
+    this.deleteRecord();
+    try {
+      await this.save();
+    } catch {
+      this.rollbackAttributes();
+    }
   }
 }
 

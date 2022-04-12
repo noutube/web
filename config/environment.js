@@ -41,7 +41,7 @@ module.exports = function (environment) {
     channelKeys: [
       { value: 'sortableTitle', label: 'title' },
       { value: 'totalDuration', label: 'total duration' },
-      { value: 'itemCount', label: 'number of videos' }
+      { value: 'videoCount', label: 'number of videos' }
     ],
     dirs: [
       { value: 'asc', label: 'ascending' },

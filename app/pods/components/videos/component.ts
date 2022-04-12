@@ -2,24 +2,24 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import ItemModel from 'noutube/models/item';
+import VideoModel from 'noutube/models/video';
 import PlayerService from 'noutube/services/player';
 import SettingsService from 'noutube/services/settings';
 
 interface Signature {
   Args: {
-    items: ItemModel[];
+    videos: VideoModel[];
   };
 }
 
-export default class ItemsComponent extends Component<Signature> {
+export default class VideosComponent extends Component<Signature> {
   @service declare player: PlayerService;
   @service declare settings: SettingsService;
 
-  get itemsSorted(): ItemModel[] {
+  get videosSorted(): VideoModel[] {
     const { videoKey, videoDir } = this.settings;
 
-    const sorted = this.args.items.sortBy(videoKey);
+    const sorted = this.args.videos.sortBy(videoKey);
     if (videoDir === 'desc') {
       sorted.reverse();
     }
@@ -27,17 +27,17 @@ export default class ItemsComponent extends Component<Signature> {
   }
 
   @action
-  play(item: ItemModel): void {
-    this.player.item = item;
+  play(video: VideoModel): void {
+    this.player.video = video;
     this.player.onPlayEnded = this.playEnded;
   }
 
   @action
-  playEnded(item: ItemModel): ItemModel | null {
-    const items = this.itemsSorted;
-    const next = items.indexOf(item) + 1;
-    if (next > 0 && next < items.length) {
-      return items[next];
+  playEnded(video: VideoModel): VideoModel | null {
+    const videos = this.videosSorted;
+    const next = videos.indexOf(video) + 1;
+    if (next > 0 && next < videos.length) {
+      return videos[next];
     } else {
       return null;
     }
@@ -46,6 +46,6 @@ export default class ItemsComponent extends Component<Signature> {
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
-    Items: typeof ItemsComponent;
+    Videos: typeof VideosComponent;
   }
 }

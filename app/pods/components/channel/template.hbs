@@ -1,9 +1,9 @@
 <Swipeable @swipeLeft={{this.ignoreAll}} @swipeRight={{if this.new this.markAllLater this.ignoreAll}} @iconLeft="trash" @iconRight={{if this.new "bookmark" "trash"}}>
   <div local-class="bar">
-    <img src={{@subscription.channel.thumbnail}} alt={{@subscription.channel.title}}>
+    <img src={{@channel.thumbnail}} alt={{@channel.title}}>
     <div local-class="detail">
-      <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{@subscription.channel.apiId}}">{{@subscription.channel.title}}</a></p>
-      <ItemsTotals @items={{this.items}} />
+      <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{@channel.apiId}}">{{@channel.title}}</a></p>
+      <VideosTotals @videos={{this.videos}} />
       <p>
         {{#if (eq @state "new")}}
           <button type="button" {{on "click" this.markAllLater}}>
@@ -24,5 +24,5 @@
       </p>
     </div>
   </div>
-  <Items @items={{this.items}} />
+  <Videos @videos={{this.videos}} />
 </Swipeable>

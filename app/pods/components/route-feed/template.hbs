@@ -3,7 +3,7 @@
 
 <MenuBar::Extras>
   <MenuBar::Button @onClick={{this.toggleSettings}} @title="Settings" @icon="sliders" />
-  <MenuBar::Button @onClick={{this.toggleSubscriptions}} @title="Subscriptions" @icon="list" />
+  <MenuBar::Button @onClick={{this.toggleChannels}} @title="Channels" @icon="list" />
   <MenuBar::Button @onClick={{this.goToAccount}} @title="Account" @icon="user" />
 </MenuBar::Extras>
 
@@ -13,32 +13,32 @@
   </Dialog>
 {{/if}}
 
-{{#if this.showSubscriptions}}
-  <Dialog @title="Subscriptions" @close={{this.toggleSubscriptions}}>
+{{#if this.showChannels}}
+  <Dialog @title="Channels" @close={{this.toggleChannels}}>
     <UploadTakeout />
-    <SubscriptionsSummary @subscriptions={{@subscriptions}} />
+    <ChannelsSummary @channels={{@channels}} />
   </Dialog>
 {{/if}}
 
-{{#if this.newSubscriptions}}
+{{#if this.newChannels}}
   <SectionHeader @icon="gift">New Videos</SectionHeader>
   {{#if this.settings.channelGroup}}
-    <Subscriptions @subscriptions={{this.newSubscriptions}} @state="new" />
+    <Channels @channels={{this.newChannels}} @state="new" />
   {{else}}
-    <ItemsUngrouped @items={{this.newItems}} />
+    <VideosUngrouped @videos={{this.newVideos}} />
   {{/if}}
 {{/if}}
 
-{{#if this.laterSubscriptions}}
+{{#if this.laterChannels}}
   <SectionHeader @icon="bookmark">Watch Later</SectionHeader>
   {{#if this.settings.channelGroup}}
-    <Subscriptions @subscriptions={{this.laterSubscriptions}} @state="later" />
+    <Channels @channels={{this.laterChannels}} @state="later" />
   {{else}}
-    <ItemsUngrouped @items={{this.laterItems}} />
+    <VideosUngrouped @videos={{this.laterVideos}} />
   {{/if}}
 {{/if}}
 
-{{#unless this.anyItems}}
+{{#unless this.anyVideos}}
   <SectionHeader @icon="slash">No Videos</SectionHeader>
   <div class="message">
     <p>You've watched everything for now, check again later.</p>

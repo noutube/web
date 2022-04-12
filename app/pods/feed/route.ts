@@ -13,13 +13,13 @@ import { Consumer, Subscription } from '@rails/actioncable';
 
 import config from 'noutube/config/environment';
 import JSONAPIPayload from 'noutube/lib/types/json-api-payload';
-import ItemModel from 'noutube/models/item';
-import SubscriptionModel from 'noutube/models/subscription';
+import ChannelModel from 'noutube/models/channel';
+import VideoModel from 'noutube/models/video';
 import SessionService from 'noutube/services/session';
 
 interface Model {
-  items: ArrayProxy<ItemModel>;
-  subscriptions: ArrayProxy<SubscriptionModel>;
+  channels: ArrayProxy<ChannelModel>;
+  videos: ArrayProxy<VideoModel>;
 }
 
 type FeedCreateMessage = {
@@ -73,8 +73,8 @@ export default class FeedRoute extends Route {
     } else {
       // fetch all data for user
       return hash({
-        items: this.store.findAll('item'),
-        subscriptions: this.store.findAll('subscription')
+        channels: this.store.findAll('channel'),
+        videos: this.store.findAll('video')
       });
     }
   }
@@ -91,8 +91,8 @@ export default class FeedRoute extends Route {
         console.debug('[feed] connected');
         if (this.#reconnecting) {
           // fetch anything we missed
-          this.reloadFromServer('item');
-          this.reloadFromServer('subscription');
+          this.reloadFromServer('channel');
+          this.reloadFromServer('video');
         }
         this.#reconnecting = false;
       },
@@ -135,8 +135,8 @@ export default class FeedRoute extends Route {
       console.debug('[feed] destroyed');
     }
 
-    this.store.unloadAll('item');
-    this.store.unloadAll('subscription');
+    this.store.unloadAll('channel');
+    this.store.unloadAll('video');
   }
 
   async reloadFromServer(modelName: keyof ModelRegistry): Promise<void> {

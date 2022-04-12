@@ -2,21 +2,21 @@ import { action } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import ItemModel from 'noutube/models/item';
+import VideoModel from 'noutube/models/video';
 import SettingsService from 'noutube/services/settings';
 
 export default class PlayerService extends Service {
   @service declare settings: SettingsService;
 
-  @tracked item: ItemModel | null = null;
-  onPlayEnded: (item: ItemModel) => ItemModel | null = () => null;
+  @tracked video: VideoModel | null = null;
+  onPlayEnded: (video: VideoModel) => VideoModel | null = () => null;
 
   @action
   embedEnded(): void {
-    if (this.settings.autoplay && this.item) {
-      const next = this.onPlayEnded(this.item);
+    if (this.settings.autoplay && this.video) {
+      const next = this.onPlayEnded(this.video);
       if (next) {
-        this.item = next;
+        this.video = next;
       } else {
         this.stop();
       }
@@ -25,7 +25,7 @@ export default class PlayerService extends Service {
 
   @action
   stop(): void {
-    this.item = null;
+    this.video = null;
     this.onPlayEnded = () => null;
   }
 }

@@ -13,7 +13,7 @@ export default class PlayerComponent extends Component {
   @tracked auto = false;
 
   get channelApiId(): string | undefined {
-    return this.player.item?.subscription.channel.apiId;
+    return this.player.video?.channel.apiId;
   }
 
   get speed(): number {

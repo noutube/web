@@ -1,42 +1,42 @@
 import { action } from '@ember/object';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import ItemModel from 'noutube/models/item';
-import SubscriptionModel from 'noutube/models/subscription';
+import ChannelModel from 'noutube/models/channel';
+import VideoModel from 'noutube/models/video';
 
 interface Signature {
   Args: {
-    subscription: SubscriptionModel;
+    channel: ChannelModel;
     state: 'new' | 'later';
   };
 }
 
-export default class SubscriptionComponent extends Component<Signature> {
+export default class ChannelComponent extends Component<Signature> {
   get new(): boolean {
     return this.args.state === 'new';
   }
 
-  get items(): ItemModel[] {
+  get videos(): VideoModel[] {
     if (this.new) {
-      return this.args.subscription.newItems;
+      return this.args.channel.newVideos;
     } else {
-      return this.args.subscription.laterItems;
+      return this.args.channel.laterVideos;
     }
   }
 
   @action
   markAllLater(): void {
-    this.items.invoke('markLater');
+    this.videos.invoke('markLater');
   }
 
   @action
   ignoreAll(): void {
-    this.items.invoke('markDeleted');
+    this.videos.invoke('markDeleted');
   }
 }
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
-    Subscription: typeof SubscriptionComponent;
+    Channel: typeof ChannelComponent;
   }
 }

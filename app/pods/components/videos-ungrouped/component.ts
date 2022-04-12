@@ -1,17 +1,17 @@
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
-import ItemModel from 'noutube/models/item';
+import VideoModel from 'noutube/models/video';
 
 interface Signature {
   Args: {
-    items: ItemModel[];
+    videos: VideoModel[];
   };
 }
 
-export default class ItemsUngroupedComponent extends Component<Signature> {}
+export default class VideosUngroupedComponent extends Component<Signature> {}
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
-    ItemsUngrouped: typeof ItemsUngroupedComponent;
+    VideosUngrouped: typeof VideosUngroupedComponent;
   }
 }
