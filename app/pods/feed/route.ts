@@ -13,6 +13,10 @@ import { Consumer, Subscription } from '@rails/actioncable';
 
 import config from 'noutube/config/environment';
 import JSONAPIPayload from 'noutube/lib/types/json-api-payload';
+import {
+  waitForPendingCreate,
+  waitForPendingDelete
+} from 'noutube/lib/waitForPending';
 import ChannelModel from 'noutube/models/channel';
 import VideoModel from 'noutube/models/video';
 import SessionService from 'noutube/services/session';
@@ -99,16 +103,17 @@ export default class FeedRoute extends Route {
         }
       },
 
-      received: (data: FeedMessage) => {
+      received: async (data: FeedMessage) => {
         console.debug('[feed] message', data);
         switch (data.action) {
           case 'push':
+            await waitForPendingCreate(this.store, data.payload.data);
             this.store.pushPayload(data.payload);
             break;
           case 'destroy': {
-            const record = this.store.peekRecord(data.type, data.id);
-            if (record && !record.isSaving) {
-              record.unloadRecord();
+            const model = await waitForPendingDelete(this.store, data);
+            if (model) {
+              model.unloadRecord();
             }
             break;
           }
