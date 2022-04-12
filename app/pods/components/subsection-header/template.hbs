@@ -1,0 +1,8 @@
+<h3 local-class="subsection-header">
+  {{#if @icon}}
+    <span local-class="icon">
+      <SvgIcon @name={{@icon}} @size={{20}} />
+    </span>
+  {{/if}}
+  {{yield}}
+</h3>

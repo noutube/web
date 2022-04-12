@@ -1,0 +1,27 @@
+<form local-class="add-video" {{on "submit" this.addVideo}}>
+  <div local-class="row">
+    <FormInput
+      @disabled={{eq this.state "inFlight"}}
+      @label="Video URL"
+      @onChange={{this.handleApiId}}
+      @value={{this.apiId}}
+    />
+  </div>
+
+  <div local-class="row">
+    {{#if (eq this.state "inFlight")}}
+      Adding...
+    {{else if (eq this.state "success")}}
+      Added!
+    {{else if (eq this.state "failure")}}
+      Failed! Please try again.
+    {{else}}
+      <button
+        type="submit"
+        disabled={{not this.valid}}
+      >
+        Add
+      </button>
+    {{/if}}
+  </div>
+</form>

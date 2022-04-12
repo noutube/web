@@ -2,21 +2,21 @@
 {{page-title this.titleNotification " NoUTube" replace=true}}
 
 <MenuBar::Extras>
+  <MenuBar::Button @onClick={{this.toggleAddVideo}} @title="Add Video" @icon="plus" />
+  <MenuBar::Button @onClick={{this.goToSubscriptions}} @title="Subscriptions" @icon="bell" />
   <MenuBar::Button @onClick={{this.toggleSettings}} @title="Settings" @icon="sliders" />
-  <MenuBar::Button @onClick={{this.toggleChannels}} @title="Channels" @icon="list" />
   <MenuBar::Button @onClick={{this.goToAccount}} @title="Account" @icon="user" />
 </MenuBar::Extras>
+
+{{#if this.showAddVideo}}
+  <Dialog @title="Add Video" @close={{this.toggleAddVideo}}>
+    <AddVideo />
+  </Dialog>
+{{/if}}
 
 {{#if this.showSettings}}
   <Dialog @title="Settings" @close={{this.toggleSettings}}>
     <Settings />
-  </Dialog>
-{{/if}}
-
-{{#if this.showChannels}}
-  <Dialog @title="Channels" @close={{this.toggleChannels}}>
-    <UploadTakeout />
-    <ChannelsSummary @channels={{@channels}} />
   </Dialog>
 {{/if}}
 

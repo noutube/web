@@ -20,8 +20,8 @@ export default class RouteFeedComponent extends Component<Signature> {
   @service declare router: RouterService;
   @service declare settings: SettingsService;
 
+  @tracked showAddVideo = false;
   @tracked showSettings = false;
-  @tracked showChannels = false;
 
   get newChannels(): ChannelModel[] {
     return this.args.channels.filterBy('hasNew');
@@ -55,13 +55,18 @@ export default class RouteFeedComponent extends Component<Signature> {
   }
 
   @action
-  toggleSettings(): void {
-    this.showSettings = !this.showSettings;
+  goToSubscriptions(): void {
+    this.router.transitionTo('subscriptions');
   }
 
   @action
-  toggleChannels(): void {
-    this.showChannels = !this.showChannels;
+  toggleAddVideo(): void {
+    this.showAddVideo = !this.showAddVideo;
+  }
+
+  @action
+  toggleSettings(): void {
+    this.showSettings = !this.showSettings;
   }
 }
 

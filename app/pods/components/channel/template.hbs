@@ -21,6 +21,18 @@
             Watched All
           </button>
         {{/if}}
+        &middot;
+        {{#if @channel.isSubscribed}}
+          <button type="button" {{on "click" @channel.unsubscribe}}>
+            <SvgIcon @name="bell-off" @size={{16}} />
+            Unsubscribe
+          </button>
+        {{else}}
+          <button type="button" {{on "click" @channel.subscribe}}>
+            <SvgIcon @name="bell" @size={{16}} />
+            Subscribe
+          </button>
+        {{/if}}
       </p>
     </div>
   </div>

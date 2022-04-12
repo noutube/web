@@ -1,0 +1,107 @@
+<SectionHeader
+  @backIcon="inbox"
+  @backRoute="feed"
+  @icon="list"
+>
+  Subscriptions
+</SectionHeader>
+
+<form local-class="subscriptions" {{on "submit" this.addChannel}}>
+  <SubsectionHeader @icon="refresh-cw">
+    Sync with YouTube
+  </SubsectionHeader>
+
+  <div local-class="row">
+    The easiest option to manage your subscriptions is to occasionally sync with your YouTube account.
+  </div>
+
+  <div local-class="row">
+    You will need to log in and make a <a href="https://takeout.google.com" target="_blank" rel="noopener noreferrer">Google Takeout</a>.
+  </div>
+
+  <div local-class="row">
+    Deselect everything besides "YouTube and YouTube Music" &gt; "subscriptions".
+  </div>
+
+  <div local-class="row">
+    Download the zip file, then upload the "subscriptions.csv" file it contains.
+  </div>
+
+  <div local-class="row">
+    <UploadTakeout />
+  </div>
+
+  <SubsectionHeader @icon="plus">
+    Add Subscription
+  </SubsectionHeader>
+
+  <div local-class="row">
+    Alternatively, you can manage your subscriptions manually, by adding or removing them here.
+  </div>
+
+  <div local-class="row">
+    <FormInput
+      @disabled={{eq this.state "inFlight"}}
+      @label="Channel URL"
+      @onChange={{this.handleApiId}}
+      @value={{this.apiId}}
+    />
+  </div>
+
+  <div local-class="row">
+    {{#if (eq this.state "inFlight")}}
+      Adding...
+    {{else if (eq this.state "success")}}
+      Added!
+    {{else if (eq this.state "failure")}}
+      Failed! Please try again.
+    {{else}}
+      <button
+        type="submit"
+        disabled={{not this.valid}}
+      >
+        Add
+      </button>
+    {{/if}}
+  </div>
+
+  <SubsectionHeader @icon="bell">
+    Subscribed Channels
+  </SubsectionHeader>
+
+  {{#each this.subscribedChannels as |channel|}}
+    <div local-class="channel">
+      <img src={{channel.thumbnail}} alt={{channel.title}}>
+      <div local-class="detail">
+        <a class="title" rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{channel.apiId}}">{{channel.title}}</a>
+        <button type="button" {{on "click" channel.unsubscribe}}>
+          <SvgIcon @name="bell-off" @size={{16}} />
+        </button>
+      </div>
+    </div>
+  {{else}}
+    <div local-class="row">
+      You have no subscriptions, add some above.
+    </div>
+  {{/each}}
+
+  <SubsectionHeader @icon="bell-off">
+    Unsubscribed Channels
+  </SubsectionHeader>
+
+  {{#each this.unsubscribedChannels as |channel|}}
+    <div local-class="channel">
+      <img src={{channel.thumbnail}} alt={{channel.title}}>
+      <div local-class="detail">
+        <a class="title" rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{channel.apiId}}">{{channel.title}}</a>
+        <button type="button" {{on "click" channel.subscribe}}>
+          <SvgIcon @name="bell" @size={{16}} />
+        </button>
+      </div>
+    </div>
+  {{else}}
+    <div local-class="row">
+      You don't currently have any videos from unsubcribed channels.
+    </div>
+  {{/each}}
+</form>

@@ -1,8 +1,12 @@
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
 export type IconName =
+  | 'bar-chart'
+  | 'bell'
+  | 'bell-off'
   | 'bookmark'
   | 'chevron-right'
+  | 'edit'
   | 'gift'
   | 'home'
   | 'inbox'
@@ -14,6 +18,8 @@ export type IconName =
   | 'maximize-2'
   | 'minimize-2'
   | 'play'
+  | 'plus'
+  | 'refresh-cw'
   | 'slash'
   | 'sliders'
   | 'square'
