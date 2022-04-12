@@ -1,5 +1,18 @@
-.channels-summary {
+.subscriptions {
+  @include theme((background: bg-hi, color: emph));
+
+  padding: 0 8px;
+  overflow: auto;
+
   > h3 {
+    margin: 24px 0 12px;
+
+    &:nth-of-type(1) {
+      margin-top: 12px;
+    }
+  }
+
+  > .row {
     margin: 12px 0;
   }
 
