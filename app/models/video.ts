@@ -12,7 +12,7 @@ export default class VideoModel extends Model {
   @attr('boolean') declare isLiveContent: boolean;
   @attr('boolean') declare isUpcoming: boolean;
   @attr('date') declare scheduledAt: Date | null;
-  @attr('string') declare state: 'state_new' | 'state_later';
+  @attr('string') declare state: 'new' | 'later';
 
   @belongsTo('channel', { async: false })
   declare channel: ChannelModel;
@@ -22,11 +22,11 @@ export default class VideoModel extends Model {
   }
 
   get new(): boolean {
-    return this.state === 'state_new' && !this.isDeleted;
+    return this.state === 'new' && !this.isDeleted;
   }
 
   get later(): boolean {
-    return this.state === 'state_later' && !this.isDeleted;
+    return this.state === 'later' && !this.isDeleted;
   }
 
   get age(): number {
@@ -38,7 +38,7 @@ export default class VideoModel extends Model {
   }
 
   async markLater(): Promise<void> {
-    this.state = 'state_later';
+    this.state = 'later';
     try {
       await this.save();
     } catch {
