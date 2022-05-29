@@ -38,7 +38,7 @@ export default class RouteFeedComponent extends Component<Signature> {
   }
 
   get allVideos(): VideoModel[] {
-    return this.args.videos.filterBy('isDeleted', false);
+    return this.args.videos.filterBy('deleted', false);
   }
 
   get anyVideos(): boolean {

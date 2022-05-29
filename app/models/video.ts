@@ -2,6 +2,8 @@ import Model, { attr, belongsTo } from '@ember-data/model';
 
 import ChannelModel from 'noutube/models/channel';
 
+export type State = 'new' | 'later' | 'deleted';
+
 export default class VideoModel extends Model {
   @attr('string') declare apiId: string;
   @attr('string') declare title: string;
@@ -12,7 +14,7 @@ export default class VideoModel extends Model {
   @attr('boolean') declare isLiveContent: boolean;
   @attr('boolean') declare isUpcoming: boolean;
   @attr('date') declare scheduledAt: Date | null;
-  @attr('string') declare state: 'new' | 'later';
+  @attr('string') declare state: State;
 
   @belongsTo('channel', { async: false })
   declare channel: ChannelModel;
@@ -22,11 +24,15 @@ export default class VideoModel extends Model {
   }
 
   get new(): boolean {
-    return this.state === 'new' && !this.isDeleted;
+    return this.state === 'new';
   }
 
   get later(): boolean {
-    return this.state === 'later' && !this.isDeleted;
+    return this.state === 'later';
+  }
+
+  get deleted(): boolean {
+    return this.state === 'deleted';
   }
 
   get age(): number {
@@ -47,7 +53,7 @@ export default class VideoModel extends Model {
   }
 
   async markDeleted(): Promise<void> {
-    this.deleteRecord();
+    this.state = 'deleted';
     try {
       await this.save();
     } catch {
