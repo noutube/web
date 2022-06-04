@@ -95,7 +95,6 @@ export default class SessionService extends Service {
   private clear(): void {
     this.token = null;
     this.persist();
-    this.router.transitionTo('landing');
   }
 
   private persist(): void {
@@ -109,6 +108,5 @@ export default class SessionService extends Service {
   private push(token: string): void {
     this.token = token;
     this.persist();
-    this.router.transitionTo('feed');
   }
 }

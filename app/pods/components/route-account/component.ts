@@ -1,5 +1,6 @@
 import { InvalidError, errorsArrayToHash } from '@ember-data/adapter/error';
 import { action } from '@ember/object';
+import RouterService from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glint/environment-ember-loose/glimmer-component';
@@ -14,6 +15,7 @@ interface Signature {
 }
 
 export default class RouteAccountComponent extends Component<Signature> {
+  @service declare router: RouterService;
   @service declare session: SessionService;
 
   @tracked errors: Record<string, string> = {};
@@ -31,6 +33,7 @@ export default class RouteAccountComponent extends Component<Signature> {
       this.args.user.deleteRecord();
       await this.args.user.save();
       this.session.signOut();
+      this.router.transitionTo('landing');
     } catch (error) {
       this.args.user.rollbackAttributes();
     }
@@ -64,6 +67,12 @@ export default class RouteAccountComponent extends Component<Signature> {
       this.args.user.rollbackAttributes();
       this.state = 'failure';
     }
+  }
+
+  @action
+  signOut(): void {
+    this.session.signOut();
+    this.router.transitionTo('landing');
   }
 
   @action
