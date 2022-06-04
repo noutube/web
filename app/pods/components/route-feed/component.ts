@@ -56,7 +56,7 @@ export default class RouteFeedComponent extends Component<Signature> {
 
   @action
   goToSubscriptions(): void {
-    this.router.transitionTo('subscriptions');
+    this.router.transitionTo('feed.subscriptions');
   }
 
   @action
