@@ -2,12 +2,13 @@ import { inject as service } from '@ember/service';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
 import ChannelModel from 'noutube/models/channel';
+import { State } from 'noutube/models/video';
 import SettingsService from 'noutube/services/settings';
 
 interface Signature {
   Args: {
     channels: ChannelModel[];
-    state: 'new' | 'later';
+    state: State;
   };
 }
 

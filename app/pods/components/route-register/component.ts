@@ -1,6 +1,7 @@
 import { InvalidError, errorsArrayToHash } from '@ember-data/adapter/error';
 import Store from '@ember-data/store';
 import { action } from '@ember/object';
+import RouterService from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glint/environment-ember-loose/glimmer-component';
@@ -8,6 +9,7 @@ import Component from '@glint/environment-ember-loose/glimmer-component';
 import SessionService from 'noutube/services/session';
 
 export default class RouteRegisterComponent extends Component {
+  @service declare router: RouterService;
   @service declare session: SessionService;
   @service declare store: Store;
 
@@ -48,6 +50,7 @@ export default class RouteRegisterComponent extends Component {
       await user.save();
       await this.session.signIn(this.email, this.password);
       this.state = 'success';
+      this.router.transitionTo('feed');
     } catch (error) {
       if (error instanceof InvalidError) {
         this.errors = errorsArrayToHash(error.errors);

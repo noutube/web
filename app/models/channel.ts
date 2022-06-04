@@ -28,6 +28,13 @@ export default class ChannelModel extends Model {
     return this.laterVideos.length > 0;
   }
 
+  get deletedVideos(): VideoModel[] {
+    return this.videos.filterBy('deleted');
+  }
+  get hasDeleted(): boolean {
+    return this.deletedVideos.length > 0;
+  }
+
   get sortableTitle(): string {
     return this.title.toLowerCase();
   }
@@ -37,6 +44,9 @@ export default class ChannelModel extends Model {
   get laterSortableTitle(): string {
     return this.sortableTitle;
   }
+  get deletedSortableTitle(): string {
+    return this.sortableTitle;
+  }
 
   get newTotalDuration(): number {
     return this.newVideos.reduce((sum, video) => sum + video.duration, 0);
@@ -44,12 +54,18 @@ export default class ChannelModel extends Model {
   get laterTotalDuration(): number {
     return this.laterVideos.reduce((sum, video) => sum + video.duration, 0);
   }
+  get deletedTotalDuration(): number {
+    return this.deletedVideos.reduce((sum, video) => sum + video.duration, 0);
+  }
 
   get newVideoCount(): number {
     return this.newVideos.length;
   }
   get laterVideoCount(): number {
     return this.laterVideos.length;
+  }
+  get deletedVideoCount(): number {
+    return this.deletedVideos.length;
   }
 
   @action

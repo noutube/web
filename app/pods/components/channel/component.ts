@@ -2,12 +2,12 @@ import { action } from '@ember/object';
 import Component from '@glint/environment-ember-loose/glimmer-component';
 
 import ChannelModel from 'noutube/models/channel';
-import VideoModel from 'noutube/models/video';
+import VideoModel, { State } from 'noutube/models/video';
 
 interface Signature {
   Args: {
     channel: ChannelModel;
-    state: 'new' | 'later';
+    state: State;
   };
 }
 
@@ -16,11 +16,21 @@ export default class ChannelComponent extends Component<Signature> {
     return this.args.state === 'new';
   }
 
+  get later(): boolean {
+    return this.args.state === 'later';
+  }
+
+  get deleted(): boolean {
+    return this.args.state === 'deleted';
+  }
+
   get videos(): VideoModel[] {
     if (this.new) {
       return this.args.channel.newVideos;
-    } else {
+    } else if (this.later) {
       return this.args.channel.laterVideos;
+    } else {
+      return this.args.channel.deletedVideos;
     }
   }
 

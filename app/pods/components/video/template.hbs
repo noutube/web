@@ -1,5 +1,10 @@
 <div local-class="video">
-  <Swipeable @swipeLeft={{this.markDeleted}} @swipeRight={{if @video.new this.markLater this.markDeleted}} @iconLeft="trash" @iconRight={{if @video.new "bookmark" "trash"}}>
+  <Swipeable
+    @swipeLeft={{if @video.deleted this.markLater this.markDeleted}}
+    @swipeRight={{if @video.later this.markDeleted this.markLater}}
+    @iconLeft={{if @video.deleted "bookmark" "trash"}}
+    @iconRight={{if @video.later "trash" "bookmark"}}
+  >
     <div local-class="bar">
       <button local-class="play-button" type="button" {{on "click" (if this.playing this.player.stop @play)}}>
         <img src={{@video.thumbnail}} alt={{@video.title}}>
@@ -44,10 +49,15 @@
               <SvgIcon @name="trash" @size={{16}} />
               Ignore
             </button>
-          {{else}}
+          {{else if @video.later}}
             <button type="button" {{on "click" this.markDeleted}}>
               <SvgIcon @name="trash" @size={{16}} />
               Watched
+            </button>
+          {{else}}
+            <button type="button" {{on "click" this.markLater}}>
+              <SvgIcon @name="bookmark" @size={{16}} />
+              Restore
             </button>
           {{/if}}
           &middot;

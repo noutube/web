@@ -21,7 +21,7 @@ import ChannelModel from 'noutube/models/channel';
 import VideoModel from 'noutube/models/video';
 import SessionService from 'noutube/services/session';
 
-interface Model {
+export interface Model {
   channels: ArrayProxy<ChannelModel>;
   videos: ArrayProxy<VideoModel>;
 }

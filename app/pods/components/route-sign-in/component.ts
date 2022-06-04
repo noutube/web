@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import RouterService from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glint/environment-ember-loose/glimmer-component';
@@ -6,6 +7,7 @@ import Component from '@glint/environment-ember-loose/glimmer-component';
 import SessionService from 'noutube/services/session';
 
 export default class RouteSignInComponent extends Component {
+  @service declare router: RouterService;
   @service declare session: SessionService;
 
   @tracked email = '';
@@ -40,6 +42,7 @@ export default class RouteSignInComponent extends Component {
       this.state = 'inFlight';
       await this.session.signIn(this.email, this.password);
       this.state = 'success';
+      this.router.transitionTo('feed');
     } catch (error) {
       this.state = 'failure';
     }

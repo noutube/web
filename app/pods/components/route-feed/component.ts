@@ -38,7 +38,7 @@ export default class RouteFeedComponent extends Component<Signature> {
   }
 
   get allVideos(): VideoModel[] {
-    return this.args.videos.filterBy('isDeleted', false);
+    return this.args.videos.filterBy('deleted', false);
   }
 
   get anyVideos(): boolean {
@@ -55,8 +55,13 @@ export default class RouteFeedComponent extends Component<Signature> {
   }
 
   @action
+  goToDeleted(): void {
+    this.router.transitionTo('feed.deleted');
+  }
+
+  @action
   goToSubscriptions(): void {
-    this.router.transitionTo('subscriptions');
+    this.router.transitionTo('feed.subscriptions');
   }
 
   @action
