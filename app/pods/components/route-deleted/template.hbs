@@ -1,0 +1,19 @@
+<SectionHeader
+  @backIcon="inbox"
+  @backRoute="feed"
+  @icon="trash"
+>
+  Deleted
+</SectionHeader>
+
+{{#if this.deletedChannels}}
+  {{#if this.settings.channelGroup}}
+    <Channels @channels={{this.deletedChannels}} @state="deleted" />
+  {{else}}
+    <VideosUngrouped @videos={{this.deletedVideos}} />
+  {{/if}}
+{{else}}
+  <div class="message">
+    <p>You haven't recently deleted any videos.</p>
+  </div>
+{{/if}}
