@@ -64,4 +64,14 @@
       }
     }
   }
+
+  &:not(.auto) {
+    /* stylelint-disable-next-line selector-class-pattern */
+    > :global(.EmberYoutube) {
+      > iframe {
+        max-width: 100%;
+        max-height: math.div(9, 16) * 100vw;
+      }
+    }
+  }
 }
