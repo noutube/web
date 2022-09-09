@@ -19,6 +19,7 @@ import {
 } from 'noutube/lib/waitForPending';
 import ChannelModel from 'noutube/models/channel';
 import VideoModel from 'noutube/models/video';
+import PlayerService from 'noutube/services/player';
 import SessionService from 'noutube/services/session';
 
 export interface Model {
@@ -41,6 +42,7 @@ type FeedMessage = FeedPushMessage | FeedDestroyMessage;
 
 export default class FeedRoute extends Route {
   @service declare cable: CableService;
+  @service declare player: PlayerService;
   @service declare router: RouterService;
   @service declare session: SessionService;
   @service declare store: Store;
@@ -109,10 +111,20 @@ export default class FeedRoute extends Route {
           case 'push':
             await waitForPendingCreate(this.store, data.payload.data);
             this.store.pushPayload(data.payload);
+
+            // stop playing video when soft deleted
+            if (data.payload.data.type === 'video' && data.payload.data.id === this.player.video?.id && data.payload.data.attributes.state === 'deleted') {
+              this.player.stop();
+            }
             break;
           case 'destroy': {
             const model = await waitForPendingDelete(this.store, data);
             if (model) {
+              // stop playing video when hard deleted
+              if (this.player.video === model) {
+                this.player.stop();
+              }
+
               model.unloadRecord();
             }
             break;
