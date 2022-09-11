@@ -8,7 +8,7 @@ import config, {
 } from 'noutube/config/environment';
 
 const {
-  themes: [{ value: defaultTheme }],
+  themes: [{ value: defaultTheme }, { value: defaultDarkTheme }],
   sizes: [defaultSize],
   videoKeys: [{ value: defaultVideoKey }],
   channelKeys: [{ value: defaultChannelKey }],
@@ -33,8 +33,9 @@ export interface Settings {
 
 export default class SettingsStorage extends StorageObject<Settings> {
   static initialState(): Settings {
+    const theme = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? defaultDarkTheme : defaultTheme;
     return {
-      theme: defaultTheme,
+      theme,
       size: defaultSize,
       videoKey: defaultVideoKey,
       videoDir: defaultDir,
