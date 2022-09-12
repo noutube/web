@@ -1,20 +1,63 @@
 import Service from '@ember/service';
 
-import { storageFor } from 'ember-local-storage';
+import config, { Theme, VideoKey, ChannelKey, Dir } from 'noutube/config/environment';
 
-import { Theme, VideoKey, ChannelKey, Dir } from 'noutube/config/environment';
-import SettingsStorage from 'noutube/storages/settings';
+const storageKey = 'storage:settings';
+
+const {
+  themes: [{ value: defaultLightTheme }, { value: defaultDarkTheme }],
+  sizes: [defaultSize],
+  videoKeys: [{ value: defaultVideoKey }],
+  channelKeys: [{ value: defaultChannelKey }],
+  dirs: [{ value: defaultDir }],
+  defaultChannelGroup,
+  defaultAutoplay,
+  defaultSpeed
+} = config;
+
+const defaultTheme = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? defaultDarkTheme : defaultLightTheme;
+
+interface Settings {
+  theme: Theme;
+  size: number;
+  videoKey: VideoKey;
+  videoDir: Dir;
+  channelKey: ChannelKey;
+  channelDir: Dir;
+  channelGroup: boolean;
+  autoplay: boolean;
+  speed: number;
+  channelSpeeds: Record<string, number>;
+}
 
 export default class SettingsService extends Service {
-  @storageFor('settings') declare storage: SettingsStorage;
+  #settings: Partial<Settings> = {};
+
+  restore(): void {
+    const settings = window.localStorage.getItem(storageKey);
+    if (settings) {
+      try {
+        this.#settings = JSON.parse(settings);
+      } catch (error) {
+        console.warn('[settings] restore failed', error);
+      }
+      console.debug('[settings] restored');
+    }
+  }
+
+  private persist(): void {
+    window.localStorage.setItem(storageKey, JSON.stringify(this.#settings));
+    console.debug('[settings] persisted');
+  }
 
   // size
 
   get size(): number {
-    return this.storage.get('size');
+    return this.#settings.size ?? defaultSize;
   }
   set size(size: number) {
-    this.storage.set('size', size);
+    this.#settings.size = size;
+    this.persist();
   }
 
   get sizeHeight(): number {
@@ -28,34 +71,39 @@ export default class SettingsService extends Service {
   // sorting
 
   get channelDir(): Dir {
-    return this.storage.get('channelDir');
+    return this.#settings.channelDir ?? defaultDir;
   }
   set channelDir(channelDir: Dir) {
-    this.storage.set('channelDir', channelDir);
+    this.#settings.channelDir = channelDir;
+    this.persist();
   }
   get channelGroup(): boolean {
-    return this.storage.get('channelGroup');
+    return this.#settings.channelGroup ?? defaultChannelGroup;
   }
   set channelGroup(channelGroup: boolean) {
-    this.storage.set('channelGroup', channelGroup);
+    this.#settings.channelGroup = channelGroup;
+    this.persist();
   }
   get channelKey(): ChannelKey {
-    return this.storage.get('channelKey');
+    return this.#settings.channelKey ?? defaultChannelKey;
   }
   set channelKey(channelKey: ChannelKey) {
-    this.storage.set('channelKey', channelKey);
+    this.#settings.channelKey = channelKey;
+    this.persist();
   }
   get videoDir(): Dir {
-    return this.storage.get('videoDir');
+    return this.#settings.videoDir ?? defaultDir;
   }
   set videoDir(videoDir: Dir) {
-    this.storage.set('videoDir', videoDir);
+    this.#settings.videoDir = videoDir;
+    this.persist();
   }
   get videoKey(): VideoKey {
-    return this.storage.get('videoKey');
+    return this.#settings.videoKey ?? defaultVideoKey;
   }
   set videoKey(videoKey: VideoKey) {
-    this.storage.set('videoKey', videoKey);
+    this.#settings.videoKey = videoKey;
+    this.persist();
   }
 
   // theme
@@ -63,10 +111,11 @@ export default class SettingsService extends Service {
   #themeClass = '';
 
   get theme(): Theme {
-    return this.storage.get('theme');
+    return this.#settings.theme ?? defaultTheme;
   }
   set theme(theme: Theme) {
-    this.storage.set('theme', theme);
+    this.#settings.theme = theme;
+    this.persist();
     this.applyTheme();
   }
 
@@ -86,19 +135,21 @@ export default class SettingsService extends Service {
   // autoplay
 
   get autoplay(): boolean {
-    return this.storage.get('autoplay');
+    return this.#settings.autoplay ?? defaultAutoplay;
   }
   set autoplay(autoplay: boolean) {
-    this.storage.set('autoplay', autoplay);
+    this.#settings.autoplay = autoplay;
+    this.persist();
   }
 
   // speed
 
   get speed(): number {
-    return this.storage.get('speed');
+    return this.#settings.speed ?? defaultSpeed;
   }
   set speed(speed: number) {
-    this.storage.set('speed', speed);
+    this.#settings.speed = speed;
+    this.persist();
     // clear per-channel speeds matching the new speed
     this.channelSpeeds = Object.fromEntries(
       Object.entries(this.channelSpeeds).filter(
@@ -108,9 +159,10 @@ export default class SettingsService extends Service {
   }
 
   get channelSpeeds(): Record<string, number> {
-    return this.storage.get('channelSpeeds');
+    return this.#settings.channelSpeeds ?? {};
   }
   set channelSpeeds(channelSpeeds: Record<string, number>) {
-    this.storage.set('channelSpeeds', channelSpeeds);
+    this.#settings.channelSpeeds = channelSpeeds;
+    this.persist();
   }
 }

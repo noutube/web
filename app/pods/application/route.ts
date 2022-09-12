@@ -10,6 +10,7 @@ export default class ApplicationRoute extends Route {
   @service declare settings: SettingsService;
 
   async beforeModel(transition: Transition): Promise<void> {
+    this.settings.restore();
     this.settings.applyTheme();
     await this.session.restore();
   }
