@@ -7,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 import jwtDecode from 'jwt-decode';
 
 import config from 'noutube/config/environment';
+import SettingsService from 'noutube/services/settings';
 
 const storageKey = 'storage:token';
 
@@ -16,6 +17,7 @@ interface JWTPayload {
 
 export default class SessionService extends Service {
   @service declare router: RouterService;
+  @service declare settings: SettingsService;
   @service declare store: Store;
 
   @tracked token: string | null = null;
@@ -32,6 +34,14 @@ export default class SessionService extends Service {
     } else {
       return null;
     }
+  }
+
+  get headers(): Record<string, string> {
+    return {
+      ...(this.token && {
+        Authorization: `Bearer ${this.token}`
+      })
+    };
   }
 
   async restore(): Promise<void> {
@@ -51,6 +61,7 @@ export default class SessionService extends Service {
       } else if (response.ok) {
         this.push(token);
         console.debug('[session] restored');
+        this.settings.restore();
       } else {
         console.warn('[session] restore failed: rejected', response.status);
         this.clear();
@@ -76,6 +87,7 @@ export default class SessionService extends Service {
         const { token } = await response.json();
         this.push(token);
         console.debug('[session] signed in');
+        this.settings.restore();
       } else {
         throw response.status;
         this.clear();
@@ -90,6 +102,7 @@ export default class SessionService extends Service {
   signOut(): void {
     console.debug('[session] signed out');
     this.clear();
+    this.settings.unload();
   }
 
   private clear(): void {

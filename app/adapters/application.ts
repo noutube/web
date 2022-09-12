@@ -10,10 +10,6 @@ export default class ApplicationAdapter extends JSONAPIAdapter {
   host = config.backendOrigin;
 
   get headers(): Record<string, string> {
-    return {
-      ...(this.session.token && {
-        Authorization: `Bearer ${this.session.token}`
-      })
-    };
+    return this.session.headers;
   }
 }

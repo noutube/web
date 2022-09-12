@@ -1,8 +1,12 @@
-import Service from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 
-import config, { Theme, VideoKey, ChannelKey, Dir } from 'noutube/config/environment';
-
-const storageKey = 'storage:settings';
+import config, {
+  Theme,
+  VideoKey,
+  ChannelKey,
+  Dir
+} from 'noutube/config/environment';
+import SessionService from 'noutube/services/session';
 
 const {
   themes: [{ value: defaultLightTheme }, { value: defaultDarkTheme }],
@@ -15,7 +19,10 @@ const {
   defaultSpeed
 } = config;
 
-const defaultTheme = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? defaultDarkTheme : defaultLightTheme;
+const defaultTheme = window.matchMedia?.('(prefers-color-scheme: dark)')
+  ?.matches
+  ? defaultDarkTheme
+  : defaultLightTheme;
 
 interface Settings {
   theme: Theme;
@@ -31,23 +38,55 @@ interface Settings {
 }
 
 export default class SettingsService extends Service {
+  @service declare session: SessionService;
+
   #settings: Partial<Settings> = {};
 
-  restore(): void {
-    const settings = window.localStorage.getItem(storageKey);
-    if (settings) {
-      try {
-        this.#settings = JSON.parse(settings);
-      } catch (error) {
-        console.warn('[settings] restore failed', error);
+  async restore(): Promise<void> {
+    try {
+      const response = await fetch(`${config.backendOrigin}/settings`, {
+        headers: this.session.headers
+      });
+      if (response.ok) {
+        this.#settings = await response.json();
+        console.debug('[settings] restored');
+        this.applyTheme();
+      } else {
+        throw response.status;
       }
-      console.debug('[settings] restored');
+    } catch (error) {
+      console.warn('[settings] restore failed', error);
     }
   }
 
-  private persist(): void {
-    window.localStorage.setItem(storageKey, JSON.stringify(this.#settings));
-    console.debug('[settings] persisted');
+  load(settings: Record<string, unknown>): void {
+    this.#settings = settings;
+    console.log('[settings] loaded');
+    this.applyTheme();
+  }
+
+  unload(): void {
+    this.#settings = {};
+  }
+
+  private async persist(): Promise<void> {
+    try {
+      const response = await fetch(`${config.backendOrigin}/settings`, {
+        body: JSON.stringify(this.#settings),
+        headers: {
+          ...this.session.headers,
+          'Content-Type': 'application/json'
+        },
+        method: 'PATCH'
+      });
+      if (response.ok) {
+        console.debug('[settings] persisted');
+      } else {
+        throw response.status;
+      }
+    } catch (error) {
+      console.warn('[settings] persist failed', error);
+    }
   }
 
   // size

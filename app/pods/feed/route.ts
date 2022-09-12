@@ -21,6 +21,7 @@ import ChannelModel from 'noutube/models/channel';
 import VideoModel from 'noutube/models/video';
 import PlayerService from 'noutube/services/player';
 import SessionService from 'noutube/services/session';
+import SettingsService from 'noutube/services/settings';
 
 export interface Model {
   channels: ArrayProxy<ChannelModel>;
@@ -38,13 +39,19 @@ type FeedDestroyMessage = {
   type: keyof ModelRegistry;
 };
 
-type FeedMessage = FeedPushMessage | FeedDestroyMessage;
+type FeedSettingsMessage = {
+  action: 'settings';
+  payload: Record<string, unknown>;
+};
+
+type FeedMessage = FeedPushMessage | FeedDestroyMessage | FeedSettingsMessage;
 
 export default class FeedRoute extends Route {
   @service declare cable: CableService;
   @service declare player: PlayerService;
   @service declare router: RouterService;
   @service declare session: SessionService;
+  @service declare settings: SettingsService;
   @service declare store: Store;
 
   #consumer: Consumer | null = null;
@@ -129,6 +136,9 @@ export default class FeedRoute extends Route {
             }
             break;
           }
+          case 'settings':
+            this.settings.load(data.payload);
+            break;
         }
       }
     });
