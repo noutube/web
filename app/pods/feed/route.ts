@@ -120,7 +120,11 @@ export default class FeedRoute extends Route {
             this.store.pushPayload(data.payload);
 
             // stop playing video when soft deleted
-            if (data.payload.data.type === 'video' && data.payload.data.id === this.player.video?.id && data.payload.data.attributes.state === 'deleted') {
+            if (
+              data.payload.data.type === 'video' &&
+              data.payload.data.id === this.player.video?.id &&
+              data.payload.data.attributes.state === 'deleted'
+            ) {
               this.player.stop();
             }
             break;
