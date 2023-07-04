@@ -1,6 +1,8 @@
 import { service } from '@ember/service';
+import { compare } from '@ember/utils';
 import Component from '@glimmer/component';
 
+import { ChannelKey } from 'noutube/config/environment';
 import ChannelModel from 'noutube/models/channel';
 import { State } from 'noutube/models/video';
 import SettingsService from 'noutube/services/settings';
@@ -12,18 +14,56 @@ interface Signature {
   };
 }
 
+// combine state and channel key to produce channel model property
+const stateChannelKey = (
+  state: State,
+  channelKey: ChannelKey
+): keyof ChannelModel => {
+  switch (state) {
+    case 'new':
+      switch (channelKey) {
+        case 'sortableTitle':
+          return 'newSortableTitle';
+        case 'totalDuration':
+          return 'newTotalDuration';
+        case 'videoCount':
+          return 'newVideoCount';
+      }
+      break;
+    case 'later':
+      switch (channelKey) {
+        case 'sortableTitle':
+          return 'laterSortableTitle';
+        case 'totalDuration':
+          return 'laterTotalDuration';
+        case 'videoCount':
+          return 'laterVideoCount';
+      }
+      break;
+    case 'deleted':
+      switch (channelKey) {
+        case 'sortableTitle':
+          return 'deletedSortableTitle';
+        case 'totalDuration':
+          return 'deletedTotalDuration';
+        case 'videoCount':
+          return 'deletedVideoCount';
+      }
+      break;
+  }
+};
+
 export default class ChannelsComponent extends Component<Signature> {
   @service declare settings: SettingsService;
 
   get channelsSorted(): ChannelModel[] {
     const { channelKey, channelDir } = this.settings;
 
-    // prepend state to channel key and camel case
-    const finalChannelKey = `${this.args.state}${channelKey
-      .charAt(0)
-      .toUpperCase()}${channelKey.slice(1)}`;
+    const finalChannelKey = stateChannelKey(this.args.state, channelKey);
 
-    const sorted = this.args.channels.sortBy(finalChannelKey);
+    const sorted = [...this.args.channels].sort((a, b) =>
+      compare(a[finalChannelKey], b[finalChannelKey])
+    );
     if (channelDir === 'desc') {
       sorted.reverse();
     }

@@ -1,10 +1,11 @@
 import { action } from '@ember/object';
 import RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
-import { InvalidError, errorsArrayToHash } from '@ember-data/adapter/error';
+import { InvalidError } from '@ember-data/adapter/error';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import { errorsArrayToHash } from 'noutube/lib/adapterError';
 import User from 'noutube/models/user';
 import SessionService from 'noutube/services/session';
 
@@ -18,7 +19,7 @@ export default class RouteAccountComponent extends Component<Signature> {
   @service declare router: RouterService;
   @service declare session: SessionService;
 
-  @tracked errors: Record<string, string> = {};
+  @tracked errors: Record<string, unknown[]> = {};
   @tracked password = '';
   @tracked showDestroyUser = false;
   @tracked state: 'idle' | 'inFlight' | 'success' | 'failure' = 'idle';

@@ -24,21 +24,21 @@ export default class RouteFeedComponent extends Component<Signature> {
   @tracked showSettings = false;
 
   get newChannels(): ChannelModel[] {
-    return this.args.channels.filterBy('hasNew');
+    return this.args.channels.filter((item) => item.hasNew);
   }
   get laterChannels(): ChannelModel[] {
-    return this.args.channels.filterBy('hasLater');
+    return this.args.channels.filter((item) => item.hasLater);
   }
 
   get newVideos(): VideoModel[] {
-    return this.args.videos.filterBy('new');
+    return this.args.videos.filter((item) => item.new);
   }
   get laterVideos(): VideoModel[] {
-    return this.args.videos.filterBy('later');
+    return this.args.videos.filter((item) => item.later);
   }
 
   get allVideos(): VideoModel[] {
-    return this.args.videos.filterBy('deleted', false);
+    return this.args.videos.filter((item) => !item.deleted);
   }
 
   get anyVideos(): boolean {

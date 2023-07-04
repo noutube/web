@@ -11,25 +11,25 @@ export default class ChannelModel extends Model {
   @attr('string') declare thumbnail: string;
   @attr('boolean') declare isSubscribed: boolean;
 
-  @hasMany('videos', { async: false })
+  @hasMany('videos', { async: false, inverse: 'channel' })
   declare videos: EmberArray<VideoModel>;
 
   get newVideos(): VideoModel[] {
-    return this.videos.filterBy('new');
+    return this.videos.filter((video) => video.new);
   }
   get hasNew(): boolean {
     return this.newVideos.length > 0;
   }
 
   get laterVideos(): VideoModel[] {
-    return this.videos.filterBy('later');
+    return this.videos.filter((video) => video.later);
   }
   get hasLater(): boolean {
     return this.laterVideos.length > 0;
   }
 
   get deletedVideos(): VideoModel[] {
-    return this.videos.filterBy('deleted');
+    return this.videos.filter((video) => video.deleted);
   }
   get hasDeleted(): boolean {
     return this.deletedVideos.length > 0;

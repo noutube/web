@@ -11,7 +11,7 @@ interface Signature {
   } & (
     | {
         attribute: string;
-        errors: Record<string, string>;
+        errors: Record<string, unknown[]>;
       }
     // eslint-disable-next-line @typescript-eslint/ban-types
     | {}
@@ -21,7 +21,7 @@ interface Signature {
 export default class FormInputComponent extends Component<Signature> {
   get error(): string | undefined {
     if ('errors' in this.args) {
-      return this.args.errors[this.args.attribute];
+      return this.args.errors[this.args.attribute].join(', ');
     } else {
       return;
     }

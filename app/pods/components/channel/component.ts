@@ -36,12 +36,12 @@ export default class ChannelComponent extends Component<Signature> {
 
   @action
   markAllLater(): void {
-    this.videos.invoke('markLater');
+    this.videos.forEach((item) => item.markLater());
   }
 
   @action
   ignoreAll(): void {
-    this.videos.invoke('markDeleted');
+    this.videos.forEach((item) => item.markDeleted());
   }
 }
 
