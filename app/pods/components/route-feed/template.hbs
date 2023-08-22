@@ -24,6 +24,9 @@
 {{#if this.newChannels}}
   <SectionHeader @icon="gift">New Videos</SectionHeader>
   {{#if this.settings.channelGroup}}
+    <div class="message invert">
+      <VideosTotals @videos={{this.newVideos}} />
+    </div>
     <Channels @channels={{this.newChannels}} @state="new" />
   {{else}}
     <VideosUngrouped @videos={{this.newVideos}} />
@@ -33,6 +36,9 @@
 {{#if this.laterChannels}}
   <SectionHeader @icon="bookmark">Watch Later</SectionHeader>
   {{#if this.settings.channelGroup}}
+    <div class="message invert">
+      <VideosTotals @videos={{this.laterVideos}} />
+    </div>
     <Channels @channels={{this.laterChannels}} @state="later" />
   {{else}}
     <VideosUngrouped @videos={{this.laterVideos}} />

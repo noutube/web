@@ -65,4 +65,8 @@ button {
   > p {
     margin: 8px 0;
   }
+
+  &:global(.invert) {
+    @include theme((background: bg, color: pri));
+  }
 }
