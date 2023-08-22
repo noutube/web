@@ -1,5 +1,10 @@
 .menu-bar {
-  @include theme((background: bar, color: bg));
+  @include theme(
+    (
+      background: bar,
+      color: bg
+    )
+  );
 
   position: fixed;
   top: 0;

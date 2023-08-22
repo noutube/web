@@ -2,17 +2,17 @@
 
 module.exports = {
   extends: [
-    'stylelint-config-standard',
+    'stylelint-config-standard-scss',
     'stylelint-config-sass-guidelines',
-    'stylelint-config-concentric-order'
+    'stylelint-config-concentric-order',
+    'stylelint-prettier/recommended'
   ],
   rules: {
-    'alpha-value-notation': null,
-    'declaration-block-no-redundant-longhand-properties': null,
-    'function-no-unknown': null,
     'max-nesting-depth': null,
     'order/order': null,
     'order/properties-alphabetical-order': null,
+    'scss/dollar-variable-empty-line-before': null,
+    'scss/double-slash-comment-empty-line-before': null,
     'selector-max-compound-selectors': null,
     'selector-pseudo-class-no-unknown': [
       true,

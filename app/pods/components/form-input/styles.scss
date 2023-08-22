@@ -8,7 +8,11 @@
   }
 
   > .error {
-    @include theme((color: error));
+    @include theme(
+      (
+        color: error
+      )
+    );
 
     margin-top: 4px;
   }

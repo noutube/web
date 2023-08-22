@@ -1,12 +1,12 @@
 import Helper from '@ember/component/helper';
 import Component from '@glimmer/component';
 import '@glint/environment-ember-loose/registry';
-
 import '@gavant/glint-template-types/types/ember-render-modifiers/did-insert';
 import '@gavant/glint-template-types/types/ember-render-modifiers/will-destroy';
+import AdapterRegistry from 'ember-data/types/registries/adapter';
+import Modifier from 'ember-modifier';
 
 import { pluralize } from 'ember-inflector';
-import Modifier from 'ember-modifier';
 import DidInsertModifier from 'ember-render-modifiers/modifiers/did-insert';
 import WillDestroyModifier from 'ember-render-modifiers/modifiers/will-destroy';
 import EmberTruthRegistry from 'ember-truth-helpers/template-registry';
@@ -64,10 +64,10 @@ declare class SelectLightComponent<T> extends Component<
 
 interface LocalClassHelperSignature {
   Args: {
+    Positional: [string?];
     Named: {
       from?: string;
     };
-    Positional: [string?];
   };
   Return: string;
 }
@@ -94,10 +94,10 @@ declare class MomentDurationHelper extends Helper<MomentDurationHelperSignature>
 
 interface MomentFromNowHelperSignature {
   Args: {
+    Positional: [MomentInput];
     Named: {
       interval?: number;
     };
-    Positional: [MomentInput];
   };
   Return: string;
 }
@@ -106,13 +106,13 @@ declare class MomentFromNowHelper extends Helper<MomentFromNowHelperSignature> {
 
 interface PageTitleHelperSignature {
   Args: {
+    Positional: string[];
     Named: {
       front?: boolean;
       prepend?: boolean;
       replace?: boolean;
       separator?: string;
     };
-    Positional: string[];
   };
   Return: '';
 }
@@ -151,11 +151,16 @@ declare module 'noutube/templates/*' {
 }
 
 // Fix some broken ember-data types
-declare module 'ember-data' {
-  export namespace DS {
-    export interface InvalidError {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      errors: any[];
-    }
+declare module '@ember-data/adapter/error' {
+  export interface InvalidError {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    errors: any[];
+  }
+}
+declare module '@ember-data/store' {
+  export default interface Store {
+    adapterFor<K extends keyof AdapterRegistry>(
+      modelName: K
+    ): AdapterRegistry[K];
   }
 }

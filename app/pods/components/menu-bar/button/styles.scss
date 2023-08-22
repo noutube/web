@@ -1,5 +1,9 @@
 .menu-bar-button {
-  @include theme((color: inherit));
+  @include theme(
+    (
+      color: inherit
+    )
+  );
 
   padding: 8px;
 }

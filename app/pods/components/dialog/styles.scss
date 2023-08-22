@@ -3,7 +3,11 @@
     @return color.scale($value, $alpha: -50%);
   }
 
-  @include theme((background: bg meta.get-function('half-alpha')));
+  @include theme(
+    (
+      background: bg meta.get-function('half-alpha')
+    )
+  );
 
   display: flex;
   position: fixed;
@@ -17,7 +21,11 @@
 }
 
 .dialog {
-  @include theme((background: bg));
+  @include theme(
+    (
+      background: bg
+    )
+  );
 
   z-index: 51;
   border-radius: 8px;
@@ -25,7 +33,12 @@
   max-width: 90vw;
 
   > .top {
-    @include theme((background: bar, color: bg));
+    @include theme(
+      (
+        background: bar,
+        color: bg
+      )
+    );
 
     border-radius: 8px 8px 0 0;
     padding: 12px;
@@ -39,7 +52,11 @@
   }
 
   > .bottom {
-    @include theme((background: bg-hi));
+    @include theme(
+      (
+        background: bg-hi
+      )
+    );
 
     border-radius: 0 0 8px 8px;
     padding: 12px;

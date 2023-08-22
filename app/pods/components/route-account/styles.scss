@@ -1,5 +1,10 @@
 .account {
-  @include theme((background: bg-hi, color: emph));
+  @include theme(
+    (
+      background: bg-hi,
+      color: emph
+    )
+  );
 
   padding: 0 8px;
   overflow: auto;

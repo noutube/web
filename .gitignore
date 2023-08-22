@@ -1,6 +1,5 @@
 # compiled output
 /dist/
-/tmp
 /declarations/
 
 # dependencies
@@ -11,9 +10,7 @@
 /.pnp*
 /.eslintcache
 /.stylelintcache
-/connect.lock
 /coverage/
-/libpeerconnection.log
 /npm-debug.log*
 /testem.log
 /yarn-error.log

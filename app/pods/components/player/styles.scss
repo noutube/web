@@ -7,7 +7,12 @@
   z-index: 48;
 
   > .top {
-    @include theme((background: bar, color: bg));
+    @include theme(
+      (
+        background: bar,
+        color: bg
+      )
+    );
 
     box-sizing: border-box;
     display: flex;
@@ -24,7 +29,11 @@
     }
 
     > button {
-      @include theme((color: inherit));
+      @include theme(
+        (
+          color: inherit
+        )
+      );
 
       margin-right: 8px;
     }
@@ -40,7 +49,11 @@
 
   /* stylelint-disable-next-line selector-class-pattern */
   > :global(.EmberYoutube) {
-    @include theme((background: bg));
+    @include theme(
+      (
+        background: bg
+      )
+    );
 
     height: 100%;
 

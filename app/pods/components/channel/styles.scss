@@ -1,5 +1,9 @@
 .bar {
-  @include theme((background: bg-hi));
+  @include theme(
+    (
+      background: bg-hi
+    )
+  );
 
   display: flex;
   align-items: center;

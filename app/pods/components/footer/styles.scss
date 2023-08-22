@@ -1,5 +1,9 @@
 .footer {
-  @include theme((color: sec));
+  @include theme(
+    (
+      color: sec
+    )
+  );
 
   padding: 8px;
   text-align: center;

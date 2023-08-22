@@ -2,13 +2,11 @@
 
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser',
+  parser: '@babel/eslint-parser',
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 'latest',
     sourceType: 'module',
-    ecmaFeatures: {
-      legacyDecorators: true
-    }
+    requireConfigFile: false
   },
   plugins: ['ember', 'import'],
   extends: [
@@ -33,7 +31,7 @@ module.exports = {
           },
           {
             group: 'parent',
-            pattern: '{handlebars,rsvp}'
+            pattern: '{handlebars,rsvp,ember-modifier}'
           },
           {
             group: 'internal',
@@ -51,16 +49,16 @@ module.exports = {
     // node files
     {
       files: [
-        '.eslintrc.js',
-        '.prettierrc.js',
-        '.stylelintrc.js',
-        '.template-lintrc.js',
-        'ember-cli-build.js',
-        'testem.js',
-        'blueprints/*/index.js',
-        'config/**/*.js',
-        'lib/*/index.js',
-        'server/**/*.js'
+        './.eslintrc.js',
+        './.prettierrc.js',
+        './.stylelintrc.js',
+        './.template-lintrc.js',
+        './ember-cli-build.js',
+        './testem.js',
+        './blueprints/*/index.js',
+        './config/**/*.js',
+        './lib/*/index.js',
+        './server/**/*.js'
       ],
       parserOptions: {
         sourceType: 'script'
@@ -69,14 +67,10 @@ module.exports = {
         browser: false,
         node: true
       },
-      plugins: ['node'],
-      extends: ['plugin:node/recommended'],
+      plugins: ['n'],
+      extends: ['plugin:n/recommended'],
       rules: {
         // add your custom rules and overrides for node files here
-
-        // this can be removed once the following is fixed
-        // https://github.com/mysticatea/eslint-plugin-node/issues/77
-        'node/no-unpublished-require': 'off'
       }
     },
     // typescript files
@@ -93,6 +87,8 @@ module.exports = {
           'error',
           { args: 'none', ignoreRestSiblings: true }
         ], // ignore arguments
+        'ember/no-array-prototype-extensions': 'error',
+        'ember/no-empty-glimmer-component-classes': 'off', // needed for glint registry
         'prefer-rest-params': 'off' // need super(...arguments)
       }
     }
