@@ -5,7 +5,7 @@ export type VideoKey = 'age' | 'sortableTitle' | 'duration';
 export type ChannelKey = 'sortableTitle' | 'totalDuration' | 'videoCount';
 export type Dir = 'asc' | 'desc';
 
-interface Setting<T> {
+export interface Setting<T> {
   label: string;
   value: T;
 }
@@ -14,7 +14,7 @@ declare const config: {
   environment: string;
   modulePrefix: string;
   podModulePrefix: string;
-  locationType: string;
+  locationType: 'history' | 'hash' | 'none' | 'auto';
   rootURL: string;
   APP: Record<string, unknown>;
 

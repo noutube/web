@@ -1,0 +1,13 @@
+diff --git a/node_modules/ember-select-light/addon/components/select-light.hbs b/node_modules/ember-select-light/addon/components/select-light.hbs
+index ac2857b..064dfd5 100644
+--- a/node_modules/ember-select-light/addon/components/select-light.hbs
++++ b/node_modules/ember-select-light/addon/components/select-light.hbs
+@@ -7,7 +7,7 @@
+     </option>
+   {{/if}}
+ 
+-  {{#if hasBlock}}
++  {{#if (has-block)}}
+     {{yield}}
+   {{else}}
+     {{#if this.hasDetailedOptions}}

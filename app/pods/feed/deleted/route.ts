@@ -4,6 +4,6 @@ import { Model } from 'noutube/pods/feed/route';
 
 export default class DeletedRoute extends Route {
   model(): Promise<Model> {
-    return this.modelFor('feed');
+    return this.modelFor('feed') as Promise<Model>;
   }
 }

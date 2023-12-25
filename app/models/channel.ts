@@ -1,6 +1,6 @@
-import Model, { attr, hasMany } from '@ember-data/model';
 import EmberArray from '@ember/array';
 import { action } from '@ember/object';
+import Model, { attr, hasMany } from '@ember-data/model';
 
 import ApplicationAdapter from 'noutube/adapters/application';
 import VideoModel from 'noutube/models/video';

@@ -1,16 +1,37 @@
-import Helper from '@glint/environment-ember-loose/ember-component/helper';
-import Modifier from '@glint/environment-ember-loose/ember-modifier';
-import Component from '@glint/environment-ember-loose/glimmer-component';
+import Helper from '@ember/component/helper';
+import Component from '@glimmer/component';
 import '@glint/environment-ember-loose/registry';
 
-import DidInsertModifier from '@gavant/glint-template-types/types/ember-render-modifiers/did-insert';
-import WillDestroyModifier from '@gavant/glint-template-types/types/ember-render-modifiers/will-destroy';
-import EqHelper from '@gavant/glint-template-types/types/ember-truth-helpers/eq';
-import NotHelper from '@gavant/glint-template-types/types/ember-truth-helpers/not';
+import '@gavant/glint-template-types/types/ember-render-modifiers/did-insert';
+import '@gavant/glint-template-types/types/ember-render-modifiers/will-destroy';
+
 import { pluralize } from 'ember-inflector';
-import { Recognizer } from 'hammerjs';
+import Modifier from 'ember-modifier';
+import DidInsertModifier from 'ember-render-modifiers/modifiers/did-insert';
+import WillDestroyModifier from 'ember-render-modifiers/modifiers/will-destroy';
+import EmberTruthRegistry from 'ember-truth-helpers/template-registry';
 import { TemplateFactory } from 'htmlbars-inline-precompile';
 import { MomentInput, duration } from 'moment';
+
+// incomplete
+export interface PanEvent {
+  current: {
+    distanceX: number;
+    distanceY: number;
+  };
+  originalEvent: Event;
+}
+
+interface DidPanModifierSignature {
+  Args: {
+    Named: {
+      onPan: (event: PanEvent) => void;
+      onPanEnd: (event: PanEvent) => void;
+      onPanStart: (event: PanEvent) => void;
+    };
+  };
+}
+declare class DidPanModifier extends Modifier<DidPanModifierSignature> {}
 
 interface EmberYoutubeComponentSignature {
   Args: {
@@ -26,109 +47,99 @@ interface EmberYoutubeComponentSignature {
 
 declare class EmberYoutubeComponent extends Component<EmberYoutubeComponentSignature> {}
 
-interface XSelectComponentSignature<T> {
+interface SelectLightComponentSignature<T> {
   Args: {
     disabled?: boolean;
-    onChange?: (value: T) => void;
+    onChange?: (event: Event) => void;
     value?: T;
   };
-  Yields: {
-    default: [{ option: typeof XOptionComponent }];
-  };
-}
-
-declare class XSelectComponent<T> extends Component<
-  XSelectComponentSignature<T>
-> {}
-
-interface XOptionComponentSignature<T> {
-  Args: {
-    value: T;
-  };
-  Yields: {
+  Blocks: {
     default: [];
   };
 }
 
-declare class XOptionComponent<T> extends Component<
-  XOptionComponentSignature<T>
+declare class SelectLightComponent<T> extends Component<
+  SelectLightComponentSignature<T>
 > {}
 
 interface LocalClassHelperSignature {
-  NamedArgs: {
-    from?: string;
+  Args: {
+    Named: {
+      from?: string;
+    };
+    Positional: [string?];
   };
-  PositionalArgs: [string?];
   Return: string;
 }
 
 declare class LocalClassHelper extends Helper<LocalClassHelperSignature> {}
 
 interface MomentHelperSignature {
-  PositionalArgs: [MomentInput];
+  Args: {
+    Positional: [MomentInput];
+  };
   Return: string;
 }
 
 declare class MomentHelper extends Helper<MomentHelperSignature> {}
 
 interface MomentDurationHelperSignature {
-  PositionalArgs: Parameters<typeof duration>;
+  Args: {
+    Positional: Parameters<typeof duration>;
+  };
   Return: string;
 }
 
 declare class MomentDurationHelper extends Helper<MomentDurationHelperSignature> {}
 
 interface MomentFromNowHelperSignature {
-  NamedArgs: {
-    interval?: number;
+  Args: {
+    Named: {
+      interval?: number;
+    };
+    Positional: [MomentInput];
   };
-  PositionalArgs: [MomentInput];
   Return: string;
 }
 
 declare class MomentFromNowHelper extends Helper<MomentFromNowHelperSignature> {}
 
 interface PageTitleHelperSignature {
-  NamedArgs: {
-    front?: boolean;
-    prepend?: boolean;
-    replace?: boolean;
-    separator?: string;
+  Args: {
+    Named: {
+      front?: boolean;
+      prepend?: boolean;
+      replace?: boolean;
+      separator?: string;
+    };
+    Positional: string[];
   };
-  PositionalArgs: string[];
   Return: '';
 }
 
 declare class PageTitleHelper extends Helper<PageTitleHelperSignature> {}
 
 interface PluralizeHelperSignature {
-  PositionalArgs: Parameters<typeof pluralize>;
+  Args: {
+    Positional: Parameters<typeof pluralize>;
+  };
   Return: string;
 }
 
 declare class PluralizeHelper extends Helper<PluralizeHelperSignature> {}
 
-interface RecognizeGestureModifierSignature {
-  NamedArgs: ConstructorParameters<typeof Recognizer>[0];
-  PositionalArgs: string[];
-}
-
-declare class RecognizeGestureModifier extends Modifier<RecognizeGestureModifierSignature> {}
-
 declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
+  export default interface Registry extends EmberTruthRegistry {
     EmberYoutube: typeof EmberYoutubeComponent;
-    XSelect: typeof XSelectComponent;
+    SelectLight: typeof SelectLightComponent;
     'did-insert': typeof DidInsertModifier;
-    eq: typeof EqHelper;
+    'did-pan': typeof DidPanModifier;
     'local-class': typeof LocalClassHelper;
     moment: typeof MomentHelper;
     'moment-duration': typeof MomentDurationHelper;
     'moment-from-now': typeof MomentFromNowHelper;
-    not: typeof NotHelper;
     'page-title': typeof PageTitleHelper;
     pluralize: typeof PluralizeHelper;
-    'recognize-gesture': typeof RecognizeGestureModifier;
     'will-destroy': typeof WillDestroyModifier;
   }
 }

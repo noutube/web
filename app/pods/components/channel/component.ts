@@ -1,5 +1,5 @@
 import { action } from '@ember/object';
-import Component from '@glint/environment-ember-loose/glimmer-component';
+import Component from '@glimmer/component';
 
 import ChannelModel from 'noutube/models/channel';
 import VideoModel, { State } from 'noutube/models/video';

@@ -1,5 +1,5 @@
 import { action } from '@ember/object';
-import Component from '@glint/environment-ember-loose/glimmer-component';
+import Component from '@glimmer/component';
 
 interface Signature {
   Args: {
@@ -32,7 +32,7 @@ export default class FormInputComponent extends Component<Signature> {
   }
 
   @action
-  handleInput(event: InputEvent): void {
+  handleInput(event: Event): void {
     if (event.target instanceof HTMLInputElement) {
       this.args.onChange(event.target.value);
     }

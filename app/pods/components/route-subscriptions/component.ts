@@ -1,9 +1,9 @@
-import Store from '@ember-data/store';
 import ArrayProxy from '@ember/array';
 import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
+import Store from '@ember-data/store';
+import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import Component from '@glint/environment-ember-loose/glimmer-component';
 
 import ChannelModel from 'noutube/models/channel';
 

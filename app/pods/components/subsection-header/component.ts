@@ -1,4 +1,4 @@
-import Component from '@glint/environment-ember-loose/glimmer-component';
+import Component from '@glimmer/component';
 
 import { IconName } from 'noutube/pods/components/svg-icon/component';
 
@@ -6,7 +6,7 @@ interface Signature {
   Args: {
     icon?: IconName;
   };
-  Yields: {
+  Blocks: {
     default: [];
   };
 }

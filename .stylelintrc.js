@@ -7,6 +7,9 @@ module.exports = {
     'stylelint-config-concentric-order'
   ],
   rules: {
+    'alpha-value-notation': null,
+    'declaration-block-no-redundant-longhand-properties': null,
+    'function-no-unknown': null,
     'max-nesting-depth': null,
     'order/order': null,
     'order/properties-alphabetical-order': null,
