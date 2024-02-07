@@ -1,8 +1,8 @@
-import Store from '@ember-data/store';
 import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import RouterService from '@ember/routing/router-service';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
+import Store from '@ember-data/store';
 
 import User from 'noutube/models/user';
 import SessionService from 'noutube/services/session';
@@ -19,7 +19,7 @@ export default class AccountRoute extends Route {
   }
 
   deactivate(): void {
-    const user = this.modelFor('account');
+    const user = this.modelFor('account') as User;
     user.unloadRecord();
   }
 

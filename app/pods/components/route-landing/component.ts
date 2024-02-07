@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import RouterService from '@ember/routing/router-service';
-import { inject as service } from '@ember/service';
-import Component from '@glint/environment-ember-loose/glimmer-component';
+import { service } from '@ember/service';
+import Component from '@glimmer/component';
 
 import SessionService from 'noutube/services/session';
 

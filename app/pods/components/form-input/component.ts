@@ -1,5 +1,5 @@
 import { action } from '@ember/object';
-import Component from '@glint/environment-ember-loose/glimmer-component';
+import Component from '@glimmer/component';
 
 interface Signature {
   Args: {
@@ -11,7 +11,7 @@ interface Signature {
   } & (
     | {
         attribute: string;
-        errors: Record<string, string>;
+        errors: Record<string, unknown[]>;
       }
     // eslint-disable-next-line @typescript-eslint/ban-types
     | {}
@@ -21,7 +21,7 @@ interface Signature {
 export default class FormInputComponent extends Component<Signature> {
   get error(): string | undefined {
     if ('errors' in this.args) {
-      return this.args.errors[this.args.attribute];
+      return this.args.errors[this.args.attribute]?.join(', ');
     } else {
       return;
     }
@@ -32,7 +32,7 @@ export default class FormInputComponent extends Component<Signature> {
   }
 
   @action
-  handleInput(event: InputEvent): void {
+  handleInput(event: Event): void {
     if (event.target instanceof HTMLInputElement) {
       this.args.onChange(event.target.value);
     }

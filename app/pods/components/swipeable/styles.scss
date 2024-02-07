@@ -18,7 +18,11 @@
 
 .swipeable-left,
 .swipeable-right {
-  @include theme((color: link));
+  @include theme(
+    (
+      color: link
+    )
+  );
 
   display: flex;
   position: absolute;
@@ -30,20 +34,36 @@
 
 .swipeable-right {
   @function fade-background($value) {
-    @return radial-gradient(farthest-side at center left, color.scale($value, $alpha: -50%), color.scale($value, $alpha: -100%));
+    @return radial-gradient(
+      farthest-side at center left,
+      color.scale($value, $alpha: -50%),
+      color.scale($value, $alpha: -100%)
+    );
   }
 
-  @include theme((background: link meta.get-function('fade-background')));
+  @include theme(
+    (
+      background: link meta.get-function('fade-background')
+    )
+  );
 
   left: -50px;
 }
 
 .swipeable-left {
   @function fade-background($value) {
-    @return radial-gradient(farthest-side at center right, color.scale($value, $alpha: -50%), color.scale($value, $alpha: -100%));
+    @return radial-gradient(
+      farthest-side at center right,
+      color.scale($value, $alpha: -50%),
+      color.scale($value, $alpha: -100%)
+    );
   }
 
-  @include theme((background: link meta.get-function('fade-background')));
+  @include theme(
+    (
+      background: link meta.get-function('fade-background')
+    )
+  );
 
   right: -50px;
 }

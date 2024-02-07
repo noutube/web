@@ -1,4 +1,14 @@
-<div {{recognize-gesture "pan"}} local-class="swipeable {{if this.isSwiping "swiping"}}" {{on "panstart" this.panStart}} {{on "panmove" this.panMove}} {{on "panend" this.panEnd}} {{on "pancancel" this.panCancel}}>
+<div
+  class="swipeable"
+  local-class="swipeable {{if this.isSwiping "swiping"}}"
+  {{did-insert this.didInsert}}
+  {{did-pan
+    onPanStart=this.panStart
+    onPan=this.panMove
+    onPanEnd=this.panEnd
+    pointerTypes=(array 'touch' 'mouse')
+  }}
+>
   <div local-class="swipeable-child" style={{this.style}}>
     <div local-class="swipeable-right">
       <SvgIcon @name={{@iconRight}} />

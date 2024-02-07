@@ -1,12 +1,11 @@
-import Store from '@ember-data/store';
 import ArrayProxy from '@ember/array';
 import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import RouterService from '@ember/routing/router-service';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
+import Store from '@ember-data/store';
 // eslint-disable-next-line ember/use-ember-data-rfc-395-imports
 import ModelRegistry from 'ember-data/types/registries/model';
-import { hash } from 'rsvp';
 
 import CableService from '@algonauti/ember-cable/services/cable';
 import { Consumer, Subscription } from '@rails/actioncable';
@@ -73,17 +72,17 @@ export default class FeedRoute extends Route {
     }
   }
 
-  model(): Promise<Model> {
+  async model(): Promise<Model> {
     if (this.session.down) {
       return new Promise(() => {
         // load indefinitely
       });
     } else {
       // fetch all data for user
-      return hash({
-        channels: this.store.findAll('channel'),
-        videos: this.store.findAll('video')
-      });
+      return {
+        channels: await this.store.findAll('channel'),
+        videos: await this.store.findAll('video')
+      };
     }
   }
 

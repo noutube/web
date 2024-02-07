@@ -1,16 +1,12 @@
 import { action } from '@ember/object';
 import { htmlSafe } from '@ember/template';
+import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import Component from '@glint/environment-ember-loose/glimmer-component';
 import { SafeString } from 'handlebars';
 
-import { Input } from 'hammerjs';
+import { PanEvent } from 'global';
 
 import { IconName } from 'noutube/pods/components/svg-icon/component';
-
-interface HammerEvent extends Event {
-  gesture: typeof Input;
-}
 
 interface Signature {
   Args: {
@@ -19,7 +15,7 @@ interface Signature {
     swipeLeft: () => void;
     swipeRight: () => void;
   };
-  Yields: {
+  Blocks: {
     default: [];
   };
 }
@@ -38,34 +34,69 @@ export default class SwipeableComponent extends Component<Signature> {
 
   // internals
 
+  wrappingElement: HTMLElement | null = null;
   @tracked isSwiping = false;
-  @tracked deltaX = 0;
+  @tracked distanceX = 0;
   get offsetX(): number {
-    return Math.min(this.swipeLimit, Math.abs(this.deltaX));
+    return Math.min(this.swipeLimit, Math.abs(this.distanceX));
   }
   get directionX(): number {
-    return Math.sign(this.deltaX);
+    return Math.sign(this.distanceX);
   }
 
   @action
-  panStart(event: HammerEvent): void {
-    event.stopPropagation();
-    this.isSwiping = true;
-    this.deltaX = 0;
+  didInsert(element: HTMLElement) {
+    this.wrappingElement = element;
   }
   @action
-  panMove(event: HammerEvent): void {
+  findTopSwipeable(event: Event) {
+    let target = event.target as HTMLElement;
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      if (Array.from(target.classList).includes('swipeable')) {
+        return target;
+      }
+
+      const { parentElement } = target;
+      if (!parentElement) {
+        return null;
+      }
+
+      target = parentElement;
+    }
+  }
+  @action
+  panStart({ originalEvent }: PanEvent): void {
+    if (this.findTopSwipeable(originalEvent) !== this.wrappingElement) {
+      return;
+    }
+
+    this.isSwiping = true;
+    this.distanceX = 0;
+  }
+  @action
+  panMove({
+    current: { distanceX, distanceY },
+    originalEvent
+  }: PanEvent): void {
+    if (this.findTopSwipeable(originalEvent) !== this.wrappingElement) {
+      return;
+    }
+
     if (this.isSwiping) {
-      event.stopPropagation();
-      this.deltaX = event.gesture.deltaX;
-      if (Math.abs(event.gesture.deltaY) > this.swipeLimit / 2) {
-        this.panCancel(event);
+      this.distanceX = distanceX;
+      if (Math.abs(distanceY) > this.swipeLimit / 2) {
+        this.isSwiping = false;
+        this.distanceX = 0;
       }
     }
   }
   @action
-  panEnd(event: HammerEvent): void {
-    event.stopPropagation();
+  panEnd({ originalEvent }: PanEvent): void {
+    if (this.findTopSwipeable(originalEvent) !== this.wrappingElement) {
+      return;
+    }
+
     this.isSwiping = false;
     if (this.offsetX === this.swipeLimit) {
       if (this.directionX > 0) {
@@ -74,13 +105,7 @@ export default class SwipeableComponent extends Component<Signature> {
         this.args.swipeLeft();
       }
     }
-    this.deltaX = 0;
-  }
-  @action
-  panCancel(event: HammerEvent): void {
-    event.stopPropagation();
-    this.isSwiping = false;
-    this.deltaX = 0;
+    this.distanceX = 0;
   }
 }
 

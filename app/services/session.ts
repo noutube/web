@@ -1,10 +1,10 @@
-import Store from '@ember-data/store';
 import { action } from '@ember/object';
 import RouterService from '@ember/routing/router-service';
-import Service, { inject as service } from '@ember/service';
+import Service, { service } from '@ember/service';
+import Store from '@ember-data/store';
 import { tracked } from '@glimmer/tracking';
 
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 import config from 'noutube/config/environment';
 import SettingsService from 'noutube/services/settings';

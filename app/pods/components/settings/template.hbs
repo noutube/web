@@ -1,11 +1,11 @@
 <div local-class="settings">
   <div local-class="row">
     Theme
-    <XSelect @value={{this.settings.theme}} @onChange={{fn (mut this.settings.theme)}} as |xs|>
+    <SelectLight @value={{this.settings.theme}} @onChange={{fn this.handleChange "theme"}}>
       {{#each this.themes as |theme|}}
-        <xs.option @value={{theme.value}}>{{theme.label}}</xs.option>
+        <option value={{theme.value}}>{{theme.label}}</option>
       {{/each}}
-    </XSelect>
+    </SelectLight>
   </div>
 
   <SubsectionHeader @icon="bar-chart">
@@ -14,16 +14,16 @@
 
   <div local-class="row">
     Sort videos by
-    <XSelect @value={{this.settings.videoKey}} @onChange={{fn (mut this.settings.videoKey)}} as |xs|>
+    <SelectLight @value={{this.settings.videoKey}} @onChange={{fn this.handleChange "videoKey"}}>
       {{#each this.videoKeys as |videoKey|}}
-        <xs.option @value={{videoKey.value}}>{{videoKey.label}}</xs.option>
+        <option value={{videoKey.value}}>{{videoKey.label}}</option>
       {{/each}}
-    </XSelect>
-    <XSelect @value={{this.settings.videoDir}} @onChange={{fn (mut this.settings.videoDir)}} as |xs|>
+    </SelectLight>
+    <SelectLight @value={{this.settings.videoDir}} @onChange={{fn this.handleChange "videoDir"}}>
       {{#each this.dirs as |dir|}}
-        <xs.option @value={{dir.value}}>{{dir.label}}</xs.option>
+        <option value={{dir.value}}>{{dir.label}}</option>
       {{/each}}
-    </XSelect>
+    </SelectLight>
   </div>
 
   <div local-class="row">
@@ -35,16 +35,16 @@
 
   <div local-class="row">
     Sort channels by
-    <XSelect @value={{this.settings.channelKey}} @onChange={{fn (mut this.settings.channelKey)}} @disabled={{not this.settings.channelGroup}} as |xs|>
+    <SelectLight @value={{this.settings.channelKey}} @onChange={{fn this.handleChange "channelKey"}} @disabled={{not this.settings.channelGroup}}>
       {{#each this.channelKeys as |channelKey|}}
-        <xs.option @value={{channelKey.value}}>{{channelKey.label}}</xs.option>
+        <option value={{channelKey.value}}>{{channelKey.label}}</option>
       {{/each}}
-    </XSelect>
-    <XSelect @value={{this.settings.channelDir}} @onChange={{fn (mut this.settings.channelDir)}} @disabled={{not this.settings.channelGroup}} as |xs|>
+    </SelectLight>
+    <SelectLight @value={{this.settings.channelDir}} @onChange={{fn this.handleChange "channelDir"}} @disabled={{not this.settings.channelGroup}}>
       {{#each this.dirs as |dir|}}
-        <xs.option @value={{dir.value}}>{{dir.label}}</xs.option>
+        <option value={{dir.value}}>{{dir.label}}</option>
       {{/each}}
-    </XSelect>
+    </SelectLight>
   </div>
 
   <SubsectionHeader @icon="play">
@@ -53,20 +53,20 @@
 
   <div local-class="row">
     Resolution
-    <XSelect @value={{this.settings.size}} @onChange={{fn (mut this.settings.size)}} as |xs|>
+    <SelectLight @value={{this.settings.size}} @onChange={{fn this.handleChange "size"}}>
       {{#each this.sizes as |size|}}
-        <xs.option @value={{size}}>{{size}}p</xs.option>
+        <option value={{size}}>{{size}}p</option>
       {{/each}}
-    </XSelect>
+    </SelectLight>
   </div>
 
   <div local-class="row">
     Speed
-    <XSelect @value={{this.settings.speed}} @onChange={{fn (mut this.settings.speed)}} as |xs|>
+    <SelectLight @value={{this.settings.speed}} @onChange={{fn this.handleChange "speed"}}>
       {{#each this.speeds as |speed|}}
-        <xs.option @value={{speed}}>{{speed}}x</xs.option>
+        <option value={{speed}}>{{speed}}x</option>
       {{/each}}
-    </XSelect>
+    </SelectLight>
   </div>
 
   <div local-class="row">

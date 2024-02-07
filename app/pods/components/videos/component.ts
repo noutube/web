@@ -1,6 +1,7 @@
 import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
-import Component from '@glint/environment-ember-loose/glimmer-component';
+import { service } from '@ember/service';
+import { compare } from '@ember/utils';
+import Component from '@glimmer/component';
 
 import VideoModel from 'noutube/models/video';
 import PlayerService from 'noutube/services/player';
@@ -19,7 +20,9 @@ export default class VideosComponent extends Component<Signature> {
   get videosSorted(): VideoModel[] {
     const { videoKey, videoDir } = this.settings;
 
-    const sorted = this.args.videos.sortBy(videoKey);
+    const sorted = [...this.args.videos].sort((a, b) =>
+      compare(a[videoKey], b[videoKey])
+    );
     if (videoDir === 'desc') {
       sorted.reverse();
     }

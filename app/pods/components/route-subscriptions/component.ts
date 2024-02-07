@@ -1,9 +1,10 @@
-import Store from '@ember-data/store';
 import ArrayProxy from '@ember/array';
 import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
+import { compare } from '@ember/utils';
+import Store from '@ember-data/store';
+import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import Component from '@glint/environment-ember-loose/glimmer-component';
 
 import ChannelModel from 'noutube/models/channel';
 
@@ -22,13 +23,13 @@ export default class RouteSubscriptionsComponent extends Component<Signature> {
   get subscribedChannels(): ChannelModel[] {
     return this.args.channels
       .filter((channel) => !channel.isNew && channel.isSubscribed)
-      .sortBy('sortableTitle');
+      .sort((a, b) => compare(a.sortableTitle, b.sortableTitle));
   }
 
   get unsubscribedChannels(): ChannelModel[] {
     return this.args.channels
       .filter((channel) => !channel.isNew && !channel.isSubscribed)
-      .sortBy('sortableTitle');
+      .sort((a, b) => compare(a.sortableTitle, b.sortableTitle));
   }
 
   get valid(): boolean {

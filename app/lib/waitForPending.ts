@@ -1,7 +1,13 @@
+/* eslint-disable ember/no-observers */
+
+import { getOwner } from '@ember/application';
+import { addObserver, removeObserver } from '@ember/object/observers';
 import Model from '@ember-data/model';
 import Store from '@ember-data/store';
-import { getOwner } from '@ember/application';
+import ModelRegistry from 'ember-data/types/registries/model';
 import { defer } from 'rsvp';
+
+import ApplicationSerializer from 'noutube/serializers/application';
 
 /**
  * https://github.com/emberjs/data/issues/4262#issuecomment-240139154
@@ -19,13 +25,13 @@ import { defer } from 'rsvp';
  * In either case, this trick finds any relevant models in flight and waits
  * for them to complete, at which point it's then safe to process the event.
  *
- * Unfortunately, the model lifecycle events used are deprecated until 4.x,
- * but hopefully they can be replaced with ember-concurrency waitForProperty.
+ * Using observers is always a bit dirty, but the model lifecycle events
+ * were removed in 4.x, so there's no other way.
  */
 
 interface Data {
   id: string;
-  type: string;
+  type: keyof ModelRegistry;
 }
 
 export async function waitForPendingCreate(
@@ -33,9 +39,10 @@ export async function waitForPendingCreate(
   data: Data
 ): Promise<void> {
   const { id } = data;
-  const type = getOwner(store)
-    .lookup('serializer:application')
-    .modelNameFromPayloadKey(data.type);
+  const serializer = getOwner(store).lookup(
+    'serializer:application'
+  ) as ApplicationSerializer;
+  const type = serializer.modelNameFromPayloadKey(data.type as string);
 
   // if the model is already in the store, return immediately
   if (store.peekRecord(type, id)) {
@@ -56,7 +63,10 @@ export async function waitForPendingCreate(
   const deferred = defer<void>();
 
   // resolve once all create requests have resolved
-  const didResolve = () => {
+  const didResolve = function (this: Model) {
+    if (!(!this.isNew || !this.isValid || this.isError)) {
+      return;
+    }
     resolvedCount += 1;
     if (creatingModels.length === resolvedCount) {
       finish();
@@ -64,27 +74,29 @@ export async function waitForPendingCreate(
   };
 
   // resolve if the model now exists in the store
-  const didCreate = () => {
+  const didCreate = function (this: Model) {
     if (store.peekRecord(type, id)) {
       finish();
     } else {
-      didResolve();
+      didResolve.call(this);
     }
   };
 
   const start = () => {
     creatingModels.forEach((model) => {
-      model.on('didCreate', didCreate);
-      model.on('becameInvalid', didResolve);
-      model.on('becameError', didResolve);
+      // explicitly access computed properties, otherwise they may not be fired
+      model.isNew, model.isValid, model.isError;
+      addObserver(model, 'isNew', didCreate);
+      addObserver(model, 'isValid', didResolve);
+      addObserver(model, 'isError', didResolve);
     });
   };
 
   const finish = () => {
     creatingModels.forEach((model) => {
-      model.off('didCreate', didCreate);
-      model.off('becameInvalid', didResolve);
-      model.off('becameError', didResolve);
+      removeObserver(model, 'isNew', didCreate);
+      removeObserver(model, 'isValid', didResolve);
+      removeObserver(model, 'isError', didResolve);
     });
     deferred.resolve();
   };
@@ -99,9 +111,10 @@ export async function waitForPendingDelete(
   data: Data
 ): Promise<Model | void> {
   const { id } = data;
-  const type = getOwner(store)
-    .lookup('serializer:application')
-    .modelNameFromPayloadKey(data.type);
+  const serializer = getOwner(store).lookup(
+    'serializer:application'
+  ) as ApplicationSerializer;
+  const type = serializer.modelNameFromPayloadKey(data.type as string);
 
   const model = store.peekRecord(type, id);
 
@@ -111,7 +124,7 @@ export async function waitForPendingDelete(
   }
 
   // if the model is not being deleted, return immediately
-  if (!model.isSaving || model.dirtyType !== 'deleted') {
+  if (!model.isSaving) {
     return model;
   }
 
@@ -119,15 +132,16 @@ export async function waitForPendingDelete(
   const deferred = defer<Model>();
 
   const start = () => {
-    model.on('didDelete', finish);
-    model.on('becameInvalid', finish);
-    model.on('becameError', finish);
+    // explicitly access computed properties, otherwise they may not be fired
+    model.isSaving;
+    addObserver(model, 'isSaving', finish);
   };
 
   const finish = () => {
-    model.off('didDelete', finish);
-    model.off('becameInvalid', finish);
-    model.off('becameError', finish);
+    if (model.isSaving) {
+      return;
+    }
+    removeObserver(model, 'isSaving', finish);
     deferred.resolve(model);
   };
 

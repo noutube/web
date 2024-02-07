@@ -1,7 +1,13 @@
 // override defaults
 
 body {
-  @include theme((background: bg, color: pri), true);
+  @include theme(
+    (
+      background: bg,
+      color: pri
+    ),
+    true
+  );
 
   margin: 0;
   padding: 0;
@@ -13,7 +19,11 @@ p {
 }
 
 a {
-  @include theme((color: link));
+  @include theme(
+    (
+      color: link
+    )
+  );
 
   cursor: pointer;
   text-decoration: none;
@@ -26,7 +36,11 @@ svg {
 }
 
 button {
-  @include theme((color: link));
+  @include theme(
+    (
+      color: link
+    )
+  );
 
   display: inline;
   margin: 0;
@@ -38,7 +52,7 @@ button {
   font-size: 100%;
 
   &:disabled {
-    opacity: 60%;
+    opacity: 0.6;
     cursor: not-allowed;
   }
 }
@@ -46,17 +60,30 @@ button {
 // our common styles
 
 :global(.title) {
-  @include theme((color: emph));
+  @include theme(
+    (
+      color: emph
+    )
+  );
 
   font-weight: bold;
 
   > a {
-    @include theme((color: inherit));
+    @include theme(
+      (
+        color: inherit
+      )
+    );
   }
 }
 
 :global(.message) {
-  @include theme((background: bg-hi, color: emph));
+  @include theme(
+    (
+      background: bg-hi,
+      color: emph
+    )
+  );
 
   padding: 0 8px;
   // hack to prevent margin collapsing: https://stackoverflow.com/questions/19718634/how-to-disable-margin-collapsing
@@ -67,6 +94,11 @@ button {
   }
 
   &:global(.invert) {
-    @include theme((background: bg, color: pri));
+    @include theme(
+      (
+        background: bg,
+        color: pri
+      )
+    );
   }
 }

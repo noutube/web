@@ -1,5 +1,5 @@
+import { service } from '@ember/service';
 import JSONAPIAdapter from '@ember-data/adapter/json-api';
-import { inject as service } from '@ember/service';
 
 import config from 'noutube/config/environment';
 import SessionService from 'noutube/services/session';

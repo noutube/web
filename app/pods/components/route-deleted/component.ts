@@ -1,6 +1,6 @@
 import ArrayProxy from '@ember/array';
-import { inject as service } from '@ember/service';
-import Component from '@glint/environment-ember-loose/glimmer-component';
+import { service } from '@ember/service';
+import Component from '@glimmer/component';
 
 import ChannelModel from 'noutube/models/channel';
 import VideoModel from 'noutube/models/video';
@@ -17,11 +17,11 @@ export default class RouteDeletedComponent extends Component<Signature> {
   @service declare settings: SettingsService;
 
   get deletedChannels(): ChannelModel[] {
-    return this.args.channels.filterBy('hasDeleted');
+    return this.args.channels.filter((item) => item.hasDeleted);
   }
 
   get deletedVideos(): VideoModel[] {
-    return this.args.videos.filterBy('deleted');
+    return this.args.videos.filter((item) => item.deleted);
   }
 }
 

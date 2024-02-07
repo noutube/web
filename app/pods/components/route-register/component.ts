@@ -1,11 +1,12 @@
-import { InvalidError, errorsArrayToHash } from '@ember-data/adapter/error';
-import Store from '@ember-data/store';
 import { action } from '@ember/object';
 import RouterService from '@ember/routing/router-service';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
+import { InvalidError } from '@ember-data/adapter/error';
+import Store from '@ember-data/store';
+import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import Component from '@glint/environment-ember-loose/glimmer-component';
 
+import { errorsArrayToHash } from 'noutube/lib/adapterError';
 import SessionService from 'noutube/services/session';
 
 export default class RouteRegisterComponent extends Component {
@@ -14,7 +15,7 @@ export default class RouteRegisterComponent extends Component {
   @service declare store: Store;
 
   @tracked email = '';
-  @tracked errors: Record<string, string> = {};
+  @tracked errors: Record<string, unknown[]> = {};
   @tracked password = '';
   @tracked state: 'idle' | 'inFlight' | 'success' | 'failure' = 'idle';
 

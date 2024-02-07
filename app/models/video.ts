@@ -16,7 +16,7 @@ export default class VideoModel extends Model {
   @attr('date') declare scheduledAt: Date | null;
   @attr('string') declare state: State;
 
-  @belongsTo('channel', { async: false })
+  @belongsTo('channel', { async: false, inverse: 'videos' })
   declare channel: ChannelModel;
 
   get showAt(): Date {

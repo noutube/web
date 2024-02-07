@@ -1,5 +1,6 @@
-import { inject as service } from '@ember/service';
-import Component from '@glint/environment-ember-loose/glimmer-component';
+import { action } from '@ember/object';
+import { service } from '@ember/service';
+import Component from '@glimmer/component';
 
 import config from 'noutube/config/environment';
 import SettingsService from 'noutube/services/settings';
@@ -15,6 +16,21 @@ export default class SettingsComponent extends Component {
   channelKeys = channelKeys;
   dirs = dirs;
   speeds = speeds;
+
+  @action
+  handleChange<
+    K extends
+      | 'channelDir'
+      | 'channelKey'
+      | 'size'
+      | 'speed'
+      | 'theme'
+      | 'videoDir'
+      | 'videoKey'
+  >(key: K, event: Event) {
+    this.settings[key] = (event.target as HTMLSelectElement)
+      .value as SettingsService[K];
+  }
 }
 
 declare module '@glint/environment-ember-loose/registry' {

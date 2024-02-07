@@ -1,5 +1,5 @@
 import { action } from '@ember/object';
-import Component from '@glint/environment-ember-loose/glimmer-component';
+import Component from '@glimmer/component';
 
 import ChannelModel from 'noutube/models/channel';
 import VideoModel, { State } from 'noutube/models/video';
@@ -36,12 +36,12 @@ export default class ChannelComponent extends Component<Signature> {
 
   @action
   markAllLater(): void {
-    this.videos.invoke('markLater');
+    this.videos.forEach((item) => item.markLater());
   }
 
   @action
   ignoreAll(): void {
-    this.videos.invoke('markDeleted');
+    this.videos.forEach((item) => item.markDeleted());
   }
 }
 
