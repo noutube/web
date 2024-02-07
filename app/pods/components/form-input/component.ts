@@ -21,7 +21,7 @@ interface Signature {
 export default class FormInputComponent extends Component<Signature> {
   get error(): string | undefined {
     if ('errors' in this.args) {
-      return this.args.errors[this.args.attribute].join(', ');
+      return this.args.errors[this.args.attribute]?.join(', ');
     } else {
       return;
     }

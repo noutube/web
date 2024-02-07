@@ -11,7 +11,7 @@ export default class ChannelModel extends Model {
   @attr('string') declare thumbnail: string;
   @attr('boolean') declare isSubscribed: boolean;
 
-  @hasMany('videos', { async: false, inverse: 'channel' })
+  @hasMany('video', { async: false, inverse: 'channel' })
   declare videos: EmberArray<VideoModel>;
 
   get newVideos(): VideoModel[] {

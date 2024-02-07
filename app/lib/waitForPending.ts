@@ -124,7 +124,7 @@ export async function waitForPendingDelete(
   }
 
   // if the model is not being deleted, return immediately
-  if (!model.isSaving || model.dirtyType !== 'deleted') {
+  if (!model.isSaving) {
     return model;
   }
 
@@ -133,19 +133,15 @@ export async function waitForPendingDelete(
 
   const start = () => {
     // explicitly access computed properties, otherwise they may not be fired
-    model.isDeleted, model.isValid, model.isError;
-    addObserver(model, 'isDeleted', finish);
-    addObserver(model, 'isValid', finish);
-    addObserver(model, 'isError', finish);
+    model.isSaving;
+    addObserver(model, 'isSaving', finish);
   };
 
   const finish = () => {
-    if (!(model.isDeleted || !model.isValid || model.isError)) {
+    if (model.isSaving) {
       return;
     }
-    removeObserver(model, 'isDeleted', finish);
-    removeObserver(model, 'isValid', finish);
-    removeObserver(model, 'isError', finish);
+    removeObserver(model, 'isSaving', finish);
     deferred.resolve(model);
   };
 
