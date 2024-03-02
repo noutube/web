@@ -32,8 +32,7 @@ export default class PlayerComponent extends Component {
   @action
   currentTimeChanged(currentTime: number): void {
     if (this.player.video) {
-      this.player.video.progress = Math.floor(currentTime);
-      this.player.video.save();
+      this.player.video.rateLimitedUpdateProgress(Math.floor(currentTime));
     }
   }
 

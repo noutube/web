@@ -1,6 +1,10 @@
+import { action } from '@ember/object';
+import { debounce, throttle } from '@ember/runloop';
 import Model, { attr, belongsTo } from '@ember-data/model';
 
 import ChannelModel from 'noutube/models/channel';
+
+const SAVE_PROGRESS_INTERVAL = 5000;
 
 export type State = 'new' | 'later' | 'deleted';
 
@@ -60,6 +64,22 @@ export default class VideoModel extends Model {
     } catch {
       this.rollbackAttributes();
     }
+  }
+
+  rateLimitedUpdateProgress(progress: number): void {
+    this.progress = progress;
+    debounce(this, this.saveProgressDebounce, SAVE_PROGRESS_INTERVAL);
+    throttle(this, this.saveProgressThrottle, SAVE_PROGRESS_INTERVAL);
+  }
+
+  @action
+  saveProgressDebounce(): void {
+    this.save();
+  }
+
+  @action
+  saveProgressThrottle(): void {
+    this.save();
   }
 }
 
