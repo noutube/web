@@ -13,11 +13,19 @@
             <SvgIcon @name="play" @size={{48}} />
           </div>
         {{/if}}
+        {{#if @video.progress}}
+          <div local-class="play-progress" style={{this.progressStyle}}>
+            &nbsp;
+          </div>
+        {{/if}}
       </button>
       <div local-class="detail">
         <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/watch?v={{@video.apiId}}">{{@video.title}}</a></p>
         <p>
           {{#if @video.duration}}
+            {{#if @video.progress}}
+              <span title={{@video.progress}}>{{this.formattedProgress}}</span> /
+            {{/if}}
             <span title={{@video.duration}}>{{this.formattedDuration}}</span>,
           {{/if}}
           {{#if @video.isLiveContent}}

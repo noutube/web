@@ -15,6 +15,7 @@ export default class VideoModel extends Model {
   @attr('boolean') declare isUpcoming: boolean;
   @attr('date') declare scheduledAt: Date | null;
   @attr('string') declare state: State;
+  @attr('number') declare progress: number;
 
   @belongsTo('channel', { async: false, inverse: 'videos' })
   declare channel: ChannelModel;
