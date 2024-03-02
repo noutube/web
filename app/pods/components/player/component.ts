@@ -16,6 +16,10 @@ export default class PlayerComponent extends Component {
     return this.player.video?.channel.apiId;
   }
 
+  get startSeconds(): number | undefined {
+    return this.player.video?.progress;
+  }
+
   get speed(): number {
     const { channelApiId } = this;
     if (!channelApiId) {
@@ -23,6 +27,14 @@ export default class PlayerComponent extends Component {
     }
 
     return this.settings.channelSpeeds[channelApiId] ?? this.settings.speed;
+  }
+
+  @action
+  currentTimeChanged(currentTime: number): void {
+    if (this.player.video) {
+      this.player.video.progress = Math.floor(currentTime);
+      this.player.video.save();
+    }
   }
 
   @action
