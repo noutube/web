@@ -2,6 +2,7 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { htmlSafe } from '@ember/template';
 import Component from '@glimmer/component';
+import { SafeString } from 'handlebars';
 
 import VideoModel from 'noutube/models/video';
 import PlayerService from 'noutube/services/player';
@@ -15,7 +16,7 @@ const formatTime = (time: number): string => {
   } else {
     return `${minutes}:${seconds}`;
   }
-}
+};
 
 interface Signature {
   Args: {
@@ -30,7 +31,7 @@ export default class VideoComponent extends Component<Signature> {
 
   get progressStyle(): SafeString {
     const { progress, duration } = this.args.video;
-    return htmlSafe(`width: ${progress / duration * 100}%;`);
+    return htmlSafe(`width: ${(progress / duration) * 100}%;`);
   }
 
   get formattedProgress(): string {
