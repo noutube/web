@@ -7,7 +7,7 @@
   <div local-class="bar">
     <img src={{@channel.thumbnail}} alt={{@channel.title}}>
     <div local-class="detail">
-      <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{@channel.apiId}}">{{@channel.title}}</a></p>
+      <p class="title"><a rel="external noopener noreferrer" target="_blank" href={{@channel.url}}>{{@channel.title}}</a></p>
       <VideosTotals @videos={{this.videos}} />
       <p>
         {{#if this.new}}

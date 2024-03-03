@@ -48,6 +48,10 @@ export default class VideoModel extends Model {
     return this.title.toLowerCase();
   }
 
+  get url(): string {
+    return `https://www.youtube.com/watch?v=${this.apiId}${this.progress ? `&t=${this.progress}` : ''}`;
+  }
+
   async markLater(): Promise<void> {
     this.state = 'later';
     try {

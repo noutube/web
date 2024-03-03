@@ -68,6 +68,10 @@ export default class ChannelModel extends Model {
     return this.deletedVideos.length;
   }
 
+  get url(): string {
+    return `https://www.youtube.com/channel/${this.apiId}`;
+  }
+
   @action
   async subscribe(): Promise<void> {
     this.isSubscribed = true;
