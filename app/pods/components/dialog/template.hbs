@@ -1,27 +1,31 @@
-{{!-- template-lint-disable no-invalid-interactive --}}
-<div local-class="dialog-overlay" {{on "click" this.onClickOverlay}}>
-  <div local-class="dialog">
-    {{#if @title}}
-      <div local-class="top">
-        {{@title}}
-      </div>
-    {{/if}}
+{{#if this.dialog.dialogContainerElement}}
+  {{#in-element this.dialog.dialogContainerElement}}
+    {{!-- template-lint-disable no-invalid-interactive --}}
+    <div local-class="dialog-overlay" {{on "click" this.onClickOverlay}}>
+      <div local-class="dialog">
+        {{#if @title}}
+          <div local-class="top">
+            {{@title}}
+          </div>
+        {{/if}}
 
-    <div local-class="middle">
-      {{yield}}
-    </div>
+        <div local-class="middle">
+          {{yield}}
+        </div>
 
-    {{#if @accept}}
-      <div local-class="bottom">
-        <button type="button" {{on "click" @accept}}>{{if @acceptLabel @acceptLabel "Yes"}}</button>
-        {{#if @close}}
-          <button type="button" {{on "click" @close}}>{{if @cancelLabel @cancelLabel "No"}}</button>
+        {{#if @accept}}
+          <div local-class="bottom">
+            <button type="button" {{on "click" @accept}}>{{if @acceptLabel @acceptLabel "Yes"}}</button>
+            {{#if @close}}
+              <button type="button" {{on "click" @close}}>{{if @cancelLabel @cancelLabel "No"}}</button>
+            {{/if}}
+          </div>
+        {{else if @close}}
+          <div local-class="bottom">
+            <button type="button" {{on "click" @close}}>Close</button>
+          </div>
         {{/if}}
       </div>
-    {{else if @close}}
-      <div local-class="bottom">
-        <button type="button" {{on "click" @close}}>Close</button>
-      </div>
-    {{/if}}
-  </div>
-</div>
+    </div>
+  {{/in-element}}
+{{/if}}

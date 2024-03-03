@@ -1,5 +1,8 @@
 import { action } from '@ember/object';
+import { service } from '@ember/service';
 import Component from '@glimmer/component';
+
+import DialogService from 'noutube/services/dialog';
 
 interface Signature {
   Args: {
@@ -15,6 +18,8 @@ interface Signature {
 }
 
 export default class DialogComponent extends Component<Signature> {
+  @service declare dialog: DialogService;
+
   @action
   onClickOverlay(event: Event): void {
     if (event.target === event.currentTarget && this.args.close) {
