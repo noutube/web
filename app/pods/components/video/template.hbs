@@ -1,3 +1,9 @@
+{{#if this.showSetProgress}}
+  <Dialog @title="Set Progress" @close={{this.toggleSetProgress}}>
+    <SetProgress @video={{@video}} />
+  </Dialog>
+{{/if}}
+
 <div local-class="video">
   <Swipeable
     @swipeLeft={{if @video.deleted this.markLater this.markDeleted}}
@@ -26,7 +32,11 @@
             {{#if @video.progress}}
               <span title={{@video.progress}}>{{this.formattedProgress}}</span> /
             {{/if}}
-            <span title={{@video.duration}}>{{this.formattedDuration}}</span>,
+            <span title={{@video.duration}}>{{this.formattedDuration}}</span>
+            <button type="button" {{on "click" this.toggleSetProgress}}>
+              <SvgIcon @name="edit" @size={{16}} />
+            </button>
+            &middot;
           {{/if}}
           {{#if @video.isLiveContent}}
             live

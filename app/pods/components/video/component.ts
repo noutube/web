@@ -2,6 +2,7 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { htmlSafe } from '@ember/template';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { SafeString } from 'handlebars';
 
 import VideoModel from 'noutube/models/video';
@@ -28,6 +29,8 @@ interface Signature {
 export default class VideoComponent extends Component<Signature> {
   @service declare player: PlayerService;
   @service declare settings: SettingsService;
+
+  @tracked showSetProgress = false;
 
   get progressStyle(): SafeString {
     const { progress, duration } = this.args.video;
@@ -57,6 +60,11 @@ export default class VideoComponent extends Component<Signature> {
       this.player.stop();
     }
     await this.args.video.markDeleted();
+  }
+
+  @action
+  toggleSetProgress(): void {
+    this.showSetProgress = !this.showSetProgress;
   }
 }
 
