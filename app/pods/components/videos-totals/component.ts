@@ -10,7 +10,7 @@ interface Signature {
 
 export default class VideosTotalsComponent extends Component<Signature> {
   get totalDuration(): number {
-    return this.args.videos.reduce((sum, video) => sum + video.duration, 0);
+    return this.args.videos.reduce((sum, video) => sum + video.remaining, 0);
   }
 }
 

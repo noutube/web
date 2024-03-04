@@ -49,13 +49,13 @@ export default class ChannelModel extends Model {
   }
 
   get newTotalDuration(): number {
-    return this.newVideos.reduce((sum, video) => sum + video.duration, 0);
+    return this.newVideos.reduce((sum, video) => sum + video.remaining, 0);
   }
   get laterTotalDuration(): number {
-    return this.laterVideos.reduce((sum, video) => sum + video.duration, 0);
+    return this.laterVideos.reduce((sum, video) => sum + video.remaining, 0);
   }
   get deletedTotalDuration(): number {
-    return this.deletedVideos.reduce((sum, video) => sum + video.duration, 0);
+    return this.deletedVideos.reduce((sum, video) => sum + video.remaining, 0);
   }
 
   get newVideoCount(): number {

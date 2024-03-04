@@ -52,6 +52,10 @@ export default class VideoModel extends Model {
     return `https://www.youtube.com/watch?v=${this.apiId}${this.progress ? `&t=${this.progress}` : ''}`;
   }
 
+  get remaining(): number {
+    return this.duration - this.progress;
+  }
+
   async markLater(): Promise<void> {
     this.state = 'later';
     try {
