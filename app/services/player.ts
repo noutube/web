@@ -16,6 +16,7 @@ export default class PlayerService extends Service {
     if (this.settings.autoplay && this.video) {
       const next = this.onPlayEnded(this.video);
       if (next) {
+        this.video.save();
         this.video = next;
       } else {
         this.stop();
@@ -25,7 +26,10 @@ export default class PlayerService extends Service {
 
   @action
   stop(): void {
-    this.video = null;
+    if (this.video) {
+      this.video.save();
+      this.video = null;
+    }
     this.onPlayEnded = () => null;
   }
 }

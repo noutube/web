@@ -34,6 +34,20 @@
       align-items: center;
       justify-content: center;
     }
+
+    > .play-progress {
+      @include theme(
+        (
+          border-bottom-color: error
+        )
+      );
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-bottom-width: 2px;
+      border-bottom-style: solid;
+    }
   }
 
   > .detail {

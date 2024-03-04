@@ -100,7 +100,7 @@
     "ember-source": "~5.5.0",
     "ember-template-lint": "^5.13.0",
     "ember-truth-helpers": "^4.0.3",
-    "ember-youtube": "noutube/ember-youtube#2c53c0e566cc021dc3d5db42cda43d8175ac6e57",
+    "ember-youtube": "noutube/ember-youtube#8b2d16e8c05412882b688fd4378fb82cb6d5e427",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-ember": "^11.11.1",

@@ -5437,9 +5437,9 @@ ember-truth-helpers@^4.0.3:
     "@embroider/addon-shim" "^1.8.6"
     ember-functions-as-helper-polyfill "^2.1.2"
 
-ember-youtube@noutube/ember-youtube#2c53c0e566cc021dc3d5db42cda43d8175ac6e57:
-  version "0.9.7-noutube2-2"
-  resolved "https://codeload.github.com/noutube/ember-youtube/tar.gz/2c53c0e566cc021dc3d5db42cda43d8175ac6e57"
+ember-youtube@noutube/ember-youtube#8b2d16e8c05412882b688fd4378fb82cb6d5e427:
+  version "0.9.7-noutube3"
+  resolved "https://codeload.github.com/noutube/ember-youtube/tar.gz/8b2d16e8c05412882b688fd4378fb82cb6d5e427"
   dependencies:
     ember-cli-babel "^7.26.6"
     ember-cli-htmlbars "^2.0.1"

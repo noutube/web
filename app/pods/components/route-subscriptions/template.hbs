@@ -73,7 +73,7 @@
     <div local-class="channel">
       <img src={{channel.thumbnail}} alt={{channel.title}}>
       <div local-class="detail">
-        <a class="title" rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{channel.apiId}}">{{channel.title}}</a>
+        <a class="title" rel="external noopener noreferrer" target="_blank" href={{channel.url}}>{{channel.title}}</a>
         <button type="button" {{on "click" channel.unsubscribe}}>
           <SvgIcon @name="bell-off" @size={{16}} />
         </button>
@@ -93,7 +93,7 @@
     <div local-class="channel">
       <img src={{channel.thumbnail}} alt={{channel.title}}>
       <div local-class="detail">
-        <a class="title" rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{channel.apiId}}">{{channel.title}}</a>
+        <a class="title" rel="external noopener noreferrer" target="_blank" href={{channel.url}}>{{channel.title}}</a>
         <button type="button" {{on "click" channel.subscribe}}>
           <SvgIcon @name="bell" @size={{16}} />
         </button>

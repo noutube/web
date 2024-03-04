@@ -28,6 +28,7 @@ interface DidPanModifierSignature {
       onPan: (event: PanEvent) => void;
       onPanEnd: (event: PanEvent) => void;
       onPanStart: (event: PanEvent) => void;
+      pointerTypes: ('touch' | 'mouse')[];
     };
   };
 }
@@ -35,11 +36,13 @@ declare class DidPanModifier extends Modifier<DidPanModifierSignature> {}
 
 interface EmberYoutubeComponentSignature {
   Args: {
+    currentTimeChanged?: (currentTime: number) => void;
     ended?: () => void;
     height?: number;
     playbackRateChanged?: (rate: number) => void;
     playerVars?: Record<string, unknown>;
     speed?: number;
+    startSeconds?: number;
     width?: number;
     ytid?: string;
   };

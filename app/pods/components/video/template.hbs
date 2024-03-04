@@ -1,3 +1,9 @@
+{{#if this.showSetProgress}}
+  <Dialog @title="Set Progress" @close={{this.toggleSetProgress}}>
+    <SetProgress @video={{@video}} />
+  </Dialog>
+{{/if}}
+
 <div local-class="video">
   <Swipeable
     @swipeLeft={{if @video.deleted this.markLater this.markDeleted}}
@@ -13,12 +19,24 @@
             <SvgIcon @name="play" @size={{48}} />
           </div>
         {{/if}}
+        {{#if @video.progress}}
+          <div local-class="play-progress" style={{this.progressStyle}}>
+            &nbsp;
+          </div>
+        {{/if}}
       </button>
       <div local-class="detail">
-        <p class="title"><a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/watch?v={{@video.apiId}}">{{@video.title}}</a></p>
+        <p class="title"><a rel="external noopener noreferrer" target="_blank" href={{@video.url}}>{{@video.title}}</a></p>
         <p>
           {{#if @video.duration}}
-            <span title={{@video.duration}}>{{this.formattedDuration}}</span>,
+            {{#if @video.progress}}
+              <span title={{@video.progress}}>{{this.formattedProgress}}</span> /
+            {{/if}}
+            <span title={{@video.duration}}>{{this.formattedDuration}}</span>
+            <button type="button" {{on "click" this.toggleSetProgress}}>
+              <SvgIcon @name="edit" @size={{16}} />
+            </button>
+            &middot;
           {{/if}}
           {{#if @video.isLiveContent}}
             live
@@ -35,7 +53,7 @@
             <span title={{moment @video.showAt}}>{{moment-from-now @video.showAt interval=60000}}</span>
           {{/if}}
           {{#unless this.settings.channelGroup}}
-            by <a rel="external noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/{{@video.channel.apiId}}">{{@video.channel.title}}</a>
+            by <a rel="external noopener noreferrer" target="_blank" href={{@video.channel.url}}>{{@video.channel.title}}</a>
           {{/unless}}
         </p>
         <p>

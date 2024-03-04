@@ -1,0 +1,27 @@
+<form local-class="set-progress" {{on "submit" this.setProgress}}>
+  <div local-class="row">
+    <FormInput
+      @disabled={{eq this.state "inFlight"}}
+      @label="Progress"
+      @onChange={{this.handleProgress}}
+      @value={{this.progress}}
+    />
+  </div>
+
+  <div local-class="row">
+    {{#if (eq this.state "inFlight")}}
+      Saving...
+    {{else if (eq this.state "success")}}
+      Saved!
+    {{else if (eq this.state "failure")}}
+      Failed! Please try again.
+    {{else}}
+      <button
+        type="submit"
+        disabled={{not this.valid}}
+      >
+        Save
+      </button>
+    {{/if}}
+  </div>
+</form>
