@@ -1,6 +1,6 @@
 {{#if this.showSetProgress}}
   <Dialog @title="Set Progress" @close={{this.toggleSetProgress}}>
-    <SetProgress @video={{@video}} />
+    <SetProgress @video={{@video}} @success={{this.toggleSetProgress}} />
   </Dialog>
 {{/if}}
 

@@ -11,7 +11,7 @@
 
 {{#if this.showAddVideo}}
   <Dialog @title="Add Video" @close={{this.toggleAddVideo}}>
-    <AddVideo />
+    <AddVideo @success={{this.toggleAddVideo}} />
   </Dialog>
 {{/if}}
 

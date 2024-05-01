@@ -4,7 +4,13 @@ import Store from '@ember-data/store';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-export default class AddVideoComponent extends Component {
+interface Signature {
+  Args: {
+    success: () => void;
+  };
+}
+
+export default class AddVideoComponent extends Component<Signature> {
   @service declare store: Store;
 
   @tracked apiId = '';
@@ -35,6 +41,7 @@ export default class AddVideoComponent extends Component {
       await video.save();
       this.state = 'success';
       this.apiId = '';
+      this.args.success?.();
     } catch (error) {
       video.unloadRecord();
       this.state = 'failure';

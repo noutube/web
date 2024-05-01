@@ -6,6 +6,7 @@ import VideoModel from 'noutube/models/video';
 
 interface Signature {
   Args: {
+    success: () => void;
     video: VideoModel;
   };
 }
@@ -50,6 +51,7 @@ export default class SetProgressComponent extends Component<Signature> {
       await this.args.video.save();
       this.state = 'success';
       this.progress = '';
+      this.args.success?.();
     } catch (error) {
       this.state = 'failure';
     }
