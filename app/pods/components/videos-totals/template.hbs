@@ -1,1 +1,11 @@
-<p>{{pluralize @videos.length "video"}}, <span title={{this.totalDuration}}>{{moment-duration this.totalDuration "seconds"}}</span></p>
+<p>
+  {{pluralize @videos.length "video"}},
+  <span title={{this.totalDurationAtSpeedFormatted}}>
+    {{moment-duration this.totalDurationAtSpeed "seconds"}}
+  </span>
+  {{#if (not-eq this.totalDurationAtSpeed this.totalDuration)}}
+    <span title={{this.totalDurationFormatted}}>
+      ({{moment-duration this.totalDuration "seconds"}})
+    </span>
+  {{/if}}
+</p>
