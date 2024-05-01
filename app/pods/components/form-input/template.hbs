@@ -5,6 +5,7 @@
     value={{@value}}
     disabled={{@disabled}}
     {{on "input" this.handleInput}}
+    ...attributes
   >
   {{#if this.error}}
     <span local-class="error">{{this.error}}</span>

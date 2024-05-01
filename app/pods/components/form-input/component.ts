@@ -16,6 +16,7 @@ interface Signature {
     // eslint-disable-next-line @typescript-eslint/ban-types
     | {}
   );
+  Element: HTMLInputElement;
 }
 
 export default class FormInputComponent extends Component<Signature> {

@@ -5274,6 +5274,14 @@ ember-auto-import@^2.6.0, ember-auto-import@^2.6.3, ember-auto-import@^2.7.0:
     typescript-memoize "^1.0.0-alpha.3"
     walk-sync "^3.0.0"
 
+ember-autofocus-modifier@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/ember-autofocus-modifier/-/ember-autofocus-modifier-7.0.1.tgz#e7b7a31d29cc069421e97e41659bbaa5904b7356"
+  integrity sha512-tiZc8raQrEES1pChhtnfHuz/2UnvHxKBnNjKwrH7xHs/gqtWPut95BlgVhz8OEXdaeTB0oc04UYClJ8WF4uhUQ==
+  dependencies:
+    "@embroider/addon-shim" "^1.8.6"
+    ember-modifier "^4.1.0"
+
 ember-cache-primitive-polyfill@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ember-cache-primitive-polyfill/-/ember-cache-primitive-polyfill-1.0.1.tgz#a27075443bd87e5af286c1cd8a7df24e3b9f6715"

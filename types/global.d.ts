@@ -12,6 +12,7 @@ import WillDestroyModifier from 'ember-render-modifiers/modifiers/will-destroy';
 import EmberTruthRegistry from 'ember-truth-helpers/template-registry';
 import { TemplateFactory } from 'htmlbars-inline-precompile';
 import { MomentInput, duration } from 'moment';
+import type AutofocusRegistry from "ember-autofocus-modifier/template-registry";
 
 // incomplete
 export interface PanEvent {
@@ -132,7 +133,7 @@ interface PluralizeHelperSignature {
 declare class PluralizeHelper extends Helper<PluralizeHelperSignature> {}
 
 declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry extends EmberTruthRegistry {
+  export default interface Registry extends EmberTruthRegistry, AutofocusRegistry {
     EmberYoutube: typeof EmberYoutubeComponent;
     SelectLight: typeof SelectLightComponent;
     'did-insert': typeof DidInsertModifier;
