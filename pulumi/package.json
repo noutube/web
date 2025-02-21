@@ -1,0 +1,10 @@
+{
+  "name": "web",
+  "main": "index.ts",
+  "type": "module",
+  "dependencies": {
+    "@pulumi/aws": "^6.68.0",
+    "@pulumi/pulumi": "^3.150.0",
+    "ts-node": "^10.9.2"
+  }
+}
