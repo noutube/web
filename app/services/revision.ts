@@ -30,6 +30,7 @@ export default class RevisionService extends Service {
     const response = await fetch('/revision.json');
     if (!response.ok) {
       console.warn('[revision] latest failed', response.status);
+      return;
     }
 
     const { revision } = await response.json();
