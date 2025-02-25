@@ -21,6 +21,10 @@ module.exports = () => ({
     expires: null
   },
   cloudfront: {
-    distribution: process.env.AWS_DISTRIBUTION
+    distribution: process.env.AWS_DISTRIBUTION,
+    objectPaths: [
+      '/index.html',
+      '/revision.json'
+    ]
   }
 });

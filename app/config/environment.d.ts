@@ -18,6 +18,7 @@ declare const config: {
   rootURL: string;
   APP: Record<string, unknown>;
 
+  revision: string;
   backendOrigin: string;
   themes: Setting<Theme>[];
   sizes: number[];

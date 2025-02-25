@@ -20,6 +20,8 @@ module.exports = function (environment) {
       // when it is created
     },
 
+    revision: 'dev',
+
     backendOrigin: 'http://localhost:9292',
 
     themes: [
@@ -72,6 +74,7 @@ module.exports = function (environment) {
   if (environment === 'production') {
     // here you can enable a production-specific feature
     ENV.backendOrigin = 'https://api.noutu.be';
+    ENV.revision = process.env.REVISION;
   }
 
   return ENV;
