@@ -138,5 +138,10 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "ember-addon": {
+    "paths": [
+      "lib/ember-cli-deploy-revision-file"
+    ]
   }
 }
