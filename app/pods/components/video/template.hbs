@@ -55,6 +55,21 @@
           {{#unless this.settings.channelGroup}}
             by <a rel="external noopener noreferrer" target="_blank" href={{@video.channel.url}}>{{@video.channel.title}}</a>
           {{/unless}}
+          {{#unless @video.visible}}
+            &middot;
+            {{#if @video.removed}}
+              <SvgIcon @name="file-minus" @size={{16}} />
+              removed
+            {{else if @video.private}}
+              <SvgIcon @name="lock" @size={{16}} />
+              private
+            {{else if @video.ageRestricted}}
+              <SvgIcon @name="user-plus" @size={{16}} />
+              age restricted
+            {{else}}
+              hidden
+            {{/if}}
+          {{/unless}}
         </p>
         <p>
           {{#if @video.new}}

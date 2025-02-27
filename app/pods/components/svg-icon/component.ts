@@ -10,6 +10,7 @@ export type IconName =
   | 'gift'
   | 'home'
   | 'inbox'
+  | 'file-minus'
   | 'list'
   | 'loader'
   | 'lock'

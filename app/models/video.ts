@@ -7,6 +7,7 @@ import ChannelModel from 'noutube/models/channel';
 const SAVE_PROGRESS_INTERVAL = 5000;
 
 export type State = 'new' | 'later' | 'deleted';
+export type Visibility = 'visible' | 'removed' | 'private' | 'age';
 
 export default class VideoModel extends Model {
   @attr('string') declare apiId: string;
@@ -20,6 +21,7 @@ export default class VideoModel extends Model {
   @attr('date') declare scheduledAt: Date | null;
   @attr('string') declare state: State;
   @attr('number') declare progress: number;
+  @attr('string') declare visibility: Visibility;
 
   @belongsTo('channel', { async: false, inverse: 'videos' })
   declare channel: ChannelModel;
@@ -38,6 +40,22 @@ export default class VideoModel extends Model {
 
   get deleted(): boolean {
     return this.state === 'deleted';
+  }
+
+  get visible(): boolean {
+    return this.visibility === 'visible';
+  }
+
+  get removed(): boolean {
+    return this.visibility === 'removed';
+  }
+
+  get private(): boolean {
+    return this.visibility === 'private';
+  }
+
+  get ageRestricted(): boolean {
+    return this.visibility === 'age';
   }
 
   get age(): number {
