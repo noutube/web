@@ -1,11 +1,11 @@
 <div local-class="settings">
   <div local-class="row">
     Theme
-    <SelectLight @value={{this.settings.theme}} @onChange={{fn this.handleChange "theme"}}>
-      {{#each this.themes as |theme|}}
-        <option value={{theme.value}}>{{theme.label}}</option>
-      {{/each}}
-    </SelectLight>
+    <SelectLight
+      @options={{this.themes}}
+      @value={{this.settings.theme}}
+      @onChange={{fn this.handleChange "theme"}}
+    />
   </div>
 
   <SubsectionHeader @icon="bar-chart">
@@ -14,16 +14,16 @@
 
   <div local-class="row">
     Sort videos by
-    <SelectLight @value={{this.settings.videoKey}} @onChange={{fn this.handleChange "videoKey"}}>
-      {{#each this.videoKeys as |videoKey|}}
-        <option value={{videoKey.value}}>{{videoKey.label}}</option>
-      {{/each}}
-    </SelectLight>
-    <SelectLight @value={{this.settings.videoDir}} @onChange={{fn this.handleChange "videoDir"}}>
-      {{#each this.dirs as |dir|}}
-        <option value={{dir.value}}>{{dir.label}}</option>
-      {{/each}}
-    </SelectLight>
+    <SelectLight
+      @options={{this.videoKeys}}
+      @value={{this.settings.videoKey}}
+      @onChange={{fn this.handleChange "videoKey"}}
+    />
+    <SelectLight
+      @options={{this.dirs}}
+      @value={{this.settings.videoDir}}
+      @onChange={{fn this.handleChange "videoDir"}}
+    />
   </div>
 
   <div local-class="row">
@@ -35,16 +35,18 @@
 
   <div local-class="row">
     Sort channels by
-    <SelectLight @value={{this.settings.channelKey}} @onChange={{fn this.handleChange "channelKey"}} @disabled={{not this.settings.channelGroup}}>
-      {{#each this.channelKeys as |channelKey|}}
-        <option value={{channelKey.value}}>{{channelKey.label}}</option>
-      {{/each}}
-    </SelectLight>
-    <SelectLight @value={{this.settings.channelDir}} @onChange={{fn this.handleChange "channelDir"}} @disabled={{not this.settings.channelGroup}}>
-      {{#each this.dirs as |dir|}}
-        <option value={{dir.value}}>{{dir.label}}</option>
-      {{/each}}
-    </SelectLight>
+    <SelectLight
+      @options={{this.channelKeys}}
+      @value={{this.settings.channelKey}}
+      @onChange={{fn this.handleChange "channelKey"}}
+      @disabled={{not this.settings.channelGroup}}
+    />
+    <SelectLight
+      @options={{this.dirs}}
+      @value={{this.settings.channelDir}}
+      @onChange={{fn this.handleChange "channelDir"}}
+      @disabled={{not this.settings.channelGroup}}
+    />
   </div>
 
   <SubsectionHeader @icon="play">
@@ -53,20 +55,20 @@
 
   <div local-class="row">
     Resolution
-    <SelectLight @value={{this.settings.size}} @onChange={{fn this.handleChange "size"}}>
-      {{#each this.sizes as |size|}}
-        <option value={{size}}>{{size}}p</option>
-      {{/each}}
-    </SelectLight>
+    <SelectLight
+      @options={{this.sizes}}
+      @value={{this.settings.size}}
+      @onChange={{fn this.handleNumberChange "size"}}
+    />
   </div>
 
   <div local-class="row">
     Speed
-    <SelectLight @value={{this.settings.speed}} @onChange={{fn this.handleChange "speed"}}>
-      {{#each this.speeds as |speed|}}
-        <option value={{speed}}>{{speed}}x</option>
-      {{/each}}
-    </SelectLight>
+    <SelectLight
+      @options={{this.speeds}}
+      @value={{this.settings.speed}}
+      @onChange={{fn this.handleNumberChange "speed"}}
+    />
   </div>
 
   <div local-class="row">

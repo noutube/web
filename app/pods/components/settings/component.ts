@@ -19,17 +19,15 @@ export default class SettingsComponent extends Component {
 
   @action
   handleChange<
-    K extends
-      | 'channelDir'
-      | 'channelKey'
-      | 'size'
-      | 'speed'
-      | 'theme'
-      | 'videoDir'
-      | 'videoKey'
+    K extends 'channelDir' | 'channelKey' | 'theme' | 'videoDir' | 'videoKey'
   >(key: K, event: Event) {
     this.settings[key] = (event.target as HTMLSelectElement)
       .value as SettingsService[K];
+  }
+
+  @action
+  handleNumberChange<K extends 'size' | 'speed'>(key: K, event: Event) {
+    this.settings[key] = parseFloat((event.target as HTMLSelectElement).value);
   }
 }
 

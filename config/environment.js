@@ -30,7 +30,12 @@ module.exports = function (environment) {
       { value: 'gruvbox-light', label: 'Gruvbox Light' },
       { value: 'gruvbox-dark', label: 'Gruvbox Dark' }
     ],
-    sizes: [360, 480, 720, 1080],
+    sizes: [
+      { value: 360, label: '360p' },
+      { value: 480, label: '480p' },
+      { value: 720, label: '720p' },
+      { value: 1080, label: '1080p' }
+    ],
     videoKeys: [
       { value: 'age', label: 'age' },
       { value: 'sortableTitle', label: 'title' },
@@ -47,7 +52,17 @@ module.exports = function (environment) {
     ],
     defaultChannelGroup: true,
     defaultAutoplay: false,
-    speeds: [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+    speeds: [
+      { value: 0.25, label: '0.25x' },
+      { value: 0.5, label: '0.5x' },
+      { value: 0.75, label: '0.75x' },
+      { value: 1, label: '1x' },
+      { value: 1.25, label: '1.25x' },
+      { value: 1.5, label: '1.5x' },
+      { value: 1.75, label: '1.75x' },
+      { value: 2, label: '2x' }
+    ],
+    defaultSize: 360,
     defaultSpeed: 1
   };
 

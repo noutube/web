@@ -11,13 +11,13 @@ import SessionService from 'noutube/services/session';
 
 const {
   themes: [{ value: defaultLightTheme }, { value: defaultDarkTheme }],
-  sizes: [defaultSize],
   videoKeys: [{ value: defaultVideoKey }],
   channelKeys: [{ value: defaultChannelKey }],
   dirs: [{ value: defaultDir }],
   defaultChannelGroup,
   defaultAutoplay,
-  defaultSpeed
+  defaultSpeed,
+  defaultSize
 } = config;
 
 const defaultTheme = window.matchMedia?.('(prefers-color-scheme: dark)')

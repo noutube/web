@@ -21,12 +21,13 @@ declare const config: {
   revision: string;
   backendOrigin: string;
   themes: Setting<Theme>[];
-  sizes: number[];
+  sizes: Setting<number>[];
   videoKeys: Setting<VideoKey>[];
   channelKeys: Setting<ChannelKey>[];
   dirs: Setting<Dir>[];
   defaultChannelGroup: boolean;
   defaultAutoplay: boolean;
-  speeds: number[];
+  speeds: Setting<number>[];
+  defaultSize: number;
   defaultSpeed: number;
 };
